@@ -1,7 +1,7 @@
 package com.maksimov.transformers;
 
 import com.maksimov.models.Employee;
-import com.maksimov.utils.DateUtil;
+import com.maksimov.utils.Utils;
 import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class EmployeeTransformer {
         employee.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(req.getParameter(PARAM_ID)) : null);
         employee.setName(req.getParameter(PARAM_EMP_NAME));
         employee.setEmail(req.getParameter(PARAM_EMP_EMAIL));
-        employee.setBirthday(DateUtil.parseDate(req.getParameter(PARAM_EMP_BIRTHDAY)));
+        employee.setBirthday(Utils.parseDate(req.getParameter(PARAM_EMP_BIRTHDAY)));
         employee.setDepartment(Long.valueOf(req.getParameter(PARAM_EMP_DEPARTMENT)));
 
         return employee;

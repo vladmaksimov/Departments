@@ -5,6 +5,7 @@ import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.impl.EmployeeServiceImpl;
+import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class EmployeesShow implements Processor {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         String id = req.getParameter(PARAM_ID);
-        List<Employee> employeeList = service.getByDepartmentId(Long.valueOf(id));
+        List<Employee> employeeList = service.getByDepartmentId(Utils.parseLong(id));
         req.setAttribute(ATTR_EMPLOYEES, employeeList);
         req.setAttribute(ATTR_DEPARTMENT, id);
         req.getRequestDispatcher(SHOW_EMPLOYEES).forward(req, res);

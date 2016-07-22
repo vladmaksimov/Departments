@@ -21,7 +21,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     private CommonDao common = new CommonDaoImpl();
 
     public List<Department> getAll() throws DepartmentException {
-        List<Department> departments = new ArrayList<Department>();
+        List<Department> departments = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(QUERY_GET_ALL);
@@ -76,5 +76,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public void delete(Long id) throws DepartmentException {
         common.delete(id, QUERY_DELETE);
+    }
+
+    @Override
+    public Department getByName(String name) {
+        Department department = null;
+        try (Connection connection = DBConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_NAME);
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                department = new Department();
+                department.setId(resultSet.getLong(ID));
+                department.setName(resultSet.getString(NAME));
+            }
+            DBConnection.closeConnection(connection);
+        } catch (Exception ignored) {
+        }
+        return department;
     }
 }

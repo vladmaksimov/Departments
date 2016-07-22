@@ -1,5 +1,8 @@
 package com.maksimov.utils.validators;
 
+import com.maksimov.dao.DepartmentDao;
+import com.maksimov.dao.impl.DepartmentDaoImpl;
+import com.maksimov.models.Department;
 import net.sf.oval.constraint.CheckWithCheck;
 
 /**
@@ -7,8 +10,12 @@ import net.sf.oval.constraint.CheckWithCheck;
  */
 public class DepartmentNameCheck implements CheckWithCheck.SimpleCheck {
 
+    private DepartmentDao dao = new DepartmentDaoImpl();
+
     @Override
     public boolean isSatisfied(Object o, Object o1) {
-        return false;
+        Department department = (Department) o;
+        Department toTest = dao.getByName(o1.toString());
+        return toTest == null || !department.equals(toTest);
     }
 }

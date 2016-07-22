@@ -22,7 +22,6 @@ public class DataValidator {
                 String errorName = contextName.substring(contextName.lastIndexOf(".") + 1);
                 errors.put(errorName, violation.getMessage());
             }
-
         }
         return errors;
     }

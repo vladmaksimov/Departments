@@ -4,6 +4,7 @@ import com.maksimov.controllers.delegators.Processor;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.impl.DepartmentServiceImpl;
+import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class DepartmentForm implements Processor {
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         String idToEdit = req.getParameter(PARAM_ID);
         if (idToEdit != null) {
-            Long id = Long.parseLong(idToEdit);
+            Long id = Utils.parseLong(idToEdit);
             req.setAttribute(ATTR_DEPARTMENT, service.getById(id));
             req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
         }

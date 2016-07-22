@@ -34,6 +34,16 @@ public interface Processor {
     String ATTR_EMPLOYEE = "employee";
     String ATTR_ERRORS = "errors";
 
+    /**
+     * Receives standard HTTP requests from the public controller and delegate it to different implementation.
+     *
+     * @param req the {@link HttpServletRequest} object that contains the request the client made of the servlet
+     * @param res the {@link HttpServletResponse} object that contains the response the servlet returns to the client
+     *
+     * @throws IOException
+     * @throws ServletException
+     * @throws DepartmentException related with operating with database
+     */
     void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException;
 
 }

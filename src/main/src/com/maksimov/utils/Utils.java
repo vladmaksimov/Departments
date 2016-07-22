@@ -1,5 +1,7 @@
 package com.maksimov.utils;
 
+import com.mysql.jdbc.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.Date;
 /**
  * Created on 21.07.16.
  */
-public class DateUtil {
+public class Utils {
 
     public static Date parseDate(String dateToParse) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -17,6 +19,19 @@ public class DateUtil {
         } catch (ParseException ignored) {
         }
         return date;
+    }
+
+    public static Long parseLong(String s) {
+        Long result = null;
+        if (StringUtils.isEmptyOrWhitespaceOnly(s)) {
+            return null;
+        }
+        try {
+            result = Long.parseLong(s);
+        } catch (NumberFormatException ignored) {
+        }
+
+        return result;
     }
 
 }

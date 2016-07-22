@@ -4,6 +4,7 @@ import com.maksimov.controllers.delegators.Processor;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.impl.DepartmentServiceImpl;
+import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ public class DepartmentDelete implements Processor {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
-        service.delete(Long.parseLong(req.getParameter(PARAM_ID)));
+        service.delete(Utils.parseLong(req.getParameter(PARAM_ID)));
         res.sendRedirect(MAIN_URL);
     }
 }
