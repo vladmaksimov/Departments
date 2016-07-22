@@ -20,7 +20,6 @@ public class Controller extends HttpServlet {
     private static final String DEFAULT_ACTION = "/";
     private static final String SHOW_ERROR = "/assets/jsp/error.jsp";
 
-
     private static final Map<String, Processor> ACTIONS = new HashMap<String, Processor>() {{
         put("/", new DepartmentsShow());
         put("/department/put", new DepartmentPut());

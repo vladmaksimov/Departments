@@ -9,9 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import static com.maksimov.controllers.delegators.Processor.*;
 
 /**
+ * This class consists method which operates with the {@link HttpServletRequest} object
+ * and creates the {@link Employee} object from request parameters.
+ * <p>
  * Created on 21.07.16.
+ *
+ * @author Vladislav Maksimov
+ * @see com.maksimov.controllers.Controller
+ * @see Employee
  */
-public class EmployeeTransformer {
+public class EmployeeRequestTransformerImpl implements RequestTransformer {
 
     public Employee transform(HttpServletRequest req) {
         Employee employee = new Employee();

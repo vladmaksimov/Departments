@@ -6,7 +6,7 @@ import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.impl.EmployeeServiceImpl;
-import com.maksimov.transformers.EmployeeTransformer;
+import com.maksimov.transformers.EmployeeRequestTransformerImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class EmployeePut implements Processor {
 
     private EmployeeService service = new EmployeeServiceImpl();
-    private EmployeeTransformer transformer = new EmployeeTransformer();
+    private EmployeeRequestTransformerImpl transformer = new EmployeeRequestTransformerImpl();
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {

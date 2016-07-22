@@ -11,11 +11,46 @@ import java.util.List;
  */
 public interface EmployeeService {
 
+    /**
+     * Gets the {@link List} of the {@link Employee} objects by {@link Long} id value of the
+     * {@link com.maksimov.models.Department}.
+     *
+     * @param id of the department which employees we want to get.
+     * @return the list of the employees by department id.
+     * @throws DepartmentException related with dao issue.
+     */
     List<Employee> getByDepartmentId(Long id) throws DepartmentException;
 
+    /**
+     * Gets the {@link Employee} object from database by it {@link Long} id value or null, if row with
+     * this id doesn't exist.
+     *
+     * @param id of the employee we want to get.
+     * @return employee object with received id.
+     * @throws DepartmentException related with dao issue.
+     */
     Employee getById(Long id) throws DepartmentException;
 
+    /**
+     * Put the {@link Employee} object to database. If this object contains {@link Long} id value it will be updated.
+     * If this object doesn't contains id value, it will be saved to database with new id.
+     * <p>
+     * Every employee object will be validated by custom data validator
+     * {@link com.maksimov.utils.validators.DataValidator#validate(Object)}.
+     * If validator will find errors it will produce the {@link CustomValidateException}.
+     * Valid object will be saved or updated in database.
+     *
+     * @param employee object we want to validate and put to database.
+     * @throws DepartmentException     related with dao issue.
+     * @throws CustomValidateException if object have invalid fields.
+     */
     void put(Employee employee) throws DepartmentException, CustomValidateException;
 
+    /**
+     * Delete {@link Employee} object from database by it {@link Long} id.
+     *
+     * @param id of the department we want to delete.
+     * @throws DepartmentException related with dao issue.
+     */
     void delete(Long id) throws DepartmentException;
 }

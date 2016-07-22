@@ -14,7 +14,7 @@ public class Department {
 
     @NotEmpty
     @Length(max = 32, min = 5, message = "Incorrect name length")
-    @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exost")
+    @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist")
     private String name;
 
     public Long getId() {

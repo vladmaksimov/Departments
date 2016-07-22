@@ -30,7 +30,7 @@ public interface DepartmentDao {
 
 
     /**
-     * Receives {@link Long} id of department we want to get.
+     * Receives {@link Long} id of {@link Department} object we want to get.
      *
      * @param id {@link Long} object with id of department we want to get.
      * @return {@link Department} object with current id or null

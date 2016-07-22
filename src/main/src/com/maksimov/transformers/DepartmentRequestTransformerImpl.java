@@ -9,9 +9,16 @@ import static com.maksimov.controllers.delegators.Processor.PARAM_DEP_NAME;
 import static com.maksimov.controllers.delegators.Processor.PARAM_ID;
 
 /**
+ * This class consists method which operates with the {@link HttpServletRequest} object
+ * and creates the {@link Department} object from request parameters.
+ * <p>
  * Created on 21.07.16.
+ *
+ * @author Vladislav Maksimov
+ * @see com.maksimov.controllers.Controller
+ * @see Department
  */
-public class DepartmentsTransformer {
+public class DepartmentRequestTransformerImpl implements RequestTransformer {
 
     public Department transform(HttpServletRequest req) {
         Department department = new Department();
