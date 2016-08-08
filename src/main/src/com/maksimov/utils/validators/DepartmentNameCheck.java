@@ -16,6 +16,6 @@ public class DepartmentNameCheck implements CheckWithCheck.SimpleCheck {
     public boolean isSatisfied(Object o, Object o1) {
         Department department = (Department) o;
         Department toTest = dao.getByName(o1.toString());
-        return toTest == null || department.getId().equals(toTest.getId());
+        return toTest == null || toTest.getId().equals(department.getId());
     }
 }

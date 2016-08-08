@@ -16,6 +16,6 @@ public class EmployeeEmailCheck implements CheckWithCheck.SimpleCheck {
     public boolean isSatisfied(Object o, Object o1) {
         Employee employee = (Employee) o;
         Employee toTest = dao.getByEmail(o1.toString());
-        return toTest == null || employee.getId().equals(toTest.getId());
+        return toTest == null || toTest.getId().equals(employee.getId());
     }
 }
