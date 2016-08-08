@@ -1,5 +1,6 @@
 package com.maksimov.dao.impl;
 
+import com.maksimov.constants.DepartmentConstants;
 import com.maksimov.dao.CommonDao;
 import com.maksimov.dao.DepartmentDao;
 import com.maksimov.exceptions.DepartmentException;
@@ -10,6 +11,10 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.maksimov.constants.DepartmentConstants.*;
+import static com.maksimov.constants.DepartmentConstants.ID;
+import static com.maksimov.constants.DepartmentConstants.NAME;
 
 /**
  * Created on 7/19/2016.

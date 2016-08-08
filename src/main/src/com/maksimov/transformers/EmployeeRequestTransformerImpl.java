@@ -6,7 +6,7 @@ import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.maksimov.controllers.delegators.Processor.*;
+import static com.maksimov.constants.EmployeeConstants.*;
 
 /**
  * This class consists method which operates with the {@link HttpServletRequest} object
@@ -23,13 +23,13 @@ public class EmployeeRequestTransformerImpl implements RequestTransformer {
     public Employee transform(HttpServletRequest req) {
         Employee employee = new Employee();
 
-        String id = req.getParameter(PARAM_ID);
+        String id = req.getParameter(ID);
 
-        employee.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(req.getParameter(PARAM_ID)) : null);
-        employee.setName(req.getParameter(PARAM_EMP_NAME));
-        employee.setEmail(req.getParameter(PARAM_EMP_EMAIL));
-        employee.setBirthday(Utils.parseDate(req.getParameter(PARAM_EMP_BIRTHDAY)));
-        employee.setDepartment(Long.valueOf(req.getParameter(PARAM_EMP_DEPARTMENT)));
+        employee.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(id) : null);
+        employee.setName(req.getParameter(NAME));
+        employee.setEmail(req.getParameter(EMAIL));
+        employee.setBirthday(Utils.parseDate(req.getParameter(BIRTHDAY)));
+        employee.setDepartment(Long.valueOf(req.getParameter(DEPARTMENT)));
 
         return employee;
     }

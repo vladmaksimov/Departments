@@ -1,7 +1,7 @@
 package com.maksimov.controllers;
 
-import com.maksimov.controllers.delegators.Processor;
-import com.maksimov.controllers.delegators.impl.*;
+import com.maksimov.controllers.dispatchers.Dispatcher;
+import com.maksimov.controllers.dispatchers.impl.*;
 import com.maksimov.exceptions.DepartmentException;
 
 import javax.servlet.ServletException;
@@ -20,7 +20,8 @@ public class Controller extends HttpServlet {
     private static final String DEFAULT_ACTION = "/";
     private static final String SHOW_ERROR = "/assets/jsp/error.jsp";
 
-    private static final Map<String, Processor> ACTIONS = new HashMap<String, Processor>() {{
+
+    private static final Map<String, Dispatcher> ACTIONS = new HashMap<String, Dispatcher>() {{
         put("/", new DepartmentsShow());
         put("/department/put", new DepartmentPut());
         put("/department/form", new DepartmentForm());
@@ -38,9 +39,9 @@ public class Controller extends HttpServlet {
         if (!ACTIONS.containsKey(action)) {
             action = DEFAULT_ACTION;
         }
-        Processor processor = ACTIONS.get(action);
+        Dispatcher dispatcher = ACTIONS.get(action);
         try {
-            processor.service(req, resp);
+            dispatcher.doDispatch(req, resp);
         } catch (DepartmentException e) {
             req.setAttribute("error", e.getMessage());
             req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);

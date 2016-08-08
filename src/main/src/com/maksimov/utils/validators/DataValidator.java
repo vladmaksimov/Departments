@@ -11,6 +11,9 @@ import java.util.Map;
  * Created on 21.07.16.
  */
 public class DataValidator {
+
+    private static final String SEPARATOR = ".";
+
     private Validator validator = new Validator();
 
     public Map<String, String> validate(Object o) {
@@ -19,7 +22,7 @@ public class DataValidator {
         if (!violations.isEmpty()) {
             for (ConstraintViolation violation : violations) {
                 String contextName = violation.getContext().toString();
-                String errorName = contextName.substring(contextName.lastIndexOf(".") + 1);
+                String errorName = contextName.substring(contextName.lastIndexOf(SEPARATOR) + 1);
                 errors.put(errorName, violation.getMessage());
             }
         }

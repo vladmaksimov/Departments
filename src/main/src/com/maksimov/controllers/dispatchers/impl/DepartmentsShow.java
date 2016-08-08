@@ -1,6 +1,6 @@
-package com.maksimov.controllers.delegators.impl;
+package com.maksimov.controllers.dispatchers.impl;
 
-import com.maksimov.controllers.delegators.Processor;
+import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created on 7/19/2016.
  */
-public class DepartmentsShow implements Processor {
+public class DepartmentsShow implements Dispatcher {
 
     private DepartmentService service = new DepartmentServiceImpl();
 
-    public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         List<Department> departments = service.getAll();
         req.setAttribute(ATTR_DEPARTMENTS, departments);
         req.getRequestDispatcher(SHOW_DEPARTMENTS).forward(req, res);

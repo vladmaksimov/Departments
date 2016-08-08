@@ -5,8 +5,7 @@ import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.maksimov.controllers.delegators.Processor.PARAM_DEP_NAME;
-import static com.maksimov.controllers.delegators.Processor.PARAM_ID;
+import static com.maksimov.constants.DepartmentConstants.*;
 
 /**
  * This class consists method which operates with the {@link HttpServletRequest} object
@@ -22,10 +21,10 @@ public class DepartmentRequestTransformerImpl implements RequestTransformer {
 
     public Department transform(HttpServletRequest req) {
         Department department = new Department();
-        String id = req.getParameter(PARAM_ID);
+        String id = req.getParameter(ID);
 
-        department.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(req.getParameter(PARAM_ID)) : null);
-        department.setName(req.getParameter(PARAM_DEP_NAME));
+        department.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(req.getParameter(ID)) : null);
+        department.setName(req.getParameter(NAME));
 
         return department;
     }

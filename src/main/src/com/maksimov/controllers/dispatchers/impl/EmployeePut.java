@@ -1,12 +1,13 @@
-package com.maksimov.controllers.delegators.impl;
+package com.maksimov.controllers.dispatchers.impl;
 
-import com.maksimov.controllers.delegators.Processor;
+import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.impl.EmployeeServiceImpl;
 import com.maksimov.transformers.EmployeeRequestTransformerImpl;
+import com.maksimov.transformers.RequestTransformer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +17,14 @@ import java.io.IOException;
 /**
  * Created on 21.07.16.
  */
-public class EmployeePut implements Processor {
+public class EmployeePut implements Dispatcher {
 
     private EmployeeService service = new EmployeeServiceImpl();
-    private EmployeeRequestTransformerImpl transformer = new EmployeeRequestTransformerImpl();
+    private RequestTransformer transformer = new EmployeeRequestTransformerImpl();
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
-        Employee employee = transformer.transform(req);
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+        Employee employee = (Employee) transformer.transform(req);
         try {
             service.put(employee);
         } catch (CustomValidateException e) {

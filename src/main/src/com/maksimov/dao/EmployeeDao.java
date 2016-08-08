@@ -10,12 +10,6 @@ import java.util.List;
  */
 public interface EmployeeDao {
 
-    String ID = "id";
-    String DEPARTMENT = "department";
-    String NAME = "name";
-    String BIRTHDAY = "birthday";
-    String EMAIL = "email";
-
     String QUERY_GET_BY_DEPARTMENT_ID = "select * from employee where department = (?)";
     String QUERY_GET_BY_ID = "select * from employee where id = (?)";
     String QUERY_PUT = "insert into employee (name, email, birthday, department) values (?, ?, ?, ?)";

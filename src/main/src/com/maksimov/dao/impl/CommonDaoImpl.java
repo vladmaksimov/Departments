@@ -12,7 +12,7 @@ import java.sql.SQLException;
 /**
  * Created on 21.07.16.
  */
-public class CommonDaoImpl implements CommonDao {
+class CommonDaoImpl implements CommonDao {
 
     private static final Logger logger = Logger.getLogger(CommonDaoImpl.class);
 

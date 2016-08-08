@@ -10,9 +10,6 @@ import java.util.List;
  */
 public interface DepartmentDao {
 
-    String ID = "id";
-    String NAME = "name";
-
     String QUERY_GET_ALL = "select * from department order by id";
     String QUERY_GET_BY_ID = "select * from department where id = (?)";
     String QUERY_PUT = "insert into department (name) values (?)";

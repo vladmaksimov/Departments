@@ -11,6 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.maksimov.constants.EmployeeConstants.*;
+
 /**
  * Created on 7/19/2016.
  */
@@ -46,7 +48,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee getById(Long id) throws DepartmentException {
-        Employee employee = null;
+        Employee employee;
         try (Connection connection = DBConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_ID);
             statement.setLong(1, id);
@@ -54,7 +56,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             employee = getEmployeeFromResultSet(resultSet);
             DBConnection.closeConnection(connection);
         } catch (SQLException e) {
-            logger.error("Error to save department object: " + employee);
+            logger.error("Can't get Employee object with id " + id + " from Database!");
             throw new DepartmentException("Error to save employee object");
         }
         return employee;

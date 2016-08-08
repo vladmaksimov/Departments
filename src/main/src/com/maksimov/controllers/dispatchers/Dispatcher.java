@@ -1,4 +1,4 @@
-package com.maksimov.controllers.delegators;
+package com.maksimov.controllers.dispatchers;
 
 import com.maksimov.exceptions.DepartmentException;
 
@@ -10,16 +10,9 @@ import java.io.IOException;
 /**
  * Created on 7/19/2016.
  */
-public interface Processor {
+public interface Dispatcher {
 
     String PARAM_ID = "id";
-
-    String PARAM_DEP_NAME = "name";
-
-    String PARAM_EMP_NAME = "name";
-    String PARAM_EMP_EMAIL = "email";
-    String PARAM_EMP_BIRTHDAY = "birthday";
-    String PARAM_EMP_DEPARTMENT = "department";
 
     String MAIN_URL = "/";
     String MAIN_EMPLOYEE_URL = "/department/employees?id={id}";
@@ -44,6 +37,6 @@ public interface Processor {
      * @throws ServletException
      * @throws DepartmentException related with operating with database
      */
-    void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException;
+    void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException;
 
 }
