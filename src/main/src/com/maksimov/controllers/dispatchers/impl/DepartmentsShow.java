@@ -4,7 +4,7 @@ import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
-import com.maksimov.services.impl.DepartmentServiceImpl;
+import com.maksimov.utils.BeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DepartmentsShow implements Dispatcher {
 
-    private DepartmentService service = new DepartmentServiceImpl();
+    private DepartmentService service = BeanFactory.getDepartmentService();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         List<Department> departments = service.getAll();

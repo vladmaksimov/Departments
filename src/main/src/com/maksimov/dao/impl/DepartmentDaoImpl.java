@@ -1,18 +1,16 @@
 package com.maksimov.dao.impl;
 
-import com.maksimov.constants.DepartmentConstants;
 import com.maksimov.dao.CommonDao;
 import com.maksimov.dao.DepartmentDao;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
-import com.maksimov.utils.DBConnection;
+import com.maksimov.utils.DataSourceFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.maksimov.constants.DepartmentConstants.*;
 import static com.maksimov.constants.DepartmentConstants.ID;
 import static com.maksimov.constants.DepartmentConstants.NAME;
 
@@ -27,7 +25,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public List<Department> getAll() throws DepartmentException {
         List<Department> departments = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(QUERY_GET_ALL);
             while (result.next()) {
@@ -36,7 +34,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 department.setName(result.getString(NAME));
                 departments.add(department);
             }
-            DBConnection.closeConnection(connection);
         } catch (SQLException e) {
             logger.error("Can't get department list");
             throw new DepartmentException("Can't get department list");
@@ -46,7 +43,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public Department getById(Long id) throws DepartmentException {
         Department department = null;
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_ID);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -55,7 +52,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 department.setId(resultSet.getLong(ID));
                 department.setName(resultSet.getString(NAME));
             }
-            DBConnection.closeConnection(connection);
         } catch (SQLException e) {
             logger.error("Can't get department with id: " + id);
             throw new DepartmentException("Can't get department");
@@ -65,14 +61,13 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public void putDepartment(Department department) throws DepartmentException {
         String query = department.getId() == null ? QUERY_PUT : QUERY_UPDATE;
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement st = connection.prepareStatement(query);
             st.setString(1, department.getName());
             if (QUERY_UPDATE.equals(query)) {
                 st.setLong(2, department.getId());
             }
             st.executeUpdate();
-            DBConnection.closeConnection(connection);
         } catch (SQLException e) {
             logger.error("Error to save department object");
             throw new DepartmentException("Error to save department object");
@@ -86,7 +81,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public Department getByName(String name) {
         Department department = null;
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_NAME);
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
@@ -95,7 +90,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 department.setId(resultSet.getLong(ID));
                 department.setName(resultSet.getString(NAME));
             }
-            DBConnection.closeConnection(connection);
         } catch (Exception ignored) {
         }
         return department;

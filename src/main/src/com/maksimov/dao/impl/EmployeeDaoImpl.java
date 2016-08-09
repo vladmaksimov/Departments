@@ -4,7 +4,7 @@ import com.maksimov.dao.CommonDao;
 import com.maksimov.dao.EmployeeDao;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
-import com.maksimov.utils.DBConnection;
+import com.maksimov.utils.DataSourceFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -25,7 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> getByDepartmentId(Long id) throws DepartmentException {
         List<Employee> result = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_DEPARTMENT_ID);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -38,7 +38,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employee.setEmail(resultSet.getString(EMAIL));
                 result.add(employee);
             }
-            DBConnection.closeConnection(connection);
         } catch (Exception e) {
             logger.error("Can't get employee list from department: " + id);
             throw new DepartmentException("Can't get employee list from department");
@@ -49,12 +48,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public Employee getById(Long id) throws DepartmentException {
         Employee employee;
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_ID);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             employee = getEmployeeFromResultSet(resultSet);
-            DBConnection.closeConnection(connection);
         } catch (SQLException e) {
             logger.error("Can't get Employee object with id " + id + " from Database!");
             throw new DepartmentException("Error to save employee object");
@@ -65,7 +63,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void put(Employee employee) throws DepartmentException {
         String query = employee.getId() == null ? QUERY_PUT : QUERY_UPDATE;
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement st = connection.prepareStatement(query);
             st.setString(1, employee.getName());
             st.setString(2, employee.getEmail());
@@ -76,7 +74,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 st.setLong(4, employee.getId());
             }
             st.executeUpdate();
-            DBConnection.closeConnection(connection);
         } catch (SQLException e) {
             logger.error("Error to save employee object: " + employee);
             throw new DepartmentException("Error to save employee object");
@@ -89,14 +86,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee getByEmail(String email){
+    public Employee getByEmail(String email) {
         Employee employee = null;
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_EMAIL);
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             employee = getEmployeeFromResultSet(resultSet);
-            DBConnection.closeConnection(connection);
         } catch (Exception ignored) {
         }
         return employee;

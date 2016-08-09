@@ -31,7 +31,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void put(Department department) throws DepartmentException, CustomValidateException {
-        Map<String, String> errors = validator.validate(department);
+        Map<String, List<String>> errors = validator.validate(department);
         if (errors.isEmpty()) {
             dao.putDepartment(department);
         } else {

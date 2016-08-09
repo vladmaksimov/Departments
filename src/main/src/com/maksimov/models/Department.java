@@ -13,8 +13,8 @@ public class Department {
     private Long id;
 
     @NotEmpty
-    @Length(max = 32, min = 5, message = "Incorrect name length")
-    @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist")
+    @Length(max = 32, min = 5, message = "Incorrect name length!")
+    @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist!")
     private String name;
 
     public Long getId() {
@@ -40,11 +40,14 @@ public class Department {
 
         Department that = (Department) o;
 
-        return name.equals(that.name);
+        return getId().equals(that.getId()) && getName().equals(that.getName());
+
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        return result;
     }
 }

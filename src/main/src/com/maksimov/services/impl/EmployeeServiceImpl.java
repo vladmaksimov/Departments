@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void put(Employee employee) throws DepartmentException, CustomValidateException {
-        Map<String, String> errors = validator.validate(employee);
+        Map<String, List<String>> errors = validator.validate(employee);
         if (errors.isEmpty()) {
             dao.put(employee);
         } else {

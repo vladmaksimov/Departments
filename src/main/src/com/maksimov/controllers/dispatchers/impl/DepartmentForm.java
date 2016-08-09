@@ -3,7 +3,7 @@ package com.maksimov.controllers.dispatchers.impl;
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.services.DepartmentService;
-import com.maksimov.services.impl.DepartmentServiceImpl;
+import com.maksimov.utils.BeanFactory;
 import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class DepartmentForm implements Dispatcher {
 
-    private DepartmentService service = new DepartmentServiceImpl();
+    private DepartmentService service = BeanFactory.getDepartmentService();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         String idToEdit = req.getParameter(PARAM_ID);
@@ -26,8 +26,7 @@ public class DepartmentForm implements Dispatcher {
                 throw new DepartmentException("Can't parse department id!");
             }
             req.setAttribute(ATTR_DEPARTMENT, service.getById(id));
-            req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
         }
-        res.sendRedirect(SHOW_DEPARTMENT_FORM);
+        req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
     }
 }

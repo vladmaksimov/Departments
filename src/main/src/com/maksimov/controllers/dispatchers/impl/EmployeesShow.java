@@ -3,8 +3,9 @@ package com.maksimov.controllers.dispatchers.impl;
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
+import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
-import com.maksimov.services.impl.EmployeeServiceImpl;
+import com.maksimov.utils.BeanFactory;
 import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -18,14 +19,19 @@ import java.util.List;
  */
 public class EmployeesShow implements Dispatcher {
 
-    private EmployeeService service = new EmployeeServiceImpl();
+    private EmployeeService service = BeanFactory.getEmployeeService();
+    private DepartmentService departmentService = BeanFactory.getDepartmentService();
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         String id = req.getParameter(PARAM_ID);
+        Long departmentId = Utils.parseLong(id);
+        if (departmentId == null) {
+            throw new DepartmentException("Can't parse department id!");
+        }
         List<Employee> employeeList = service.getByDepartmentId(Utils.parseLong(id));
         req.setAttribute(ATTR_EMPLOYEES, employeeList);
-        req.setAttribute(ATTR_DEPARTMENT, id);
+        req.setAttribute(ATTR_DEPARTMENT, departmentService.getById(departmentId));
         req.getRequestDispatcher(SHOW_EMPLOYEES).forward(req, res);
     }
 }

@@ -1,5 +1,7 @@
 package com.maksimov.exceptions;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,18 +9,15 @@ import java.util.Map;
  */
 public class CustomValidateException extends Exception {
 
-    private Map<String, String> errors;
+    private Map<String, List<String>> errors;
 
-    public CustomValidateException(String message, Map<String, String> errors) {
+    public CustomValidateException(String message, Map<String, List<String>> errors) {
         super(message);
         this.errors = errors;
     }
 
-    public Map<String, String> getErrors() {
-        return errors;
+    public Map<String, List<String>> getErrors() {
+        return Collections.unmodifiableMap(errors);
     }
 
-    public void setErrors(Map<String, String> errors) {
-        this.errors = errors;
-    }
 }

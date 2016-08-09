@@ -77,12 +77,14 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        return email.equals(employee.email);
+        return getId().equals(employee.getId()) && getEmail().equals(employee.getEmail());
 
     }
 
     @Override
     public int hashCode() {
-        return email.hashCode();
+        int result = getId().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        return result;
     }
 }

@@ -3,27 +3,46 @@
 <html>
 <head>
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/assets/css/main.css"/>
     <title>Title</title>
 </head>
 <body>
-<form action="/department/employee/put" method="post">
-    <input type="hidden" name="department" value="${department}">
-    <input type="hidden" name="id" value="${employee.id}">
-    <div>
-        <input type="text" name="name" placeholder="Name" value="<c:out value="${employee.name}"/>"/>
-        <label><font color="red">${errors.name}</font></label>
-    </div>
+<div class="container">
+    <form action="/department/employee/put" method="post">
+        <input type="hidden" name="department" value="${department}">
+        <input type="hidden" name="id" value="${employee.id}">
 
-    <div>
-        <input type="email" name="email" placeholder="Email" value="<c:out value="${employee.email}"/>"/>
-        <label><font color="red">${errors.email}</font></label>
-    </div>
-    <div>
-        <input type="date" name="birthday" placeholder="Birthday" value="<c:out value="${employee.birthday}"/>"/>
-        <label><font color="red">${errors.birthday}</font></label>
-    </div>
-    <button type="submit" value="/department/employee/put">Save</button>
-</form>
+        <div class="form-group">
+            <label for="name">Email address</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<c:out value="${employee.name}"/>">
+            <div class="error-validation">
+                <c:forEach var="error" items="${errors.name}">
+                    <div>${error}</div>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Password</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<c:out value="${employee.email}"/>">
+            <div class="error-validation">
+                <c:forEach var="error" items="${errors.email}">
+                    <div>${error}</div>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday">Password</label>
+            <input type="date" class="form-control" id="birthday" name="birthday" placeholder="Birthday" value="<c:out value="${employee.birthday}"/>">
+            <div class="error-validation">
+                <c:forEach var="error" items="${errors.birthday}">
+                    <div>${error}</div>
+                </c:forEach>
+            </div>
+        </div>
 
+        <button type="submit" class="btn btn-default">Save</button>
+    </form>
+</div>
 </body>
 </html>

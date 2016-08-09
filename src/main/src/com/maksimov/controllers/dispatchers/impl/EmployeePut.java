@@ -5,9 +5,9 @@ import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.EmployeeService;
-import com.maksimov.services.impl.EmployeeServiceImpl;
 import com.maksimov.transformers.EmployeeRequestTransformerImpl;
 import com.maksimov.transformers.RequestTransformer;
+import com.maksimov.utils.BeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class EmployeePut implements Dispatcher {
 
-    private EmployeeService service = new EmployeeServiceImpl();
+    private EmployeeService service = BeanFactory.getEmployeeService();
     private RequestTransformer transformer = new EmployeeRequestTransformerImpl();
 
     @Override

@@ -3,7 +3,7 @@ package com.maksimov.controllers.dispatchers.impl;
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.services.EmployeeService;
-import com.maksimov.services.impl.EmployeeServiceImpl;
+import com.maksimov.utils.BeanFactory;
 import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import static com.maksimov.constants.EmployeeConstants.ID;
  */
 public class EmployeeDelete implements Dispatcher {
 
-    private EmployeeService service = new EmployeeServiceImpl();
+    private EmployeeService service = BeanFactory.getEmployeeService();
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
