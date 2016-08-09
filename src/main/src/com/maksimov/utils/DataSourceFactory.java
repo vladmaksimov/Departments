@@ -1,10 +1,8 @@
 package com.maksimov.utils;
 
-import com.maksimov.exceptions.DepartmentException;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.log4j.Logger;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -21,25 +19,29 @@ public class DataSourceFactory {
     private static final String USERNAME = "jdbc.username";
     private static final String PASSWORD = "jdbc.password";
 
+    private static MysqlDataSource dataSource = createDataSource();
 
-    public static DataSource getDatasource() throws DepartmentException {
+    private static MysqlDataSource createDataSource() {
         Properties properties = getProperties();
-        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource = new MysqlDataSource();
         dataSource.setUser(properties.getProperty(USERNAME));
         dataSource.setPassword(properties.getProperty(PASSWORD));
         dataSource.setURL(properties.getProperty(URL));
         return dataSource;
     }
 
-    private static Properties getProperties() throws DepartmentException {
+    private static Properties getProperties(){
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Properties properties = new Properties();
         try (InputStream resourceStream = loader.getResourceAsStream(PROPERTY_FILE)) {
             properties.load(resourceStream);
         } catch (IOException e) {
             logger.error("Can't execute application properties!");
-            throw new DepartmentException("Can't create connection");
         }
         return properties;
+    }
+
+    public static MysqlDataSource getDataSource() {
+        return dataSource;
     }
 }

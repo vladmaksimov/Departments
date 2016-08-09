@@ -25,7 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> getByDepartmentId(Long id) throws DepartmentException {
         List<Employee> result = new ArrayList<>();
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_DEPARTMENT_ID);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -48,7 +48,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public Employee getById(Long id) throws DepartmentException {
         Employee employee;
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_ID);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -63,7 +63,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void put(Employee employee) throws DepartmentException {
         String query = employee.getId() == null ? QUERY_PUT : QUERY_UPDATE;
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement st = connection.prepareStatement(query);
             st.setString(1, employee.getName());
             st.setString(2, employee.getEmail());
@@ -88,7 +88,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public Employee getByEmail(String email) {
         Employee employee = null;
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_EMAIL);
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();

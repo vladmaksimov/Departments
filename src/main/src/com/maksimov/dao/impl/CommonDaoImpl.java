@@ -17,7 +17,7 @@ class CommonDaoImpl implements CommonDao {
     private static final Logger logger = Logger.getLogger(CommonDaoImpl.class);
 
     public void delete(Long id, String query) throws DepartmentException {
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             statement.executeUpdate();

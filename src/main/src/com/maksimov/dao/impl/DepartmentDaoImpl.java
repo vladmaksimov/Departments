@@ -25,7 +25,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public List<Department> getAll() throws DepartmentException {
         List<Department> departments = new ArrayList<>();
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(QUERY_GET_ALL);
             while (result.next()) {
@@ -43,7 +43,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public Department getById(Long id) throws DepartmentException {
         Department department = null;
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_ID);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -61,7 +61,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     public void putDepartment(Department department) throws DepartmentException {
         String query = department.getId() == null ? QUERY_PUT : QUERY_UPDATE;
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement st = connection.prepareStatement(query);
             st.setString(1, department.getName());
             if (QUERY_UPDATE.equals(query)) {
@@ -81,7 +81,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public Department getByName(String name) {
         Department department = null;
-        try (Connection connection = DataSourceFactory.getDatasource().getConnection()) {
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_NAME);
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();

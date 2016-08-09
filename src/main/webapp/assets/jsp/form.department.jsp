@@ -2,9 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/assets/css/main.css"/>
+    <link rel="shortcut icon" href="<c:url value="/assets/favicon.ico"/>" type="image/x-icon"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>"/>
     <title>Add department</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-default">Save</button>
-        <a class="btn btn-info" href="/">Back</a>
+        <a class="btn btn-info" href="<c:url value="/"/>">Back</a>
     </form>
 </div>
 

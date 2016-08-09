@@ -2,9 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/assets/css/main.css"/>
+    <link rel="shortcut icon" href="<c:url value="${pageContext.request.contextPath}/assets/favicon.ico"/>" type="image/x-icon"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>" type="text/css"/>
     <title>Department</title>
 </head>
 <body>
@@ -27,9 +27,9 @@
                     <tr>
                         <td>${department.id}</td>
                         <td>${department.name}</td>
-                        <td><a class="btn btn-default" href="/department/form?id=${department.id}">Edit</a></td>
-                        <td><a class="btn btn-default" href="/department/delete?id=${department.id}">delete</a></td>
-                        <td><a class="btn btn-default" href="/department/employees?id=${department.id}">Show employees</a></td>
+                        <td><a class="btn btn-default" href="<c:url value="${pageContext.request.contextPath}/department/form?id=${department.id}"/>">Edit</a></td>
+                        <td><a class="btn btn-default" href="<c:url value="/department/delete?id=${department.id}"/>">delete</a></td>
+                        <td><a class="btn btn-default" href="<c:url value="/department/employees?id=${department.id}"/>">Show employees</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
