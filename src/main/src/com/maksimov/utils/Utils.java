@@ -15,7 +15,7 @@ public class Utils {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
-            date = formatter.parse(dateToParse);
+            date = ModelFactory.createSqlDate(formatter.parse(dateToParse).getTime());
         } catch (ParseException ignored) {
         }
         return date;

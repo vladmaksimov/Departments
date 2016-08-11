@@ -1,5 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<jsp:useBean id="department" scope="request" type="com.maksimov.models.Department"/>
+<jsp:useBean id="errors" scope="request" type="java.util.Map"/>
+
+<c:set var="mainUrl" value="${pageContext.request.contextPath}/" />
+
+<c:url value="${mainUrl}" var="mainPage"/>
+
 <html>
 <head>
     <link rel="shortcut icon" href="<c:url value="/assets/favicon.ico"/>" type="image/x-icon"/>
@@ -8,10 +16,11 @@
     <title>Add department</title>
 </head>
 <body>
+
 <div class="container">
     <div class="form-header">
         <c:choose>
-            <c:when test="${empty department}">
+            <c:when test="${empty department.id}">
                 Add new Department
             </c:when>
             <c:otherwise>
@@ -32,7 +41,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-default">Save</button>
-        <a class="btn btn-info" href="<c:url value="/"/>">Back</a>
+        <a class="btn btn-info" href="${mainPage}">Back</a>
     </form>
 </div>
 

@@ -20,6 +20,7 @@ public interface Dispatcher {
     String SHOW_DEPARTMENT_FORM = "/assets/jsp/form.department.jsp";
     String SHOW_EMPLOYEES = "/assets/jsp/table.employees.jsp";
     String SHOW_EMPLOYEE_FORM = "/assets/jsp/form.employee.jsp";
+    String PROBLEM = "/assets/jsp/problem.jsp";
 
     String ATTR_DEPARTMENT = "department";
     String ATTR_DEPARTMENTS = "departments";

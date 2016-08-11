@@ -23,14 +23,14 @@ public class DataSourceFactory {
 
     private static MysqlDataSource createDataSource() {
         Properties properties = getProperties();
-        dataSource = new MysqlDataSource();
+        MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser(properties.getProperty(USERNAME));
         dataSource.setPassword(properties.getProperty(PASSWORD));
         dataSource.setURL(properties.getProperty(URL));
         return dataSource;
     }
 
-    private static Properties getProperties(){
+    private static Properties getProperties() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Properties properties = new Properties();
         try (InputStream resourceStream = loader.getResourceAsStream(PROPERTY_FILE)) {

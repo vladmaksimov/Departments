@@ -77,13 +77,18 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        return getId().equals(employee.getId()) && getEmail().equals(employee.getEmail());
+        if (!getDepartment().equals(employee.getDepartment())) return false;
+        if (!getName().equals(employee.getName())) return false;
+        if (!getBirthday().equals(employee.getBirthday())) return false;
+        return getEmail().equals(employee.getEmail());
 
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
+        int result = getDepartment().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getBirthday().hashCode();
         result = 31 * result + getEmail().hashCode();
         return result;
     }

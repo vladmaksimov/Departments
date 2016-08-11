@@ -31,6 +31,10 @@
     padding: 10px 0 10px 0;
 }
 
+.form-header .problem-header {
+    padding: 10px 0 10px 0;
+}
+
 .error-validation {
     color: #a94442;
 }

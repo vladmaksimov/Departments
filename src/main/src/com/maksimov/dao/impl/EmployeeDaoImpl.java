@@ -5,6 +5,7 @@ import com.maksimov.dao.EmployeeDao;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.utils.DataSourceFactory;
+import com.maksimov.utils.ModelFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -30,7 +31,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Employee employee = new Employee();
+                Employee employee = ModelFactory.createEmployee();
                 employee.setId(resultSet.getLong(ID));
                 employee.setDepartment(resultSet.getLong(DEPARTMENT));
                 employee.setName(resultSet.getString(NAME));
@@ -67,7 +68,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             PreparedStatement st = connection.prepareStatement(query);
             st.setString(1, employee.getName());
             st.setString(2, employee.getEmail());
-            st.setDate(3, new Date(employee.getBirthday().getTime()));
+            st.setDate(3, (Date) employee.getBirthday());
             if (QUERY_PUT.equals(query)) {
                 st.setLong(4, employee.getDepartment());
             } else if (QUERY_UPDATE.equals(query)) {
@@ -101,7 +102,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private Employee getEmployeeFromResultSet(ResultSet resultSet) throws SQLException {
         Employee employee = null;
         if (resultSet.next()) {
-            employee = new Employee();
+            employee = ModelFactory.createEmployee();
             employee.setId(resultSet.getLong(ID));
             employee.setDepartment(resultSet.getLong(DEPARTMENT));
             employee.setName(resultSet.getString(NAME));

@@ -1,6 +1,7 @@
 package com.maksimov.transformers;
 
 import com.maksimov.models.Department;
+import com.maksimov.utils.ModelFactory;
 import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import static com.maksimov.constants.DepartmentConstants.*;
 public class DepartmentRequestTransformerImpl implements RequestTransformer {
 
     public Department transform(HttpServletRequest req) {
-        Department department = new Department();
+        Department department = ModelFactory.createDepartment();
         String id = req.getParameter(ID);
 
         department.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(req.getParameter(ID)) : null);

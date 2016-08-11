@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class Controller extends HttpServlet {
 
-    private static final String DEFAULT_ACTION = "/";
+    private static final String PROBLEM = "/problem";
     private static final String SHOW_ERROR = "/assets/jsp/error.jsp";
 
 
@@ -30,21 +30,23 @@ public class Controller extends HttpServlet {
         put("/department/employee/form", new EmployeeForm());
         put("/department/employee/put", new EmployeePut());
         put("/department/employee/delete", new EmployeeDelete());
+        put("/problem", new ProblemPage());
     }};
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getRequestURI();
 
-        if (!ACTIONS.containsKey(action)) {
-            action = DEFAULT_ACTION;
-        }
         Dispatcher dispatcher = ACTIONS.get(action);
-        try {
-            dispatcher.doDispatch(req, resp);
-        } catch (DepartmentException e) {
-            req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
+        if (dispatcher != null) {
+            try {
+                dispatcher.doDispatch(req, resp);
+            } catch (DepartmentException e) {
+                req.setAttribute("error", e.getMessage());
+                req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
+            }
+        } else {
+            resp.sendRedirect(PROBLEM);
         }
     }
 }

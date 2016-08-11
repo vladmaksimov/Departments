@@ -1,10 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<jsp:useBean id="departments" scope="request" type="java.util.List"/>
+
+<c:set var="urlAdd" value="${pageContext.request.contextPath}/department/form" />
+<c:set var="urlDelete" value="${pageContext.request.contextPath}/department/delete" />
+<c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees" />
+
+<c:url value="${urlAdd}" var="add"/>
+
 <html>
 <head>
-    <link rel="shortcut icon" href="<c:url value="${pageContext.request.contextPath}/assets/favicon.ico"/>" type="image/x-icon"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"/>" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>" type="text/css"/>
+    <link href="<c:url value="${pageContext.request.contextPath}/assets/favicon.ico"/>" rel="shortcut icon" type="image/x-icon"/>
+    <link href="<c:url value="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
+    <link href="<c:url value="${pageContext.request.contextPath}/assets/css/main.css"/>" rel="stylesheet" type="text/css"/>
     <title>Department</title>
 </head>
 <body>
@@ -24,19 +33,32 @@
                 </thead>
                 <tbody>
                 <c:forEach var="department" items="${departments}">
+
+                    <c:url value="${urlAdd}" var="edit">
+                        <c:param name="id" value="${department.id}"/>
+                    </c:url>
+
+                    <c:url value="${urlDelete}" var="delete">
+                        <c:param name="id" value="${department.id}"/>
+                    </c:url>
+
+                    <c:url value="${urlEmployee}" var="employee">
+                        <c:param name="id" value="${department.id}"/>
+                    </c:url>
+
                     <tr>
                         <td>${department.id}</td>
                         <td>${department.name}</td>
-                        <td><a class="btn btn-default" href="<c:url value="${pageContext.request.contextPath}/department/form?id=${department.id}"/>">Edit</a></td>
-                        <td><a class="btn btn-default" href="<c:url value="/department/delete?id=${department.id}"/>">delete</a></td>
-                        <td><a class="btn btn-default" href="<c:url value="/department/employees?id=${department.id}"/>">Show employees</a></td>
+                        <td><a class="btn btn-default" href="${edit}">Edit</a></td>
+                        <td><a class="btn btn-default" href="${delete}">delete</a></td>
+                        <td><a class="btn btn-default" href="${employee}">Show employees</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
         <div>
-            <a class="btn btn-success" href="/department/form">Add Department</a>
+            <a class="btn btn-success" href="${add}">Add Department</a>
         </div>
     </form>
 </div>

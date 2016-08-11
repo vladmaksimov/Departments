@@ -5,6 +5,7 @@ import com.maksimov.dao.DepartmentDao;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.utils.DataSourceFactory;
+import com.maksimov.utils.ModelFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -29,7 +30,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(QUERY_GET_ALL);
             while (result.next()) {
-                Department department = new Department();
+                Department department = ModelFactory.createDepartment();
                 department.setId(result.getLong(ID));
                 department.setName(result.getString(NAME));
                 departments.add(department);
@@ -48,7 +49,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                department = new Department();
+                department = ModelFactory.createDepartment();
                 department.setId(resultSet.getLong(ID));
                 department.setName(resultSet.getString(NAME));
             }
@@ -86,7 +87,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                department = new Department();
+                department = ModelFactory.createDepartment();
                 department.setId(resultSet.getLong(ID));
                 department.setName(resultSet.getString(NAME));
             }
