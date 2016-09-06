@@ -1,11 +1,12 @@
 package com.maksimov.services.impl;
 
 import com.maksimov.dao.DepartmentDao;
-import com.maksimov.dao.impl.DepartmentDaoImpl;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
+import com.maksimov.utils.factorys.DaoBeanFactory;
+import com.maksimov.utils.factorys.ValidatorBeanFactory;
 import com.maksimov.utils.validators.DataValidator;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.Map;
  */
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private DepartmentDao dao = new DepartmentDaoImpl();
-    private DataValidator validator = new DataValidator();
+    private DepartmentDao dao = DaoBeanFactory.getDepartmentDao();
+    private DataValidator validator = ValidatorBeanFactory.getValidator();
 
     @Override
     public List<Department> getAll() throws DepartmentException {

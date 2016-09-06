@@ -1,7 +1,7 @@
 package com.maksimov.transformers;
 
 import com.maksimov.models.Employee;
-import com.maksimov.utils.ModelFactory;
+import com.maksimov.utils.factorys.ModelFactory;
 import com.maksimov.utils.Utils;
 import com.mysql.jdbc.StringUtils;
 

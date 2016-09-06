@@ -4,10 +4,12 @@
 <jsp:useBean id="departments" scope="request" type="java.util.List"/>
 
 <c:set var="urlAdd" value="${pageContext.request.contextPath}/department/form" />
+<c:set var="urlAddEmployee" value="${pageContext.request.contextPath}/department/employee/form/clear" />
 <c:set var="urlDelete" value="${pageContext.request.contextPath}/department/delete" />
 <c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees" />
 
 <c:url value="${urlAdd}" var="add"/>
+<c:url value="${urlAddEmployee}" var="addEmployee"/>
 
 <html>
 <head>
@@ -59,6 +61,7 @@
         </div>
         <div>
             <a class="btn btn-success" href="${add}">Add Department</a>
+            <a class="btn btn-success" href="${addEmployee}">Add Employee</a>
         </div>
     </form>
 </div>

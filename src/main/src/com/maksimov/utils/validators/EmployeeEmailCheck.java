@@ -1,8 +1,8 @@
 package com.maksimov.utils.validators;
 
 import com.maksimov.dao.EmployeeDao;
-import com.maksimov.dao.impl.EmployeeDaoImpl;
 import com.maksimov.models.Employee;
+import com.maksimov.utils.factorys.DaoBeanFactory;
 import net.sf.oval.constraint.CheckWithCheck;
 
 /**
@@ -10,7 +10,7 @@ import net.sf.oval.constraint.CheckWithCheck;
  */
 public class EmployeeEmailCheck implements CheckWithCheck.SimpleCheck {
 
-    private EmployeeDao dao = new EmployeeDaoImpl();
+    private EmployeeDao dao = DaoBeanFactory.getEmployeeDao();
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {

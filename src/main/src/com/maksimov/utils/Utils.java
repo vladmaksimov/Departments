@@ -1,5 +1,6 @@
 package com.maksimov.utils;
 
+import com.maksimov.utils.factorys.ModelFactory;
 import com.mysql.jdbc.StringUtils;
 
 import java.text.ParseException;

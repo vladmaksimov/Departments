@@ -1,4 +1,4 @@
-package com.maksimov.utils;
+package com.maksimov.utils.factorys;
 
 import com.maksimov.models.Department;
 import com.maksimov.models.Employee;

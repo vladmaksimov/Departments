@@ -3,23 +3,28 @@ package com.maksimov.controllers.dispatchers.impl;
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
+import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.transformers.EmployeeRequestTransformerImpl;
 import com.maksimov.transformers.RequestTransformer;
-import com.maksimov.utils.BeanFactory;
+import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created on 21.07.16.
  */
 public class EmployeePut implements Dispatcher {
 
-    private EmployeeService service = BeanFactory.getEmployeeService();
+    private EmployeeService service = ServiceBeanFactory.getEmployeeService();
+    private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
     private RequestTransformer transformer = new EmployeeRequestTransformerImpl();
 
     @Override
@@ -29,7 +34,9 @@ public class EmployeePut implements Dispatcher {
             service.put(employee);
         } catch (CustomValidateException e) {
             req.setAttribute(ATTR_EMPLOYEE, employee);
-            req.setAttribute(ATTR_DEPARTMENT, employee.getDepartment());
+            List<Department> departments = new ArrayList<>();
+            departments.add(departmentService.getById(employee.getDepartment()));
+            req.setAttribute(ATTR_DEPARTMENTS, departments);
             req.setAttribute(ATTR_ERRORS, e.getErrors());
             req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
         }

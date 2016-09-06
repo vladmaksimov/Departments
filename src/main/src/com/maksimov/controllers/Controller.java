@@ -28,6 +28,7 @@ public class Controller extends HttpServlet {
         put("/department/delete", new DepartmentDelete());
         put("/department/employees", new EmployeesShow());
         put("/department/employee/form", new EmployeeForm());
+        put("/department/employee/form/clear", new EmployeeClearForm());
         put("/department/employee/put", new EmployeePut());
         put("/department/employee/delete", new EmployeeDelete());
         put("/problem", new ProblemPage());

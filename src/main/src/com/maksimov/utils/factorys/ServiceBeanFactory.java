@@ -1,4 +1,4 @@
-package com.maksimov.utils;
+package com.maksimov.utils.factorys;
 
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
@@ -8,7 +8,7 @@ import com.maksimov.services.impl.EmployeeServiceImpl;
 /**
  * Created on 09.08.16.
  */
-public class BeanFactory {
+public class ServiceBeanFactory {
 
     private static DepartmentService departmentService = new DepartmentServiceImpl();
 

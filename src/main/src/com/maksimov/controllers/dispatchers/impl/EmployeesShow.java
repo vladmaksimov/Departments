@@ -5,7 +5,7 @@ import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
-import com.maksimov.utils.BeanFactory;
+import com.maksimov.utils.factorys.ServiceBeanFactory;
 import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class EmployeesShow implements Dispatcher {
 
-    private EmployeeService service = BeanFactory.getEmployeeService();
-    private DepartmentService departmentService = BeanFactory.getDepartmentService();
+    private EmployeeService service = ServiceBeanFactory.getEmployeeService();
+    private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {

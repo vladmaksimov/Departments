@@ -7,7 +7,7 @@ import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.transformers.DepartmentRequestTransformerImpl;
 import com.maksimov.transformers.RequestTransformer;
-import com.maksimov.utils.BeanFactory;
+import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class DepartmentPut implements Dispatcher {
 
-    private DepartmentService service = BeanFactory.getDepartmentService();
+    private DepartmentService service = ServiceBeanFactory.getDepartmentService();
     private RequestTransformer transformer = new DepartmentRequestTransformerImpl();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {

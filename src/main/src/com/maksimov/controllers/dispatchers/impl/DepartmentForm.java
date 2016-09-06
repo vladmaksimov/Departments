@@ -3,8 +3,8 @@ package com.maksimov.controllers.dispatchers.impl;
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.services.DepartmentService;
-import com.maksimov.utils.BeanFactory;
-import com.maksimov.utils.ModelFactory;
+import com.maksimov.utils.factorys.ServiceBeanFactory;
+import com.maksimov.utils.factorys.ModelFactory;
 import com.maksimov.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.util.Collections;
  */
 public class DepartmentForm implements Dispatcher {
 
-    private DepartmentService service = BeanFactory.getDepartmentService();
+    private DepartmentService service = ServiceBeanFactory.getDepartmentService();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
         String idToEdit = req.getParameter(PARAM_ID);

@@ -1,11 +1,12 @@
 package com.maksimov.services.impl;
 
 import com.maksimov.dao.EmployeeDao;
-import com.maksimov.dao.impl.EmployeeDaoImpl;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.EmployeeService;
+import com.maksimov.utils.factorys.DaoBeanFactory;
+import com.maksimov.utils.factorys.ValidatorBeanFactory;
 import com.maksimov.utils.validators.DataValidator;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.Map;
  */
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDao dao = new EmployeeDaoImpl();
-    private DataValidator validator = new DataValidator();
+    private EmployeeDao dao = DaoBeanFactory.getEmployeeDao();
+    private DataValidator validator = ValidatorBeanFactory.getValidator();
 
     @Override
     public List<Employee> getByDepartmentId(Long id) throws DepartmentException {

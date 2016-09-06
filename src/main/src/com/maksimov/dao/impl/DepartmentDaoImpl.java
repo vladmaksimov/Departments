@@ -5,7 +5,7 @@ import com.maksimov.dao.DepartmentDao;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.utils.DataSourceFactory;
-import com.maksimov.utils.ModelFactory;
+import com.maksimov.utils.factorys.ModelFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

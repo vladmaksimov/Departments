@@ -1,7 +1,7 @@
 package com.maksimov.transformers;
 
 import com.maksimov.models.Department;
-import com.maksimov.utils.ModelFactory;
+import com.maksimov.utils.factorys.ModelFactory;
 import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
