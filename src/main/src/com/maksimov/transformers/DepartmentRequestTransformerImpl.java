@@ -25,7 +25,7 @@ public class DepartmentRequestTransformerImpl implements RequestTransformer {
         String id = req.getParameter(ID);
 
         department.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(req.getParameter(ID)) : null);
-        department.setName(req.getParameter(NAME));
+        department.setName(req.getParameter(NAME).trim());
 
         return department;
     }

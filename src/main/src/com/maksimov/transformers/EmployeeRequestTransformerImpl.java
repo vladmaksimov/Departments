@@ -27,8 +27,8 @@ public class EmployeeRequestTransformerImpl implements RequestTransformer {
         String id = req.getParameter(ID);
 
         employee.setId(id != null && !StringUtils.isEmptyOrWhitespaceOnly(id) ? Long.parseLong(id) : null);
-        employee.setName(req.getParameter(NAME));
-        employee.setEmail(req.getParameter(EMAIL));
+        employee.setName(req.getParameter(NAME).trim());
+        employee.setEmail(req.getParameter(EMAIL).trim());
         employee.setBirthday(Utils.parseDate(req.getParameter(BIRTHDAY)));
         employee.setDepartment(Long.valueOf(req.getParameter(DEPARTMENT)));
 
