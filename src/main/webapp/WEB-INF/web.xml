@@ -19,7 +19,10 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.ico</url-pattern>
         <url-pattern>*.css</url-pattern>
+        <url-pattern>*.map</url-pattern>
         <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.woff2</url-pattern>
     </servlet-mapping>
 
 </web-app>
