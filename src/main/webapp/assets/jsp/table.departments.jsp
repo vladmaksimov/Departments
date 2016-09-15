@@ -3,13 +3,15 @@
 
 <jsp:useBean id="departments" scope="request" type="java.util.List"/>
 
-<c:set var="urlAdd" value="${pageContext.request.contextPath}/department/form" />
-<c:set var="urlAddEmployee" value="${pageContext.request.contextPath}/department/employee/form/clear" />
-<c:set var="urlDelete" value="${pageContext.request.contextPath}/department/delete" />
-<c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees" />
+<c:set var="urlAdd" value="${pageContext.request.contextPath}/department/form"/>
+<c:set var="urlAddEmployee" value="${pageContext.request.contextPath}/department/employee/form/clear"/>
+<c:set var="urlDelete" value="${pageContext.request.contextPath}/department/delete"/>
+<c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees"/>
+<c:set var="urlForm" value="${pageContext.request.contextPath}/"/>
 
 <c:url value="${urlAdd}" var="add"/>
 <c:url value="${urlAddEmployee}" var="addEmployee"/>
+<c:url value="${urlForm}" var="department"/>
 
 <html>
 <head>
@@ -19,11 +21,57 @@
     <title>Department</title>
 </head>
 <body>
-<div class="container">
-    <div class="form-header">
-        <span>Department List:</span>
+
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container form-inline">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Departments</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="${add}">Add Department<span class="sr-only">(current)</span></a></li>
+                <li><a href="${addEmployee}">Add Employee</a></li>
+            </ul>
+
+            <form class="navbar-form navbar-right" action="department/search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
     </div>
-    <form method="get" name="department">
+</nav>
+<form method="get" name="department" action="<c:url value="${department}"/>">
+    <c:if test="${not empty search}">
+        <input type="hidden" name="search">
+    </c:if>
+    <div class="container">
+        <div class="form-header">
+            <span>Department List:</span>
+        </div>
+
+        <div>
+            <div class="text-center">
+                <ul class="pagination form-inline">
+                    <li>
+                        <button class="btn btn-default">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"/>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-sm">1/3</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default">
+                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"/>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div>
             <table class="table table-striped table-department">
                 <thead>
@@ -60,10 +108,30 @@
             </table>
         </div>
         <div>
-            <a class="btn btn-success" href="${add}">Add Department</a>
-            <a class="btn btn-success" href="${addEmployee}">Add Employee</a>
+            <div class="form-inline">
+                <div>qwe</div>
+                <div class="text-center">
+                    <ul class="pagination form-inline">
+                        <li>
+                            <button class="btn btn-default">
+                                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"/>
+
+                            </button>
+                        </li>
+                        <li>
+                            <button class="btn btn-sm">1/3</button>
+                        </li>
+                        <li>
+                            <button class="btn btn-default">
+                                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"/>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+</form>
+
 </body>
 </html>
