@@ -1,5 +1,6 @@
 package com.maksimov.utils.factorys;
 
+import com.maksimov.data.Page;
 import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
 
@@ -20,6 +21,10 @@ public class ModelFactory {
 
     public static Date createSqlDate(Long date) {
         return new Date(date);
+    }
+
+    public static Page createPage(Integer page, Integer size, String sort) {
+        return new Page(page, size, sort);
     }
 
 }

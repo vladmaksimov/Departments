@@ -13,7 +13,7 @@
 <head>
     <link href="<c:url value="${pageContext.request.contextPath}/assets/favicon.ico"/>" rel="shortcut icon" type="image/x-icon"/>
     <link href="<c:url value="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
-    <link href="<c:url value="${pageContext.request.contextPath}/assets/css/main.css"/>" rel="stylesheet" type="text/css"/>
+    <link href="<c:url value="${pageContext.request.contextPath}/assets/css/main.scss"/>" rel="stylesheet" type="text/css"/>
     <title>Error</title>
 </head>
 <body>

@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="departments" scope="request" type="java.util.List"/>
+<jsp:useBean id="requestPage" scope="request" type="com.maksimov.data.Page"/>
+
+<c:import url="pagination.jsp" scope="request" var="pagination"/>
 
 <c:set var="urlAdd" value="${pageContext.request.contextPath}/department/form"/>
 <c:set var="urlAddEmployee" value="${pageContext.request.contextPath}/department/employee/form/clear"/>
@@ -44,7 +47,6 @@
         </div>
     </div>
 </nav>
-<form method="get" name="department" action="<c:url value="${department}"/>">
     <c:if test="${not empty search}">
         <input type="hidden" name="search">
     </c:if>
@@ -53,25 +55,7 @@
             <span>Department List:</span>
         </div>
 
-        <div>
-            <div class="text-center">
-                <ul class="pagination form-inline">
-                    <li>
-                        <button class="btn btn-default">
-                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"/>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn btn-sm">1/3</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-default">
-                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"/>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        ${pagination}
         <div>
             <table class="table table-striped table-department">
                 <thead>
@@ -107,31 +91,7 @@
                 </tbody>
             </table>
         </div>
-        <div>
-            <div class="form-inline">
-                <div>qwe</div>
-                <div class="text-center">
-                    <ul class="pagination form-inline">
-                        <li>
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"/>
-
-                            </button>
-                        </li>
-                        <li>
-                            <button class="btn btn-sm">1/3</button>
-                        </li>
-                        <li>
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"/>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        ${pagination}
     </div>
-</form>
-
 </body>
 </html>

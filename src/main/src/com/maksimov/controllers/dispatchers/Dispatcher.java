@@ -28,6 +28,10 @@ public interface Dispatcher {
     String ATTR_EMPLOYEE = "employee";
     String ATTR_ERRORS = "errors";
 
+    String ATTR_PAGE = "requestPage";
+    String ATTR_SIZE_LIST = "sizeList";
+    String ATTR_SORT_LIST = "sortList";
+
     /**
      * Receives standard HTTP requests from the public controller and delegate it to different implementation.
      *

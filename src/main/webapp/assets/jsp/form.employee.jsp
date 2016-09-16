@@ -26,7 +26,7 @@
 <head>
     <link rel="shortcut icon" href="<c:url value="/assets/favicon.ico"/>" type="image/x-icon"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"/>"/>
-    <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/assets/css/main.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/assets/css/main.scss"/>"/>
     <title>Title</title>
 </head>
 <body>

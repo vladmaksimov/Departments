@@ -1,6 +1,7 @@
 package com.maksimov.services.impl;
 
 import com.maksimov.dao.DepartmentDao;
+import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
@@ -26,6 +27,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> getDepartments(Pageable page) throws DepartmentException {
+        return dao.getDepartments(page);
+    }
+
+    @Override
     public Department getById(Long id) throws DepartmentException {
         return dao.getById(id);
     }
@@ -43,5 +49,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void delete(Long id) throws DepartmentException {
         dao.delete(id);
+    }
+
+    @Override
+    public Integer getDepartmentCount() throws DepartmentException {
+        return dao.getCount();
     }
 }

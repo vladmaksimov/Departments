@@ -35,4 +35,17 @@ public class Utils {
         return result;
     }
 
+    public static Integer parseInteger(String s) {
+        Integer result = null;
+        if (StringUtils.isEmptyOrWhitespaceOnly(s)) {
+            return null;
+        }
+        try {
+            result = Integer.parseInt(s);
+        } catch (NumberFormatException ignored) {
+        }
+
+        return result;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.maksimov.dao;
 
+import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 
@@ -11,11 +12,14 @@ import java.util.List;
 public interface DepartmentDao {
 
     String QUERY_GET_ALL = "select * from department order by id";
+    String QUERY_GET_WITH_PAGINATION = "select * from department order by %s limit %d, %d";
     String QUERY_GET_BY_ID = "select * from department where id = (?)";
     String QUERY_PUT = "insert into department (name) values (?)";
     String QUERY_UPDATE = "update department set name = (?) where id = (?)";
     String QUERY_DELETE = "delete from department where id = (?)";
     String QUERY_GET_BY_NAME = "select * from department where name = (?)";
+
+    String TABLE = "department";
 
     /**
      * Return the {@link List} of all {@link Department} objects from database
@@ -24,6 +28,15 @@ public interface DepartmentDao {
      * @throws DepartmentException related with database problems
      */
     List<Department> getAll() throws DepartmentException;
+
+    /**
+     * Return the {@link List} of {@link Department} objects from database
+     *
+     * @param page the {@link Pageable} object, needed to get departments list with pagination
+     * @return {@link List} of all {@link Department} object
+     * @throws DepartmentException related with database problems
+     */
+    List<Department> getDepartments(Pageable page) throws DepartmentException;
 
 
     /**
@@ -62,5 +75,12 @@ public interface DepartmentDao {
      * @return department object with received name or null.
      */
     Department getByName(String name);
+
+    /**
+     * Gets the count of all departments rows.
+     *
+     * @return the {@link Integer} value with count of all departments rows.
+     */
+    Integer getCount() throws DepartmentException;
 
 }

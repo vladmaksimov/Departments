@@ -1,5 +1,6 @@
 package com.maksimov.services;
 
+import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
@@ -18,6 +19,15 @@ public interface DepartmentService {
      * @throws DepartmentException related with dao issue.
      */
     List<Department> getAll() throws DepartmentException;
+
+    /**
+     * Gets the {@link List} of the {@link Department} objects with pagination or empty collection.
+     *
+     * @param page the {@link Pageable} object, needed to get departments list with pagination.
+     * @return list of the departments or empty collection.
+     * @throws DepartmentException related with dao issue.
+     */
+    List<Department> getDepartments(Pageable page) throws DepartmentException;
 
     /**
      * Gets the {@link Department} object from database by it {@link Long} id value or null, if row with
@@ -51,4 +61,11 @@ public interface DepartmentService {
      * @throws DepartmentException related with dao issue.
      */
     void delete(Long id) throws DepartmentException;
+
+    /**
+     * Gets the {@link Integer} value with departments row count.
+     *
+     * @return the {@link Integer} value with departments row count.
+     */
+    Integer getDepartmentCount() throws DepartmentException;
 }

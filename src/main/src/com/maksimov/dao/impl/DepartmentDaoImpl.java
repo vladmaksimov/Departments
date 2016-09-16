@@ -2,6 +2,7 @@ package com.maksimov.dao.impl;
 
 import com.maksimov.dao.CommonDao;
 import com.maksimov.dao.DepartmentDao;
+import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.utils.DataSourceFactory;
@@ -29,12 +30,22 @@ public class DepartmentDaoImpl implements DepartmentDao {
         try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(QUERY_GET_ALL);
-            while (result.next()) {
-                Department department = ModelFactory.createDepartment();
-                department.setId(result.getLong(ID));
-                department.setName(result.getString(NAME));
-                departments.add(department);
-            }
+            departments.addAll(getDepartmentsFromResultSet(result));
+        } catch (SQLException e) {
+            logger.error("Can't get department list");
+            throw new DepartmentException("Can't get department list");
+        }
+        return departments;
+    }
+
+    @Override
+    public List<Department> getDepartments(Pageable page) throws DepartmentException {
+        List<Department> departments = new ArrayList<>();
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
+            String query = String.format(QUERY_GET_WITH_PAGINATION, page.getSort(), page.getFirstResult(), page.getPageSize());
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(query);
+            departments.addAll(getDepartmentsFromResultSet(result));
         } catch (SQLException e) {
             logger.error("Can't get department list");
             throw new DepartmentException("Can't get department list");
@@ -94,5 +105,21 @@ public class DepartmentDaoImpl implements DepartmentDao {
         } catch (Exception ignored) {
         }
         return department;
+    }
+
+    @Override
+    public Integer getCount() throws DepartmentException {
+        return common.getCount(TABLE);
+    }
+
+    private List<Department> getDepartmentsFromResultSet(ResultSet resultSet) throws SQLException {
+        List<Department> result = new ArrayList<>();
+        while (resultSet.next()) {
+            Department department = ModelFactory.createDepartment();
+            department.setId(resultSet.getLong(ID));
+            department.setName(resultSet.getString(NAME));
+            result.add(department);
+        }
+        return result;
     }
 }
