@@ -1,10 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--@elvariable id="search" type="java.lang.String"--%>
-<%--@elvariable id="requestPage" type="java.util.List"--%>
+<%--@elvariable id="requestPage" type="com.maksimov.data.Page"--%>
 <%--@elvariable id="sortList" type="java.util.List"--%>
 <%--@elvariable id="sizeList" type="java.util.List"--%>
 <%--@elvariable id="urlForm" type="java.lang.String"--%>
+
+<c:set value="#{requestPage.hasPrevious()}" scope="page" var="previousPage"/>
+<c:set value="#{requestPage.hasNext()}" scope="page" var="nextPage"/>
 
 <div>
     <div class="text-center pagination-tab">
@@ -38,14 +41,14 @@
                 </c:if>
 
                 <button class="btn btn-default" type="submit" name="page" value="${requestPage.pageNumber - 1}"
-                        <c:if test="${!requestPage.hasPrevious()}">disabled</c:if>>
+                        <c:if test="${!previousPage}">disabled</c:if>>
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                 </button>
                 <span>${requestPage.pageNumber}</span>
                 <span>/</span>
                 <span>${requestPage.totalPages}</span>
                 <button class="btn btn-default" type="submit" name="page" value="${requestPage.pageNumber + 1}"
-                        <c:if test="${!requestPage.hasNext()}">disabled</c:if>>
+                        <c:if test="${!nextPage}">disabled</c:if>>
                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </button>
             </div>
