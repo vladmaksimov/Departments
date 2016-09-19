@@ -19,7 +19,7 @@ public class PageConstants {
     public static final String PAGE_SORT = "sort";
 
     public static final int PAGE_DEFAULT_NUMBER = 1;
-    public static final int PAGE_DEFAULT_SIZE = 5;
+    public static final int PAGE_DEFAULT_SIZE = 10;
     public static final String PAGE_DEFAULT_SORT = "id";
 
     static {

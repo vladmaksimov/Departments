@@ -9,7 +9,7 @@
         <form method="get" name="department" action="/" class="navbar-form navbar-left">
             <div class="pagination-left form-group">
                 <span>Sort by:</span>
-                <select class="form-control sort-selected" name="sort">
+                <select class="form-control sort-selected" name="sort" title="Select sort field">
                     <c:forEach var="element" items="${sortList}">
                         <option <c:if test="${requestPage.sort eq element}">selected</c:if>>${element}</option>
                     </c:forEach>
@@ -18,7 +18,7 @@
             </div>
         </form>
 
-        <form method="get" action="/" class="pagination-center">
+        <form method="get" action="/" class="pagination-center navbar-form ">
             <div class="form-group">
 
                 <input type="hidden" name="sort" value="${requestPage.sort}">
@@ -26,14 +26,14 @@
 
                 <button class="btn btn-default" type="submit" name="page" value="${requestPage.pageNumber - 1}"
                         <c:if test="${!requestPage.hasPrevious()}">disabled</c:if>>
-                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"/>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                 </button>
                 <span>${requestPage.pageNumber}</span>
                 <span>/</span>
                 <span>${requestPage.totalPages}</span>
                 <button class="btn btn-default" type="submit" name="page" value="${requestPage.pageNumber + 1}"
                         <c:if test="${!requestPage.hasNext()}">disabled</c:if>>
-                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"/>
+                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                 </button>
             </div>
         </form>
@@ -41,7 +41,7 @@
         <form action="/" method="get"  class="navbar-form navbar-right">
             <div class="pagination-right form-group">
                 <span>On page:</span>
-                <select class="form-control" name="size">
+                <select class="form-control" name="size" title="Select page size">
                     <c:forEach var="element" items="${sizeList}">
                         <option>${element}</option>
                     </c:forEach>

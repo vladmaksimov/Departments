@@ -58,7 +58,5 @@
 }
 
 .pagination-right {
-  display: inline;
   float: right;
-  width: 300px;
 }
