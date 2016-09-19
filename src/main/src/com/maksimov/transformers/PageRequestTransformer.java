@@ -9,7 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import static com.maksimov.constants.PageConstants.*;
 
 /**
+ * This class consists method which operates with the {@link HttpServletRequest} object
+ * and creates the {@link Pageable} object from request parameters.
+ *
  * Created on 16.09.16.
+ *
+ * @author Vladislav Maksimov
+ * @see com.maksimov.controllers.Controller
+ * @see Pageable
  */
 public class PageRequestTransformer implements RequestTransformer {
 
