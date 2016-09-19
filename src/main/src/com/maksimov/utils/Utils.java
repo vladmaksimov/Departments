@@ -12,6 +12,8 @@ import java.util.Date;
  */
 public class Utils {
 
+    public static final String SEARCH_LIKE_OPERATOR = "%";
+
     public static Date parseDate(String dateToParse) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
@@ -46,6 +48,10 @@ public class Utils {
         }
 
         return result;
+    }
+
+    public static String createSearchString(String s) {
+        return SEARCH_LIKE_OPERATOR.concat(s).concat(SEARCH_LIKE_OPERATOR);
     }
 
 }

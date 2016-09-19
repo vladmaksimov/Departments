@@ -1,5 +1,6 @@
 package com.maksimov.services;
 
+import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
@@ -20,6 +21,29 @@ public interface EmployeeService {
      * @throws DepartmentException related with dao issue.
      */
     List<Employee> getByDepartmentId(Long id) throws DepartmentException;
+
+    /**
+     * Gets the {@link List} of the {@link Employee} objects by {@link Long} id value of the
+     * {@link com.maksimov.models.Department} with pagination.
+     *
+     * @param page the {@link Pageable} object, needed to get employees list with pagination.
+     * @param id   of the department which employees we want to get.
+     * @return the list of the employees by department id with pagination.
+     * @throws DepartmentException
+     */
+    List<Employee> getEmployeesWithPagination(Pageable page, Long id) throws DepartmentException;
+
+    /**
+     * Gets the {@link List} of the {@link Employee} objects with pagination by department id
+     * and search value or empty collection.
+     *
+     * @param page   the {@link Pageable} object, needed to get departments list with pagination.
+     * @param id     of the department which employees we want to get.
+     * @param search the {@link String} value to search employees.
+     * @return the {@link List} of the {@link Employee} by department id with pagination.
+     * @throws DepartmentException
+     */
+    List<Employee> searchEmployees(Pageable page, Long id, String search) throws DepartmentException;
 
     /**
      * Gets the {@link Employee} object from database by it {@link Long} id value or null, if row with
@@ -53,4 +77,13 @@ public interface EmployeeService {
      * @throws DepartmentException related with dao issue.
      */
     void delete(Long id) throws DepartmentException;
+
+    /**
+     * Gets the {@link Integer} value with employees row count depends of search value and department id.
+     *
+     * @param id     of the department which employees we want to get.
+     * @param search the {@link String} value to search departments.
+     * @return the {@link Integer} value with departments row count.
+     */
+    Integer getEmployeeCount(Long id, String search) throws DepartmentException;
 }

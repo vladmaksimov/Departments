@@ -30,6 +30,16 @@ public interface DepartmentService {
     List<Department> getDepartments(Pageable page) throws DepartmentException;
 
     /**
+     * Gets the {@link List} of the {@link Department} objects with pagination by search value or empty collection.
+     *
+     * @param page   the {@link Pageable} object, needed to get departments list with pagination.
+     * @param search the {@link String} value to search departments
+     * @return list of the departments or empty collection.
+     * @throws DepartmentException related with dao issue.
+     */
+    List<Department> searchDepartments(Pageable page, String search) throws DepartmentException;
+
+    /**
      * Gets the {@link Department} object from database by it {@link Long} id value or null, if row with
      * this id doesn't exist.
      *
@@ -63,9 +73,10 @@ public interface DepartmentService {
     void delete(Long id) throws DepartmentException;
 
     /**
-     * Gets the {@link Integer} value with departments row count.
+     * Gets the {@link Integer} value with departments row count depends of search value.
      *
+     * @param search the {@link String} value to search departments.
      * @return the {@link Integer} value with departments row count.
      */
-    Integer getDepartmentCount() throws DepartmentException;
+    Integer getDepartmentCount(String search) throws DepartmentException;
 }

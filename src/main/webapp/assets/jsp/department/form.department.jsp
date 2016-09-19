@@ -16,7 +16,13 @@
     <title>Add department</title>
 </head>
 <body>
-
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container form-inline">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${mainPage}">Departments</a>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <div class="form-header">
         <c:choose>
@@ -28,7 +34,7 @@
             </c:otherwise>
         </c:choose>
     </div>
-    <form action="/department/put" method="post">
+    <form action="/department/put" method="post" class="form-employee">
         <input type="hidden" name="id" value="<c:out value="${department.id}"/>"/>
 
         <div class="form-group">

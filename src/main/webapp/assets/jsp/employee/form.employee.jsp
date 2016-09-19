@@ -26,10 +26,17 @@
 <head>
     <link rel="shortcut icon" href="<c:url value="/assets/favicon.ico"/>" type="image/x-icon"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap.min.css"/>"/>
-    <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/assets/css/main.scss"/>"/>
+    <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/assets/css/main.css"/>"/>
     <title>Title</title>
 </head>
 <body>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container form-inline">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${urlBack}">Departments</a>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <div class="form-header">
         <c:choose>

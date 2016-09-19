@@ -18,7 +18,7 @@ import java.util.Map;
 public class Controller extends HttpServlet {
 
     private static final String PROBLEM = "/problem";
-    private static final String SHOW_ERROR = "/assets/jsp/error.jsp";
+    private static final String SHOW_ERROR = "/assets/jsp/error/error.jsp";
 
 
     private static final Map<String, Dispatcher> ACTIONS = new HashMap<String, Dispatcher>() {{

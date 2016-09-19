@@ -16,8 +16,8 @@ public class PageServiceImpl implements PageService {
     private EmployeeService employeeService = ServiceBeanFactory.getEmployeeService();
 
     @Override
-    public Pageable getDepartmentPageDetails(Pageable page) throws DepartmentException {
-        Integer count = departmentService.getDepartmentCount();
+    public Pageable getDepartmentPageDetails(Pageable page, String search) throws DepartmentException {
+        Integer count = departmentService.getDepartmentCount(search);
         Integer totalPages = getTotalPageCount(count, page.getPageSize());
         page.setTotalPages(totalPages);
         page.setNext(getNextButtonState(page.getPageNumber(), totalPages));
@@ -26,8 +26,13 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Pageable getEmployeePageDetails(Pageable page) {
-        return null;
+    public Pageable getEmployeePageDetails(Pageable page, Long id, String search) throws DepartmentException {
+        Integer count = employeeService.getEmployeeCount(id, search);
+        Integer totalPages = getTotalPageCount(count, page.getPageSize());
+        page.setTotalPages(totalPages);
+        page.setNext(getNextButtonState(page.getPageNumber(), totalPages));
+
+        return page;
     }
 
     private Integer getTotalPageCount(Integer count, Integer size) {

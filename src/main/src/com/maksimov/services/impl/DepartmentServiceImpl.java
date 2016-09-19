@@ -6,6 +6,7 @@ import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
+import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.DaoBeanFactory;
 import com.maksimov.utils.factorys.ValidatorBeanFactory;
 import com.maksimov.utils.validators.DataValidator;
@@ -32,6 +33,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> searchDepartments(Pageable page, String search) throws DepartmentException {
+        String searchToMysql = Utils.createSearchString(search);
+        return dao.searchDepartments(page, searchToMysql);
+    }
+
+    @Override
     public Department getById(Long id) throws DepartmentException {
         return dao.getById(id);
     }
@@ -52,7 +59,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Integer getDepartmentCount() throws DepartmentException {
-        return dao.getCount();
+    public Integer getDepartmentCount(String search) throws DepartmentException {
+        String searchToMysql = search == null ? null : Utils.createSearchString(search);
+        return dao.getCount(searchToMysql);
     }
 }

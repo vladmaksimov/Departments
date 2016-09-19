@@ -18,6 +18,8 @@ public interface DepartmentDao {
     String QUERY_UPDATE = "update department set name = (?) where id = (?)";
     String QUERY_DELETE = "delete from department where id = (?)";
     String QUERY_GET_BY_NAME = "select * from department where name = (?)";
+    String QUERY_GET_BY_SEARCH_VALUE = "select * from department where name like (?) order by %s limit %d, %d";
+    String QUERY_GET_COUNT_BY_SEARCH_VALUE = "select count(*) from department where name like (?)";
 
     String TABLE = "department";
 
@@ -38,6 +40,15 @@ public interface DepartmentDao {
      */
     List<Department> getDepartments(Pageable page) throws DepartmentException;
 
+    /**
+     * Return the {@link List} of {@link Department} objects from database, filtered by search value.
+     *
+     * @param page   the {@link Pageable} object, needed to get departments list with pagination.
+     * @param search the {@link String} value to search departments.
+     * @return {@link List} of {@link Department} objects, filtered by search value.
+     * @throws DepartmentException
+     */
+    List<Department> searchDepartments(Pageable page, String search) throws DepartmentException;
 
     /**
      * Receives {@link Long} id of {@link Department} object we want to get.
@@ -77,10 +88,11 @@ public interface DepartmentDao {
     Department getByName(String name);
 
     /**
-     * Gets the count of all departments rows.
+     * Gets the count of all departments rows depends of search value.
      *
+     * @param search the {@link String} value to get count of departments by this parameter.
      * @return the {@link Integer} value with count of all departments rows.
      */
-    Integer getCount() throws DepartmentException;
+    Integer getCount(String search) throws DepartmentException;
 
 }

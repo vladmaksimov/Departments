@@ -53,6 +53,22 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return departments;
     }
 
+    @Override
+    public List<Department> searchDepartments(Pageable page, String search) throws DepartmentException {
+        List<Department> departments = new ArrayList<>();
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
+            String query = String.format(QUERY_GET_BY_SEARCH_VALUE, page.getSort(), page.getFirstResult(), page.getPageSize());
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, search);
+            ResultSet resultSet = statement.executeQuery();
+            departments.addAll(getDepartmentsFromResultSet(resultSet));
+        } catch (SQLException e) {
+            logger.error("Can't get department list");
+            throw new DepartmentException("Can't get department list");
+        }
+        return departments;
+    }
+
     public Department getById(Long id) throws DepartmentException {
         Department department = null;
         try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
@@ -108,8 +124,24 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public Integer getCount() throws DepartmentException {
-        return common.getCount(TABLE);
+    public Integer getCount(String search) throws DepartmentException {
+        return search == null ? common.getCount(TABLE) : getCountWithSearch(search);
+    }
+
+    private Integer getCountWithSearch(String search) throws DepartmentException {
+        Integer count = null;
+        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(QUERY_GET_COUNT_BY_SEARCH_VALUE);
+            statement.setString(1, search);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                count = result.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.error("Can't get row count by search value");
+            throw new DepartmentException("Can't get row count by search value");
+        }
+        return count;
     }
 
     private List<Department> getDepartmentsFromResultSet(ResultSet resultSet) throws SQLException {

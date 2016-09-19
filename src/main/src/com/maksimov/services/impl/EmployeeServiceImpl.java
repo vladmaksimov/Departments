@@ -1,10 +1,12 @@
 package com.maksimov.services.impl;
 
 import com.maksimov.dao.EmployeeDao;
+import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
 import com.maksimov.services.EmployeeService;
+import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.DaoBeanFactory;
 import com.maksimov.utils.factorys.ValidatorBeanFactory;
 import com.maksimov.utils.validators.DataValidator;
@@ -26,6 +28,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> getEmployeesWithPagination(Pageable page, Long id) throws DepartmentException {
+        return dao.getEmployeesWithPagination(page, id);
+    }
+
+    @Override
+    public List<Employee> searchEmployees(Pageable page, Long id, String search) throws DepartmentException {
+        String searchToMysql = search == null ? null : Utils.createSearchString(search);
+        return dao.searchEmployees(page, id, searchToMysql);
+    }
+
+    @Override
     public Employee getById(Long id) throws DepartmentException {
         return dao.getById(id);
     }
@@ -43,5 +56,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void delete(Long id) throws DepartmentException {
         dao.delete(id);
+    }
+
+    @Override
+    public Integer getEmployeeCount(Long id, String search) throws DepartmentException {
+        String searchToMysql = search == null ? null : Utils.createSearchString(search);
+        return dao.getCount(id, searchToMysql);
     }
 }

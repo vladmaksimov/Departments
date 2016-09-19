@@ -29,12 +29,16 @@ public class DepartmentsShow implements Dispatcher {
     private PageRequestTransformer transformer = new PageRequestTransformer();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+        List<Department> departments;
+        String search = req.getParameter(ATTR_SEARCH);
+
         Pageable page = transformer.transform(req);
-        List<Department> departments = service.getDepartments(page);
-        page = pageService.getDepartmentPageDetails(page);
+        departments = search == null ? service.getDepartments(page) : service.searchDepartments(page, search);
+        page = pageService.getDepartmentPageDetails(page, search);
 
         req.setAttribute(ATTR_DEPARTMENTS, departments);
         req.setAttribute(ATTR_PAGE, page);
+        req.setAttribute(ATTR_SEARCH, search);
         req.setAttribute(ATTR_SIZE_LIST, PAGE_SIZE_LIST);
         req.setAttribute(ATTR_SORT_LIST, PAGE_DEPARTMENT_SORT_LIST);
         req.getRequestDispatcher(SHOW_DEPARTMENTS).forward(req, res);

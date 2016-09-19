@@ -16,17 +16,18 @@ public interface Dispatcher {
 
     String MAIN_URL = "/";
     String MAIN_EMPLOYEE_URL = "/department/employees?id={id}";
-    String SHOW_DEPARTMENTS = "/assets/jsp/table.departments.jsp";
-    String SHOW_DEPARTMENT_FORM = "/assets/jsp/form.department.jsp";
-    String SHOW_EMPLOYEES = "/assets/jsp/table.employees.jsp";
-    String SHOW_EMPLOYEE_FORM = "/assets/jsp/form.employee.jsp";
-    String PROBLEM = "/assets/jsp/problem.jsp";
+    String SHOW_DEPARTMENTS = "/assets/jsp/department/table.departments.jsp";
+    String SHOW_DEPARTMENT_FORM = "/assets/jsp/department/form.department.jsp";
+    String SHOW_EMPLOYEES = "/assets/jsp/employee/table.employees.jsp";
+    String SHOW_EMPLOYEE_FORM = "/assets/jsp/employee/form.employee.jsp";
+    String PROBLEM = "/assets/jsp/error/problem.jsp";
 
     String ATTR_DEPARTMENT = "department";
     String ATTR_DEPARTMENTS = "departments";
     String ATTR_EMPLOYEES = "employees";
     String ATTR_EMPLOYEE = "employee";
     String ATTR_ERRORS = "errors";
+    String ATTR_SEARCH = "search";
 
     String ATTR_PAGE = "requestPage";
     String ATTR_SIZE_LIST = "sizeList";
@@ -37,7 +38,6 @@ public interface Dispatcher {
      *
      * @param req the {@link HttpServletRequest} object that contains the request the client made of the servlet
      * @param res the {@link HttpServletResponse} object that contains the response the servlet returns to the client
-     *
      * @throws IOException
      * @throws ServletException
      * @throws DepartmentException related with operating with database
