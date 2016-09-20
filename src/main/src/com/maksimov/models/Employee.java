@@ -13,7 +13,7 @@ public class Employee {
     private Long id;
 
     @NotNull(message = "Department id can't be null")
-    private Long department;
+    private Department department;
 
     @NotEmpty
     @Length(max = 32, min = 5, message = "Incorrect name length")
@@ -38,11 +38,11 @@ public class Employee {
         this.id = id;
     }
 
-    public Long getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(Long department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

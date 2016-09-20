@@ -42,7 +42,7 @@ public class Controller extends HttpServlet {
         if (dispatcher != null) {
             try {
                 dispatcher.doDispatch(req, resp);
-            } catch (DepartmentException e) {
+            } catch (DepartmentException | ExceptionInInitializerError e) {
                 req.setAttribute("error", e.getMessage());
                 req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
             }

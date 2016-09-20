@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDao dao = DaoBeanFactory.getEmployeeDao();
+    private EmployeeDao dao = DaoBeanFactory.getEmployeeHbmDao();
     private DataValidator validator = ValidatorBeanFactory.getValidator();
 
     @Override

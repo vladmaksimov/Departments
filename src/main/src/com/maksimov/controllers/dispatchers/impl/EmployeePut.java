@@ -35,11 +35,11 @@ public class EmployeePut implements Dispatcher {
         } catch (CustomValidateException e) {
             req.setAttribute(ATTR_EMPLOYEE, employee);
             List<Department> departments = new ArrayList<>();
-            departments.add(departmentService.getById(employee.getDepartment()));
+            departments.add(departmentService.getById(employee.getDepartment().getId()));
             req.setAttribute(ATTR_DEPARTMENTS, departments);
             req.setAttribute(ATTR_ERRORS, e.getErrors());
             req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
         }
-        res.sendRedirect(MAIN_EMPLOYEE_URL.replace("{id}", employee.getDepartment().toString()));
+        res.sendRedirect(MAIN_EMPLOYEE_URL.replace("{id}", employee.getDepartment().getId().toString()));
     }
 }

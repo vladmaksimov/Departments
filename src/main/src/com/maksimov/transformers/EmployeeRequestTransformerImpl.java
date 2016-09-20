@@ -1,5 +1,6 @@
 package com.maksimov.transformers;
 
+import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
 import com.maksimov.utils.factorys.ModelFactory;
 import com.maksimov.utils.Utils;
@@ -30,7 +31,9 @@ public class EmployeeRequestTransformerImpl implements RequestTransformer {
         employee.setName(req.getParameter(NAME).trim());
         employee.setEmail(req.getParameter(EMAIL).trim());
         employee.setBirthday(Utils.parseDate(req.getParameter(BIRTHDAY)));
-        employee.setDepartment(Long.valueOf(req.getParameter(DEPARTMENT)));
+        Department department = ModelFactory.createDepartment();
+        department.setId(Utils.parseLong(req.getParameter(DEPARTMENT)));
+        employee.setDepartment(department);
 
         return employee;
     }

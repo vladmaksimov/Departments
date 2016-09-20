@@ -34,7 +34,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             while (resultSet.next()) {
                 Employee employee = ModelFactory.createEmployee();
                 employee.setId(resultSet.getLong(ID));
-                employee.setDepartment(resultSet.getLong(DEPARTMENT));
+//                employee.setDepartment(resultSet.getLong(DEPARTMENT));
                 employee.setName(resultSet.getString(NAME));
                 employee.setBirthday(resultSet.getDate(BIRTHDAY));
                 employee.setEmail(resultSet.getString(EMAIL));
@@ -105,7 +105,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             st.setString(2, employee.getEmail());
             st.setDate(3, (Date) employee.getBirthday());
             if (QUERY_PUT.equals(query)) {
-                st.setLong(4, employee.getDepartment());
+//                st.setLong(4, employee.getDepartment());
             } else if (QUERY_UPDATE.equals(query)) {
                 st.setLong(4, employee.getId());
             }
@@ -175,7 +175,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private Employee collectData(ResultSet resultSet) throws SQLException {
         Employee employee = ModelFactory.createEmployee();
         employee.setId(resultSet.getLong(ID));
-        employee.setDepartment(resultSet.getLong(DEPARTMENT));
+//        employee.setDepartment(resultSet.getLong(DEPARTMENT));
         employee.setName(resultSet.getString(NAME));
         employee.setBirthday(resultSet.getDate(BIRTHDAY));
         employee.setEmail(resultSet.getString(EMAIL));

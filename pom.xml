@@ -12,6 +12,7 @@
     <api.servlet.version>2.5</api.servlet.version>
     <junit.version>3.8.1</junit.version>
     <mysql.connector.version>5.1.6</mysql.connector.version>
+    <hibernate.version>5.1.0.Final</hibernate.version>
     <log4j.version>1.2.17</log4j.version>
     <jstl.version>1.2</jstl.version>
     <oval.version>1.84</oval.version>
@@ -33,6 +34,11 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.connector.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>

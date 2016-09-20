@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private DepartmentDao dao = DaoBeanFactory.getDepartmentDao();
+    private DepartmentDao dao = DaoBeanFactory.getDepartmentHbmDao();
     private DataValidator validator = ValidatorBeanFactory.getValidator();
 
     @Override
