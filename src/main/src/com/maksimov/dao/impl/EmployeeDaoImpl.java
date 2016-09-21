@@ -35,7 +35,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
             Criteria criteria = session.createCriteria(entity);
             criteria.add(Restrictions.eq("department.id", id));
             return criteria.list();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get employees from DataBase");
             throw new DaoException("Can't get employees from DataBase");
         }
@@ -47,7 +47,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = createListCriteria(session, id, page);
             return criteria.list();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get employees from DataBase");
             throw new DaoException("Can't get employees from DataBase");
         }
@@ -60,7 +60,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
             Criteria criteria = createListCriteria(session, id, page);
             criteria.add(Restrictions.or(Restrictions.like(NAME, search), Restrictions.like(EMAIL, search)));
             return criteria.list();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get employees from DataBase");
             throw new DaoException("Can't get employees from DataBase");
         }
@@ -81,7 +81,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
             Criteria criteria = session.createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
             return ((Long) criteria.uniqueResult()).intValue();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get employees from DataBase");
             throw new DaoException("Can't get employees from DataBase");
         }

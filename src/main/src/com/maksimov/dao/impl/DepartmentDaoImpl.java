@@ -70,7 +70,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
                 criteria.add(Restrictions.like(NAME, search));
             }
             return ((Long) criteria.uniqueResult()).intValue();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get employees from DataBase");
             throw new DaoException("Can't get employees from DataBase");
         }
