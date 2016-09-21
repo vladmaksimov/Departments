@@ -5,13 +5,21 @@ import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 
+import javax.persistence.*;
+
 /**
  * Created on 7/19/2016.
  */
+@Entity
+@Table(name = "department")
 public class Department {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "name", length = 250, unique = true)
     @NotEmpty
     @Length(max = 32, min = 5, message = "Incorrect name length!")
     @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist!")

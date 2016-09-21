@@ -3,26 +3,37 @@ package com.maksimov.models;
 import com.maksimov.utils.validators.EmployeeEmailCheck;
 import net.sf.oval.constraint.*;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created on 7/19/2016.
  */
+@Entity
+@Table(name = "employee")
 public class Employee {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "department")
     @NotNull(message = "Department id can't be null")
     private Department department;
 
+    @Column(name = "name", length = 250)
     @NotEmpty
     @Length(max = 32, min = 5, message = "Incorrect name length")
     private String name;
 
+    @Column(name = "birthday")
     @NotNull(message = "Incorrect date format")
     @NotEmpty(message = "Field date is empty")
     private Date birthday;
 
+    @Column(name = "email", length = 250, unique = true)
     @NotNull(message = "Field email is empty")
     @NotEmpty(message = "Field email is empty")
     @Email(message = "incorrect email format")

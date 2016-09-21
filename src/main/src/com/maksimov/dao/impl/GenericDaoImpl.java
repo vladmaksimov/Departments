@@ -27,7 +27,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
             session.beginTransaction();
             session.saveOrUpdate(object);
             session.getTransaction().commit();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't save object to database!");
             throw new DaoException("Can't save object to database!");
         }
@@ -39,7 +39,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
             session.beginTransaction();
             session.delete(object);
             session.getTransaction().commit();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't delete object from database!");
             throw new DaoException("Can't delete object from database!");
         }
@@ -50,7 +50,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public List<T> getAll() throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             return session.createCriteria(entity).list();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get list of objects from database!");
             throw new DaoException("Can't get list of objects from database!");
         }
@@ -61,7 +61,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public T get(Long id) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             return (T) session.get(entity, id);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Can't get object from database!");
             throw new DaoException("Can't get object from database!");
         }
