@@ -5,9 +5,19 @@
          version="2.5">
     <display-name>Archetype Created Web Application</display-name>
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:META-INF/spring/applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>com.maksimov.controllers.Controller</servlet-class>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -25,5 +35,6 @@
         <url-pattern>*.woff</url-pattern>
         <url-pattern>*.woff2</url-pattern>
     </servlet-mapping>
+
 
 </web-app>

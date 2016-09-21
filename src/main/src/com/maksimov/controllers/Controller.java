@@ -4,9 +4,9 @@ import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.controllers.dispatchers.impl.*;
 import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
+import org.springframework.web.HttpRequestHandler;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created on 7/19/2016.
  */
-public class Controller extends HttpServlet {
+public class Controller implements HttpRequestHandler {
 
     private static final String PROBLEM = "/problem";
     private static final String SHOW_ERROR = "/assets/jsp/error/error.jsp";
@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
     }};
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getRequestURI();
 
         Dispatcher dispatcher = ACTIONS.get(action);
