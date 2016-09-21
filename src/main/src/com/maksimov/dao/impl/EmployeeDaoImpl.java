@@ -1,9 +1,9 @@
 package com.maksimov.dao.impl;
 
 import com.maksimov.dao.EmployeeDao;
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
+import com.maksimov.models.Page;
 import com.maksimov.utils.HibernateSessionFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -39,7 +39,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> getEmployees(Pageable page, Long id) throws DepartmentException {
+    public List<Employee> getEmployees(Page page, Long id) throws DepartmentException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = createListCriteria(session, id, page);
             return criteria.list();
@@ -50,7 +50,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> searchEmployees(Pageable page, Long id, String search) throws DepartmentException {
+    public List<Employee> searchEmployees(Page page, Long id, String search) throws DepartmentException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = createListCriteria(session, id, page);
             criteria.add(Restrictions.or(Restrictions.like(NAME, search), Restrictions.like(EMAIL, search)));
@@ -80,7 +80,7 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
         }
     }
 
-    private Criteria createListCriteria(Session session, Long id, Pageable page) {
+    private Criteria createListCriteria(Session session, Long id, Page page) {
         Criteria criteria = session.createCriteria(entity);
         criteria.add(Restrictions.eq("department.id", id));
         criteria.addOrder(Order.asc(page.getSort()));

@@ -1,6 +1,6 @@
-package com.maksimov.data;
+package com.maksimov.models;
 
-public class Page implements Pageable {
+public class Page {
 
     private int page;
     private int size;
@@ -21,42 +21,34 @@ public class Page implements Pageable {
         this.sort = sort;
     }
 
-    @Override
     public int getPageNumber() {
         return page;
     }
 
-    @Override
     public int getPageSize() {
         return size;
     }
 
-    @Override
     public String getSort() {
         return sort;
     }
 
-    @Override
     public int getFirstResult() {
         return (page - 1) * size;
     }
 
-    @Override
     public boolean hasPrevious() {
         return page > 1;
     }
 
-    @Override
     public int getTotalPages() {
         return totalPages;
     }
 
-    @Override
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
 
-    @Override
     public boolean hasNext() {
         return next;
     }
@@ -73,7 +65,6 @@ public class Page implements Pageable {
         Page page1 = (Page) o;
 
         return page == page1.page && getSort().equals(page1.getSort());
-
     }
 
     @Override

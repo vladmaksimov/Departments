@@ -1,9 +1,9 @@
 package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
+import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.PageService;
 import com.maksimov.transformers.PageRequestTransformer;
@@ -32,7 +32,7 @@ public class DepartmentsShow implements Dispatcher {
         List<Department> departments;
         String search = req.getParameter(ATTR_SEARCH);
 
-        Pageable page = transformer.transform(req);
+        Page page = transformer.transform(req);
         departments = search == null ? service.getDepartments(page) : service.searchDepartments(page, search);
         page = pageService.getDepartmentPageDetails(page, search);
 

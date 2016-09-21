@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--@elvariable id="search" type="java.lang.String"--%>
-<%--@elvariable id="requestPage" type="com.maksimov.data.Page"--%>
+<%--@elvariable id="requestPage" type="com.maksimov.models.Page"--%>
 <%--@elvariable id="sortList" type="java.util.List"--%>
 <%--@elvariable id="sizeList" type="java.util.List"--%>
 <%--@elvariable id="urlForm" type="java.lang.String"--%>

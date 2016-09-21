@@ -1,9 +1,9 @@
 package com.maksimov.dao.impl;
 
 import com.maksimov.dao.DepartmentDao;
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
+import com.maksimov.models.Page;
 import com.maksimov.utils.HibernateSessionFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -26,7 +26,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> getDepartments(Pageable page) throws DepartmentException {
+    public List<Department> getDepartments(Page page) throws DepartmentException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = getListCriteria(session, page);
             return criteria.list();
@@ -38,7 +38,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> searchDepartments(Pageable page, String search) throws DepartmentException {
+    public List<Department> searchDepartments(Page page, String search) throws DepartmentException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = getListCriteria(session, page);
             criteria.add(Restrictions.like(NAME, search));
@@ -71,7 +71,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
         }
     }
 
-    private Criteria getListCriteria(Session session, Pageable page) {
+    private Criteria getListCriteria(Session session, Page page) {
         Criteria criteria = session.createCriteria(entity);
         criteria.addOrder(Order.asc(page.getSort()));
         criteria.setFirstResult(page.getFirstResult());

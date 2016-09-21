@@ -1,7 +1,7 @@
 package com.maksimov.services.impl;
 
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
@@ -16,7 +16,7 @@ public class PageServiceImpl implements PageService {
     private EmployeeService employeeService = ServiceBeanFactory.getEmployeeService();
 
     @Override
-    public Pageable getDepartmentPageDetails(Pageable page, String search) throws DepartmentException {
+    public Page getDepartmentPageDetails(Page page, String search) throws DepartmentException {
         Integer count = departmentService.getDepartmentCount(search);
         Integer totalPages = getTotalPageCount(count, page.getPageSize());
         page.setTotalPages(totalPages);
@@ -26,7 +26,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Pageable getEmployeePageDetails(Pageable page, Long id, String search) throws DepartmentException {
+    public Page getEmployeePageDetails(Page page, Long id, String search) throws DepartmentException {
         Integer count = employeeService.getEmployeeCount(id, search);
         Integer totalPages = getTotalPageCount(count, page.getPageSize());
         page.setTotalPages(totalPages);

@@ -1,8 +1,8 @@
 package com.maksimov.dao;
 
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
+import com.maksimov.models.Page;
 
 import java.util.List;
 
@@ -14,21 +14,21 @@ public interface DepartmentDao extends GenericDao<Department> {
     /**
      * Return the {@link List} of {@link Department} objects from database
      *
-     * @param page the {@link Pageable} object, needed to get departments list with pagination
+     * @param page the {@link Page} object, needed to get departments list with pagination
      * @return {@link List} of all {@link Department} object
      * @throws DepartmentException related with database problems
      */
-    List<Department> getDepartments(Pageable page) throws DepartmentException;
+    List<Department> getDepartments(Page page) throws DepartmentException;
 
     /**
      * Return the {@link List} of {@link Department} objects from database, filtered by search value.
      *
-     * @param page   the {@link Pageable} object, needed to get departments list with pagination.
+     * @param page   the {@link Page} object, needed to get departments list with pagination.
      * @param search the {@link String} value to search departments.
      * @return {@link List} of {@link Department} objects, filtered by search value.
      * @throws DepartmentException
      */
-    List<Department> searchDepartments(Pageable page, String search) throws DepartmentException;
+    List<Department> searchDepartments(Page page, String search) throws DepartmentException;
 
     /**
      * Receives the {@link String} object with name of the {@link Department} object.

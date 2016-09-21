@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="departments" scope="request" type="java.util.List"/>
-<jsp:useBean id="requestPage" scope="request" type="com.maksimov.data.Page"/>
+<jsp:useBean id="requestPage" scope="request" type="com.maksimov.models.Page"/>
 <%--@elvariable id="search" type="java.lang.String"--%>
 
 <c:import url="../util/pagination.jsp" scope="request" var="pagination"/>

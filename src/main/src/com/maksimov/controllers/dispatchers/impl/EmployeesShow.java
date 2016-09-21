@@ -1,9 +1,9 @@
 package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
+import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
@@ -41,7 +41,7 @@ public class EmployeesShow implements Dispatcher {
             throw new DepartmentException("Can't parse department id!");
         }
 
-        Pageable page = transformer.transform(req);
+        Page page = transformer.transform(req);
         List<Employee> employeeList = search == null ? service.getEmployeesWithPagination(page, departmentId) : service.searchEmployees(page, departmentId, search);
         page = pageService.getEmployeePageDetails(page, departmentId, search);
 

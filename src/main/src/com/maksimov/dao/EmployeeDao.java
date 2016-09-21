@@ -1,8 +1,8 @@
 package com.maksimov.dao;
 
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
+import com.maksimov.models.Page;
 
 import java.util.List;
 
@@ -26,21 +26,21 @@ public interface EmployeeDao extends GenericDao<Employee> {
      * of the {@link com.maksimov.models.Department} object with pagination
      * or empty list if the rows with this id doesn't exist.
      *
-     * @param page the {@link Pageable} object, needed to get employees list with pagination.
+     * @param page the {@link Page} object, needed to get employees list with pagination.
      * @param id   value of the department.
      * @return list of the employees with pagination from department with received id.
      * @throws DepartmentException related with database problems.
      */
-    List<Employee> getEmployees(Pageable page, Long id) throws DepartmentException;
+    List<Employee> getEmployees(Page page, Long id) throws DepartmentException;
 
     /**
-     * @param page   the {@link Pageable} object, needed to get employees list with pagination.
+     * @param page   the {@link Page} object, needed to get employees list with pagination.
      * @param id     value of the department.
      * @param search the {@link String} value to search employees.
      * @return list of the employees with pagination from department with received id.
      * @throws DepartmentException related with database problems.
      */
-    List<Employee> searchEmployees(Pageable page, Long id, String search) throws DepartmentException;
+    List<Employee> searchEmployees(Page page, Long id, String search) throws DepartmentException;
 
     /**
      * Gets the {@link Employee} object from database by it email or null if row with this email is not exist.

@@ -1,10 +1,10 @@
 package com.maksimov.services.impl;
 
 import com.maksimov.dao.EmployeeDao;
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
+import com.maksimov.models.Page;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.DaoBeanFactory;
@@ -28,12 +28,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeesWithPagination(Pageable page, Long id) throws DepartmentException {
+    public List<Employee> getEmployeesWithPagination(Page page, Long id) throws DepartmentException {
         return dao.getEmployees(page, id);
     }
 
     @Override
-    public List<Employee> searchEmployees(Pageable page, Long id, String search) throws DepartmentException {
+    public List<Employee> searchEmployees(Page page, Long id, String search) throws DepartmentException {
         String searchToMysql = search == null ? null : Utils.createSearchString(search);
         return dao.searchEmployees(page, id, searchToMysql);
     }

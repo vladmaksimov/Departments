@@ -1,10 +1,10 @@
 package com.maksimov.services.impl;
 
 import com.maksimov.dao.DepartmentDao;
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
+import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.DaoBeanFactory;
@@ -28,12 +28,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> getDepartments(Pageable page) throws DepartmentException {
+    public List<Department> getDepartments(Page page) throws DepartmentException {
         return dao.getDepartments(page);
     }
 
     @Override
-    public List<Department> searchDepartments(Pageable page, String search) throws DepartmentException {
+    public List<Department> searchDepartments(Page page, String search) throws DepartmentException {
         String searchToMysql = Utils.createSearchString(search);
         return dao.searchDepartments(page, searchToMysql);
     }

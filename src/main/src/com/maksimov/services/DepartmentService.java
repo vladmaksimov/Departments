@@ -1,9 +1,9 @@
 package com.maksimov.services;
 
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
+import com.maksimov.models.Page;
 
 import java.util.List;
 
@@ -23,21 +23,21 @@ public interface DepartmentService {
     /**
      * Gets the {@link List} of the {@link Department} objects with pagination or empty collection.
      *
-     * @param page the {@link Pageable} object, needed to get departments list with pagination.
+     * @param page the {@link Page} object, needed to get departments list with pagination.
      * @return list of the departments or empty collection.
      * @throws DepartmentException related with dao issue.
      */
-    List<Department> getDepartments(Pageable page) throws DepartmentException;
+    List<Department> getDepartments(Page page) throws DepartmentException;
 
     /**
      * Gets the {@link List} of the {@link Department} objects with pagination by search value or empty collection.
      *
-     * @param page   the {@link Pageable} object, needed to get departments list with pagination.
+     * @param page   the {@link Page} object, needed to get departments list with pagination.
      * @param search the {@link String} value to search departments
      * @return list of the departments or empty collection.
      * @throws DepartmentException related with dao issue.
      */
-    List<Department> searchDepartments(Pageable page, String search) throws DepartmentException;
+    List<Department> searchDepartments(Page page, String search) throws DepartmentException;
 
     /**
      * Gets the {@link Department} object from database by it {@link Long} id value or null, if row with

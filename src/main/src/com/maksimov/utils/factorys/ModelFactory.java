@@ -1,8 +1,8 @@
 package com.maksimov.utils.factorys;
 
-import com.maksimov.data.Page;
 import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
+import com.maksimov.models.Page;
 
 import java.sql.Date;
 

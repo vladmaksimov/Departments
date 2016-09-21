@@ -1,9 +1,9 @@
 package com.maksimov.services;
 
-import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Employee;
+import com.maksimov.models.Page;
 
 import java.util.List;
 
@@ -26,24 +26,24 @@ public interface EmployeeService {
      * Gets the {@link List} of the {@link Employee} objects by {@link Long} id value of the
      * {@link com.maksimov.models.Department} with pagination.
      *
-     * @param page the {@link Pageable} object, needed to get employees list with pagination.
+     * @param page the {@link Page} object, needed to get employees list with pagination.
      * @param id   of the department which employees we want to get.
      * @return the list of the employees by department id with pagination.
      * @throws DepartmentException
      */
-    List<Employee> getEmployeesWithPagination(Pageable page, Long id) throws DepartmentException;
+    List<Employee> getEmployeesWithPagination(Page page, Long id) throws DepartmentException;
 
     /**
      * Gets the {@link List} of the {@link Employee} objects with pagination by department id
      * and search value or empty collection.
      *
-     * @param page   the {@link Pageable} object, needed to get departments list with pagination.
+     * @param page   the {@link Page} object, needed to get departments list with pagination.
      * @param id     of the department which employees we want to get.
      * @param search the {@link String} value to search employees.
      * @return the {@link List} of the {@link Employee} by department id with pagination.
      * @throws DepartmentException
      */
-    List<Employee> searchEmployees(Pageable page, Long id, String search) throws DepartmentException;
+    List<Employee> searchEmployees(Page page, Long id, String search) throws DepartmentException;
 
     /**
      * Gets the {@link Employee} object from database by it {@link Long} id value or null, if row with
