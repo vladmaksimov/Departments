@@ -1,10 +1,11 @@
 package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DispatcherException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.services.EmployeeService;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 import com.maksimov.utils.Utils;
+import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +22,10 @@ public class EmployeeDelete implements Dispatcher {
     private EmployeeService service = ServiceBeanFactory.getEmployeeService();
 
     @Override
-    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
         Long id = Utils.parseLong(req.getParameter(ID));
         if (id == null) {
-            throw new DepartmentException("Can't delete department object. Id must be not null!");
+            throw new DispatcherException("Can't delete department object. Id must be not null!");
         }
 
         service.delete(id);

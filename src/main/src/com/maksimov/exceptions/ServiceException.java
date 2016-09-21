@@ -1,10 +1,18 @@
 package com.maksimov.exceptions;
 
 /**
- * Created on 21.09.16.
+ * Thrown to indicate that a method has been passed an error on service level.
+ *
+ * @author  Vladyslav Maksymov
  */
 public class ServiceException extends Exception {
 
+    /**
+     * Constructs an <code>ServiceException</code> with the
+     * specified detail message.
+     *
+     * @param message the detail message.
+     */
     public ServiceException(String message) {
         super(message);
     }

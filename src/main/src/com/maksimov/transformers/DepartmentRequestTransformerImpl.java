@@ -6,7 +6,8 @@ import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.maksimov.constants.DepartmentConstants.*;
+import static com.maksimov.constants.DepartmentConstants.ID;
+import static com.maksimov.constants.DepartmentConstants.NAME;
 
 /**
  * This class consists method which operates with the {@link HttpServletRequest} object

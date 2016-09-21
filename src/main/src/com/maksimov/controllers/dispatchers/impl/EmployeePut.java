@@ -2,7 +2,7 @@ package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.CustomValidateException;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
 import com.maksimov.services.DepartmentService;
@@ -28,7 +28,7 @@ public class EmployeePut implements Dispatcher {
     private RequestTransformer transformer = new EmployeeRequestTransformerImpl();
 
     @Override
-    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
         Employee employee = (Employee) transformer.transform(req);
         try {
             service.put(employee);

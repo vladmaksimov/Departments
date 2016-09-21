@@ -1,6 +1,6 @@
 package com.maksimov.dao;
 
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DaoException;
 import com.maksimov.models.Department;
 import com.maksimov.models.Page;
 
@@ -16,9 +16,9 @@ public interface DepartmentDao extends GenericDao<Department> {
      *
      * @param page the {@link Page} object, needed to get departments list with pagination
      * @return {@link List} of all {@link Department} object
-     * @throws DepartmentException related with database problems
+     * @throws DaoException related with database problems
      */
-    List<Department> getDepartments(Page page) throws DepartmentException;
+    List<Department> getDepartments(Page page) throws DaoException;
 
     /**
      * Return the {@link List} of {@link Department} objects from database, filtered by search value.
@@ -26,9 +26,9 @@ public interface DepartmentDao extends GenericDao<Department> {
      * @param page   the {@link Page} object, needed to get departments list with pagination.
      * @param search the {@link String} value to search departments.
      * @return {@link List} of {@link Department} objects, filtered by search value.
-     * @throws DepartmentException
+     * @throws DaoException
      */
-    List<Department> searchDepartments(Page page, String search) throws DepartmentException;
+    List<Department> searchDepartments(Page page, String search) throws DaoException;
 
     /**
      * Receives the {@link String} object with name of the {@link Department} object.
@@ -45,6 +45,6 @@ public interface DepartmentDao extends GenericDao<Department> {
      * @param search the {@link String} value to get count of departments by this parameter.
      * @return the {@link Integer} value with count of all departments rows.
      */
-    Integer getCount(String search) throws DepartmentException;
+    Integer getCount(String search) throws DaoException;
 
 }

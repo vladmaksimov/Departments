@@ -1,6 +1,6 @@
 package com.maksimov.dao;
 
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DaoException;
 
 import java.util.List;
 
@@ -17,34 +17,34 @@ public interface GenericDao<T> {
      * or will be added if not.
      *
      * @param object which need to save or update.
-     * @throws DepartmentException related with database problems.
+     * @throws DaoException related with database problems.
      */
-    void save(T object) throws DepartmentException;
+    void save(T object) throws DaoException;
 
     /**
      * Receives {@link T} object we want to delete.
      * Department with this id will be deleted if database contains this id.
      *
      * @param object {@link T} object we want to delete.
-     * @throws DepartmentException related with database problems.
+     * @throws DaoException related with database problems.
      */
-    void delete(T object) throws DepartmentException;
+    void delete(T object) throws DaoException;
 
     /**
      * Return the {@link List} of all {@link T} objects from database
      *
      * @return {@link List} of all {@link T} object
-     * @throws DepartmentException related with database problems
+     * @throws DaoException related with database problems
      */
-    List<T> getAll() throws DepartmentException;
+    List<T> getAll() throws DaoException;
 
     /**
      * Receives {@link Long} id of {@link T} object we want to get.
      *
      * @param id {@link Long} object we want to get.
      * @return {@link T} object with current id or null
-     * @throws DepartmentException related with database problems
+     * @throws DaoException related with database problems
      */
-    T get(Long id) throws DepartmentException;
+    T get(Long id) throws DaoException;
 
 }

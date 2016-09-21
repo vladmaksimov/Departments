@@ -5,15 +5,15 @@ package com.maksimov.exceptions;
  *
  * @author  Vladyslav Maksymov
  */
-public class DepartmentException extends Exception {
+public class DaoException extends Exception {
 
     /**
-     * Constructs an <code>DepartmentException</code> with the
+     * Constructs an <code>DaoException</code> with the
      * specified detail message.
      *
      * @param message the detail message.
      */
-    public DepartmentException(String message) {
+    public DaoException(String message) {
         super(message);
     }
 }

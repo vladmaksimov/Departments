@@ -1,6 +1,6 @@
 package com.maksimov.dao;
 
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DaoException;
 import com.maksimov.models.Employee;
 import com.maksimov.models.Page;
 
@@ -17,9 +17,9 @@ public interface EmployeeDao extends GenericDao<Employee> {
      *
      * @param id value of the department.
      * @return list of the employees from department with received id.
-     * @throws DepartmentException related with database problems.
+     * @throws DaoException related with database problems.
      */
-    List<Employee> getByDepartmentId(Long id) throws DepartmentException;
+    List<Employee> getByDepartmentId(Long id) throws DaoException;
 
     /**
      * Gets the {@link List} of the {@link Employee} objects from the database by received {@link Long} id
@@ -29,18 +29,18 @@ public interface EmployeeDao extends GenericDao<Employee> {
      * @param page the {@link Page} object, needed to get employees list with pagination.
      * @param id   value of the department.
      * @return list of the employees with pagination from department with received id.
-     * @throws DepartmentException related with database problems.
+     * @throws DaoException related with database problems.
      */
-    List<Employee> getEmployees(Page page, Long id) throws DepartmentException;
+    List<Employee> getEmployees(Page page, Long id) throws DaoException;
 
     /**
      * @param page   the {@link Page} object, needed to get employees list with pagination.
      * @param id     value of the department.
      * @param search the {@link String} value to search employees.
      * @return list of the employees with pagination from department with received id.
-     * @throws DepartmentException related with database problems.
+     * @throws DaoException related with database problems.
      */
-    List<Employee> searchEmployees(Page page, Long id, String search) throws DepartmentException;
+    List<Employee> searchEmployees(Page page, Long id, String search) throws DaoException;
 
     /**
      * Gets the {@link Employee} object from database by it email or null if row with this email is not exist.
@@ -58,6 +58,6 @@ public interface EmployeeDao extends GenericDao<Employee> {
      * @param search the {@link String} value to get count of departments by this parameter.
      * @return the {@link Integer} value with count of all departments rows.
      */
-    Integer getCount(Long id, String search) throws DepartmentException;
+    Integer getCount(Long id, String search) throws DaoException;
 
 }

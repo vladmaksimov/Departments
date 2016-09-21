@@ -2,7 +2,7 @@ package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.exceptions.CustomValidateException;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.transformers.DepartmentRequestTransformerImpl;
@@ -22,7 +22,7 @@ public class DepartmentPut implements Dispatcher {
     private DepartmentService service = ServiceBeanFactory.getDepartmentService();
     private RequestTransformer transformer = new DepartmentRequestTransformerImpl();
 
-    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
         Department department = (Department) transformer.transform(req);
         try {
             service.put(department);

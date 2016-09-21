@@ -1,6 +1,6 @@
 package com.maksimov.services;
 
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Page;
 
 /**
@@ -19,9 +19,9 @@ public interface PageService {
      * @param pageable instance of the {@link Page} object.
      * @param search   {@link String} value needed to correct information for page object
      * @return the {@link Page} object with full page information
-     * @throws DepartmentException related with database issue.
+     * @throws ServiceException related with database issue.
      */
-    Page getDepartmentPageDetails(Page pageable, String search) throws DepartmentException;
+    Page getDepartmentPageDetails(Page pageable, String search) throws ServiceException;
 
     /**
      * Gets the additional data of the {@link Page} object, like total page count of employees, having next or
@@ -31,7 +31,7 @@ public interface PageService {
      * @param id       {@link Long} value of the {@link com.maksimov.models.Department} object.
      * @param search   {@link String} value needed to correct information for page object
      * @return the {@link Page} object with full page information
-     * @throws DepartmentException related with database issue.
+     * @throws ServiceException related with database issue.
      */
-    Page getEmployeePageDetails(Page pageable, Long id, String search) throws DepartmentException;
+    Page getEmployeePageDetails(Page pageable, Long id, String search) throws ServiceException;
 }

@@ -1,7 +1,8 @@
 package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DispatcherException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Employee;
 import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
@@ -32,13 +33,13 @@ public class EmployeesShow implements Dispatcher {
     private PageRequestTransformer transformer = new PageRequestTransformer();
 
     @Override
-    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
         String id = req.getParameter(PARAM_ID);
         String search = req.getParameter(ATTR_SEARCH);
 
         Long departmentId = Utils.parseLong(id);
         if (departmentId == null) {
-            throw new DepartmentException("Can't parse department id!");
+            throw new DispatcherException("Can't parse department id!");
         }
 
         Page page = transformer.transform(req);

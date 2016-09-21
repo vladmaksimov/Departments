@@ -2,7 +2,8 @@ package com.maksimov.controllers;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.controllers.dispatchers.impl.*;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DispatcherException;
+import com.maksimov.exceptions.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,7 @@ public class Controller extends HttpServlet {
         if (dispatcher != null) {
             try {
                 dispatcher.doDispatch(req, resp);
-            } catch (DepartmentException e) {
+            } catch (ServiceException | DispatcherException e) {
                 req.setAttribute(ATTR_ERROR, e.getMessage());
                 req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
             } catch (Error e) {

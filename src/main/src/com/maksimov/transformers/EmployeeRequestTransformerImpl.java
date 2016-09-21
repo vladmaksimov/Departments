@@ -2,8 +2,8 @@ package com.maksimov.transformers;
 
 import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
-import com.maksimov.utils.factorys.ModelFactory;
 import com.maksimov.utils.Utils;
+import com.maksimov.utils.factorys.ModelFactory;
 import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package com.maksimov.services;
 
 import com.maksimov.exceptions.CustomValidateException;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.models.Page;
 
@@ -16,18 +16,18 @@ public interface DepartmentService {
      * Gets the {@link List} of the {@link Department} objects or empty collection/
      *
      * @return list of the departments or empty collection.
-     * @throws DepartmentException related with dao issue.
+     * @throws ServiceException related with dao issue.
      */
-    List<Department> getAll() throws DepartmentException;
+    List<Department> getAll() throws ServiceException;
 
     /**
      * Gets the {@link List} of the {@link Department} objects with pagination or empty collection.
      *
      * @param page the {@link Page} object, needed to get departments list with pagination.
      * @return list of the departments or empty collection.
-     * @throws DepartmentException related with dao issue.
+     * @throws ServiceException related with dao issue.
      */
-    List<Department> getDepartments(Page page) throws DepartmentException;
+    List<Department> getDepartments(Page page) throws ServiceException;
 
     /**
      * Gets the {@link List} of the {@link Department} objects with pagination by search value or empty collection.
@@ -35,9 +35,9 @@ public interface DepartmentService {
      * @param page   the {@link Page} object, needed to get departments list with pagination.
      * @param search the {@link String} value to search departments
      * @return list of the departments or empty collection.
-     * @throws DepartmentException related with dao issue.
+     * @throws ServiceException related with dao issue.
      */
-    List<Department> searchDepartments(Page page, String search) throws DepartmentException;
+    List<Department> searchDepartments(Page page, String search) throws ServiceException;
 
     /**
      * Gets the {@link Department} object from database by it {@link Long} id value or null, if row with
@@ -45,9 +45,9 @@ public interface DepartmentService {
      *
      * @param id value of the department we want to get
      * @return department object
-     * @throws DepartmentException related with dao issue.
+     * @throws ServiceException related with dao issue.
      */
-    Department getById(Long id) throws DepartmentException;
+    Department getById(Long id) throws ServiceException;
 
     /**
      * Put the {@link Department} object to database. If this object contains {@link Long} id value it will be updated.
@@ -59,18 +59,18 @@ public interface DepartmentService {
      * Valid object will be saved or updated in database.
      *
      * @param department object we want to validate and put to database.
-     * @throws DepartmentException     related with dao issue.
+     * @throws ServiceException        related with dao issue.
      * @throws CustomValidateException if object have invalid fields.
      */
-    void put(Department department) throws DepartmentException, CustomValidateException;
+    void put(Department department) throws CustomValidateException, ServiceException;
 
     /**
      * Delete {@link Department} object from database by it {@link Long} id.
      *
      * @param id of the department we want to delete.
-     * @throws DepartmentException related with dao issue.
+     * @throws ServiceException related with dao issue.
      */
-    void delete(Long id) throws DepartmentException;
+    void delete(Long id) throws ServiceException;
 
     /**
      * Gets the {@link Integer} value with departments row count depends of search value.
@@ -78,5 +78,5 @@ public interface DepartmentService {
      * @param search the {@link String} value to search departments.
      * @return the {@link Integer} value with departments row count.
      */
-    Integer getDepartmentCount(String search) throws DepartmentException;
+    Integer getDepartmentCount(String search) throws ServiceException;
 }

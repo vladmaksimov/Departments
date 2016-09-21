@@ -1,10 +1,11 @@
 package com.maksimov.dao.impl;
 
 import com.maksimov.dao.DepartmentDao;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DaoException;
 import com.maksimov.models.Department;
 import com.maksimov.models.Page;
 import com.maksimov.utils.HibernateSessionFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -20,31 +21,34 @@ import static com.maksimov.constants.DepartmentConstants.NAME;
  */
 public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements DepartmentDao {
 
+    private static final Logger logger = Logger.getLogger(DepartmentDaoImpl.class);
+
     public DepartmentDaoImpl(Class entity) {
         super(entity);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> getDepartments(Page page) throws DepartmentException {
+    public List<Department> getDepartments(Page page) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = getListCriteria(session, page);
             return criteria.list();
         } catch (Exception e) {
-            System.out.println("Can't get department list");
-            throw new DepartmentException("Can't get department list");
+            logger.error("Can't get department list");
+            throw new DaoException("Can't get department list");
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> searchDepartments(Page page, String search) throws DepartmentException {
+    public List<Department> searchDepartments(Page page, String search) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = getListCriteria(session, page);
             criteria.add(Restrictions.like(NAME, search));
             return criteria.list();
         } catch (Exception e) {
-            throw new DepartmentException("Can't get employees from DataBase");
+            logger.error("Can't get employees from DataBase");
+            throw new DaoException("Can't get employees from DataBase");
         }
     }
 
@@ -58,7 +62,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     }
 
     @Override
-    public Integer getCount(String search) throws DepartmentException {
+    public Integer getCount(String search) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
@@ -67,7 +71,8 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
             }
             return ((Long) criteria.uniqueResult()).intValue();
         } catch (Throwable e) {
-            throw new DepartmentException("Can't get employees from DataBase");
+            logger.error("Can't get employees from DataBase");
+            throw new DaoException("Can't get employees from DataBase");
         }
     }
 

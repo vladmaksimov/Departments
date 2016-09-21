@@ -9,4 +9,5 @@ public class ValidatorBeanFactory {
     public static DataValidator getValidator() {
         return validator;
     }
+
 }

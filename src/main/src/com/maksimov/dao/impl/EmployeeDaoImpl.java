@@ -1,10 +1,11 @@
 package com.maksimov.dao.impl;
 
 import com.maksimov.dao.EmployeeDao;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DaoException;
 import com.maksimov.models.Employee;
 import com.maksimov.models.Page;
 import com.maksimov.utils.HibernateSessionFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -21,42 +22,47 @@ import static com.maksimov.constants.EmployeeConstants.NAME;
  */
 public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements EmployeeDao {
 
+    private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
+
     public EmployeeDaoImpl(Class entity) {
         super(entity);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> getByDepartmentId(Long id) throws DepartmentException {
+    public List<Employee> getByDepartmentId(Long id) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(entity);
             criteria.add(Restrictions.eq("department.id", id));
             return criteria.list();
         } catch (Throwable e) {
-            throw new DepartmentException("Can't get employees from DataBase");
+            logger.error("Can't get employees from DataBase");
+            throw new DaoException("Can't get employees from DataBase");
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> getEmployees(Page page, Long id) throws DepartmentException {
+    public List<Employee> getEmployees(Page page, Long id) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = createListCriteria(session, id, page);
             return criteria.list();
         } catch (Throwable e) {
-            throw new DepartmentException("Can't get employees from DataBase");
+            logger.error("Can't get employees from DataBase");
+            throw new DaoException("Can't get employees from DataBase");
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> searchEmployees(Page page, Long id, String search) throws DepartmentException {
+    public List<Employee> searchEmployees(Page page, Long id, String search) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = createListCriteria(session, id, page);
             criteria.add(Restrictions.or(Restrictions.like(NAME, search), Restrictions.like(EMAIL, search)));
             return criteria.list();
         } catch (Throwable e) {
-            throw new DepartmentException("Can't get employees from DataBase");
+            logger.error("Can't get employees from DataBase");
+            throw new DaoException("Can't get employees from DataBase");
         }
     }
 
@@ -70,13 +76,14 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
     }
 
     @Override
-    public Integer getCount(Long id, String search) throws DepartmentException {
+    public Integer getCount(Long id, String search) throws DaoException {
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
             return ((Long) criteria.uniqueResult()).intValue();
         } catch (Throwable e) {
-            throw new DepartmentException("Can't get employees from DataBase");
+            logger.error("Can't get employees from DataBase");
+            throw new DaoException("Can't get employees from DataBase");
         }
     }
 

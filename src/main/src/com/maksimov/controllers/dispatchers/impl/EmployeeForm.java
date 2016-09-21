@@ -1,7 +1,8 @@
 package com.maksimov.controllers.dispatchers.impl;
 
 import com.maksimov.controllers.dispatchers.Dispatcher;
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DispatcherException;
+import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
 import com.maksimov.services.DepartmentService;
@@ -29,17 +30,17 @@ public class EmployeeForm implements Dispatcher {
     private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
 
     @Override
-    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {
+    public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
         Long department = Utils.parseLong(req.getParameter(ATTR_DEPARTMENT));
         if (department == null) {
-            throw new DepartmentException("Can't parse department id!");
+            throw new DispatcherException("Can't parse department id!");
         }
 
         String idToEdit = req.getParameter(ID);
         if (idToEdit != null) {
             Long id = Utils.parseLong(idToEdit);
             if (id == null) {
-                throw new DepartmentException("Can't parse employee id!");
+                throw new DispatcherException("Can't parse employee id!");
             }
             Employee employee = service.getById(id);
             req.setAttribute(ATTR_EMPLOYEE, employee);

@@ -1,6 +1,7 @@
 package com.maksimov.controllers.dispatchers;
 
-import com.maksimov.exceptions.DepartmentException;
+import com.maksimov.exceptions.DispatcherException;
+import com.maksimov.exceptions.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +40,9 @@ public interface Dispatcher {
      * @param req the {@link HttpServletRequest} object that contains the request the client made of the servlet
      * @param res the {@link HttpServletResponse} object that contains the response the servlet returns to the client
      * @throws IOException
-     * @throws ServletException
-     * @throws DepartmentException related with operating with database
+     * @throws ServletException    related with errors in services.
+     * @throws DispatcherException related with errors in dispatchers.
      */
-    void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException;
+    void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException;
 
 }
