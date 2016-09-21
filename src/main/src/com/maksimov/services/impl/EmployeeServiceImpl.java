@@ -29,11 +29,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeesWithPagination(Page page, Long id) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Get list of employee by id: " + id);
+            logger.debug("Trying to get list of employee by department id: " + id);
         }
 
         try {
-            return dao.getEmployees(page, id);
+            List<Employee> result = dao.getEmployees(page, id);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + result);
+            }
+
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -42,12 +48,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> searchEmployees(Page page, Long id, String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Get list of employee by department id: " + id + ", and search value: " + search);
+            logger.debug("Trying to get list of employee by department id: " + id + ", " + page + " and search value: " + search);
         }
 
         String searchToMysql = search == null ? null : Utils.createSearchString(search);
         try {
-            return dao.searchEmployees(page, id, searchToMysql);
+            List<Employee> result = dao.searchEmployees(page, id, searchToMysql);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + result);
+            }
+
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -60,7 +72,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         try {
-            return dao.get(id);
+            Employee employee = dao.get(id);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + employee);
+            }
+
+            return employee;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -87,8 +105,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delete(Long id) throws ServiceException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Trying to employee by department id: " + id);
+        }
+
         try {
-            Employee employee = dao.get(id);
+            Employee employee = getById(id);
             dao.delete(employee);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
@@ -97,9 +119,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Integer getEmployeeCount(Long id, String search) throws ServiceException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Trying to get employee count by department id: " + id);
+        }
+
         String searchToMysql = search == null ? null : Utils.createSearchString(search);
         try {
-            return dao.getCount(id, searchToMysql);
+            Integer count = dao.getCount(id, searchToMysql);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Department count is: " + count);
+            }
+
+            return count;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }

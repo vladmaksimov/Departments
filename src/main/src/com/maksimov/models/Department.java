@@ -50,4 +50,12 @@ public class Department {
         result = 31 * result + getName().hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -92,4 +92,14 @@ public class Employee {
         result = 31 * result + getEmail().hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

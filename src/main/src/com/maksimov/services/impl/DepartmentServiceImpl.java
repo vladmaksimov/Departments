@@ -29,11 +29,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> getAll() throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Get all department list.");
+            logger.debug("Trying to get list of all departments.");
         }
 
         try {
-            return dao.getAll();
+            List<Department> result = dao.getAll();
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + result);
+            }
+
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -42,11 +48,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> getDepartments(Page page) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Get department list with pagination.");
+            logger.debug("Trying to get department list with pagination. " + page);
         }
 
         try {
-            return dao.getDepartments(page);
+            List<Department> result = dao.getDepartments(page);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + result);
+            }
+
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -55,12 +67,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> searchDepartments(Page page, String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Search department list with pagination. Search value: " + search);
+            logger.debug("Search department list with pagination. " + page + ". Search value: " + search);
         }
 
         String searchToMysql = Utils.createSearchString(search);
         try {
-            return dao.searchDepartments(page, searchToMysql);
+            List<Department> result = dao.searchDepartments(page, searchToMysql);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + result);
+            }
+
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -73,7 +91,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         try {
-            return dao.get(id);
+            Department department = dao.get(id);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Extracted: " + department);
+            }
+
+            return department;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -82,11 +106,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void put(Department department) throws CustomValidateException, ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Save department: " + department);
+            logger.debug("Trying to save department: " + department);
         }
 
         Map<String, List<String>> errors = validator.validate(department);
         if (errors.isEmpty()) {
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Successful department validation: " + department);
+            }
+
             try {
                 dao.save(department);
             } catch (DaoException e) {
@@ -101,11 +130,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void delete(Long id) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Delete department by id: " + id);
+            logger.debug("Trying to delete department by id: " + id);
         }
 
         try {
-            Department department = dao.get(id);
+            Department department = getById(id);
             dao.delete(department);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
@@ -115,12 +144,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Integer getDepartmentCount(String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Get department count");
+            logger.debug("Trying to get department count");
         }
 
         String searchToMysql = search == null ? null : Utils.createSearchString(search);
         try {
-            return dao.getCount(searchToMysql);
+            Integer count = dao.getCount(searchToMysql);
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Department count is: " + count);
+            }
+
+            return count;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }

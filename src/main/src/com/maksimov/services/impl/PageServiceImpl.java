@@ -21,7 +21,7 @@ public class PageServiceImpl implements PageService {
     @Override
     public Page getDepartmentPageDetails(Page page, String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Trying to get full department page information");
+            logger.debug("Trying to get full department page information to " + page);
         }
 
         Integer count = departmentService.getDepartmentCount(search);
@@ -35,7 +35,7 @@ public class PageServiceImpl implements PageService {
     @Override
     public Page getEmployeePageDetails(Page page, Long id, String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Trying to get full employee page information");
+            logger.debug("Trying to get full employee page information to " + page);
         }
 
         Integer count = employeeService.getEmployeeCount(id, search);
