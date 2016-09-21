@@ -19,7 +19,8 @@ public class Controller extends HttpServlet {
 
     private static final String PROBLEM = "/problem";
     private static final String SHOW_ERROR = "/assets/jsp/error/error.jsp";
-
+    private static final String ATTR_ERROR = "error";
+    private static final String ERROR_SYSTEM_MESSAGE = "System error!";
 
     private static final Map<String, Dispatcher> ACTIONS = new HashMap<String, Dispatcher>() {{
         put("/", new DepartmentsShow());
@@ -42,8 +43,11 @@ public class Controller extends HttpServlet {
         if (dispatcher != null) {
             try {
                 dispatcher.doDispatch(req, resp);
-            } catch (DepartmentException | ExceptionInInitializerError e) {
-                req.setAttribute("error", e.getMessage());
+            } catch (DepartmentException e) {
+                req.setAttribute(ATTR_ERROR, e.getMessage());
+                req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
+            } catch (Error e) {
+                req.setAttribute(ATTR_ERROR, ERROR_SYSTEM_MESSAGE);
                 req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
             }
         } else {

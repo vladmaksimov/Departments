@@ -1,157 +1,81 @@
 package com.maksimov.dao.impl;
 
-import com.maksimov.dao.CommonDao;
 import com.maksimov.dao.DepartmentDao;
 import com.maksimov.data.Pageable;
 import com.maksimov.exceptions.DepartmentException;
 import com.maksimov.models.Department;
-import com.maksimov.utils.DataSourceFactory;
-import com.maksimov.utils.factorys.ModelFactory;
-import org.apache.log4j.Logger;
+import com.maksimov.utils.HibernateSessionFactory;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.maksimov.constants.DepartmentConstants.ID;
 import static com.maksimov.constants.DepartmentConstants.NAME;
 
 /**
- * Created on 7/19/2016.
+ * Created on 20.09.16.
  */
-public class DepartmentDaoImpl implements DepartmentDao {
+public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements DepartmentDao {
 
-    private static final Logger logger = Logger.getLogger(DepartmentDaoImpl.class);
-
-    private CommonDao common = new CommonDaoImpl();
-
-    public List<Department> getAll() throws DepartmentException {
-        List<Department> departments = new ArrayList<>();
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(QUERY_GET_ALL);
-            departments.addAll(getDepartmentsFromResultSet(result));
-        } catch (SQLException e) {
-            logger.error("Can't get department list");
-            throw new DepartmentException("Can't get department list");
-        }
-        return departments;
+    public DepartmentDaoImpl(Class entity) {
+        super(entity);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Department> getDepartments(Pageable page) throws DepartmentException {
-        List<Department> departments = new ArrayList<>();
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            String query = String.format(QUERY_GET_WITH_PAGINATION, page.getSort(), page.getFirstResult(), page.getPageSize());
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(query);
-            departments.addAll(getDepartmentsFromResultSet(result));
-        } catch (SQLException e) {
-            logger.error("Can't get department list");
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            Criteria criteria = getListCriteria(session, page);
+            return criteria.list();
+        } catch (Exception e) {
+            System.out.println("Can't get department list");
             throw new DepartmentException("Can't get department list");
         }
-        return departments;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Department> searchDepartments(Pageable page, String search) throws DepartmentException {
-        List<Department> departments = new ArrayList<>();
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            String query = String.format(QUERY_GET_BY_SEARCH_VALUE, page.getSort(), page.getFirstResult(), page.getPageSize());
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, search);
-            ResultSet resultSet = statement.executeQuery();
-            departments.addAll(getDepartmentsFromResultSet(resultSet));
-        } catch (SQLException e) {
-            logger.error("Can't get department list");
-            throw new DepartmentException("Can't get department list");
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            Criteria criteria = getListCriteria(session, page);
+            criteria.add(Restrictions.like(NAME, search));
+            return criteria.list();
+        } catch (Exception e) {
+            throw new DepartmentException("Can't get employees from DataBase");
         }
-        return departments;
-    }
-
-    public Department getById(Long id) throws DepartmentException {
-        Department department = null;
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_ID);
-            statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                department = ModelFactory.createDepartment();
-                department.setId(resultSet.getLong(ID));
-                department.setName(resultSet.getString(NAME));
-            }
-        } catch (SQLException e) {
-            logger.error("Can't get department with id: " + id);
-            throw new DepartmentException("Can't get department");
-        }
-        return department;
-    }
-
-    public void putDepartment(Department department) throws DepartmentException {
-        String query = department.getId() == null ? QUERY_PUT : QUERY_UPDATE;
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            PreparedStatement st = connection.prepareStatement(query);
-            st.setString(1, department.getName());
-            if (QUERY_UPDATE.equals(query)) {
-                st.setLong(2, department.getId());
-            }
-            st.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Error to save department object");
-            throw new DepartmentException("Error to save department object");
-        }
-    }
-
-    public void delete(Long id) throws DepartmentException {
-        common.delete(id, QUERY_DELETE);
     }
 
     @Override
     public Department getByName(String name) {
-        Department department = null;
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(QUERY_GET_BY_NAME);
-            statement.setString(1, name);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                department = ModelFactory.createDepartment();
-                department.setId(resultSet.getLong(ID));
-                department.setName(resultSet.getString(NAME));
-            }
-        } catch (Exception ignored) {
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(entity);
+            criteria.add(Restrictions.eq(NAME, name));
+            return (Department) criteria.uniqueResult();
         }
-        return department;
     }
 
     @Override
     public Integer getCount(String search) throws DepartmentException {
-        return search == null ? common.getCount(TABLE) : getCountWithSearch(search);
-    }
-
-    private Integer getCountWithSearch(String search) throws DepartmentException {
-        Integer count = null;
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(QUERY_GET_COUNT_BY_SEARCH_VALUE);
-            statement.setString(1, search);
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                count = result.getInt(1);
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(entity);
+            criteria.setProjection(Projections.rowCount());
+            if (search != null) {
+                criteria.add(Restrictions.like(NAME, search));
             }
-        } catch (SQLException e) {
-            logger.error("Can't get row count by search value");
-            throw new DepartmentException("Can't get row count by search value");
+            return ((Long) criteria.uniqueResult()).intValue();
+        } catch (Throwable e) {
+            throw new DepartmentException("Can't get employees from DataBase");
         }
-        return count;
     }
 
-    private List<Department> getDepartmentsFromResultSet(ResultSet resultSet) throws SQLException {
-        List<Department> result = new ArrayList<>();
-        while (resultSet.next()) {
-            Department department = ModelFactory.createDepartment();
-            department.setId(resultSet.getLong(ID));
-            department.setName(resultSet.getString(NAME));
-            result.add(department);
-        }
-        return result;
+    private Criteria getListCriteria(Session session, Pageable page) {
+        Criteria criteria = session.createCriteria(entity);
+        criteria.addOrder(Order.asc(page.getSort()));
+        criteria.setFirstResult(page.getFirstResult());
+        criteria.setMaxResults(page.getPageSize());
+        return criteria;
     }
 }

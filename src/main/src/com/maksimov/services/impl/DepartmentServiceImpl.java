@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private DepartmentDao dao = DaoBeanFactory.getDepartmentHbmDao();
+    private DepartmentDao dao = DaoBeanFactory.getDepartmentDao();
     private DataValidator validator = ValidatorBeanFactory.getValidator();
 
     @Override
@@ -40,14 +40,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department getById(Long id) throws DepartmentException {
-        return dao.getById(id);
+        return dao.get(id);
     }
 
     @Override
     public void put(Department department) throws DepartmentException, CustomValidateException {
         Map<String, List<String>> errors = validator.validate(department);
         if (errors.isEmpty()) {
-            dao.putDepartment(department);
+            dao.save(department);
         } else {
             throw new CustomValidateException("Validation error", errors);
         }
@@ -55,7 +55,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void delete(Long id) throws DepartmentException {
-        dao.delete(id);
+        Department department = dao.get(id);
+        dao.delete(department);
     }
 
     @Override

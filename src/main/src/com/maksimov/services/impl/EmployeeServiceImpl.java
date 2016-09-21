@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDao dao = DaoBeanFactory.getEmployeeHbmDao();
+    private EmployeeDao dao = DaoBeanFactory.getEmployeeDao();
     private DataValidator validator = ValidatorBeanFactory.getValidator();
 
     @Override
@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getEmployeesWithPagination(Pageable page, Long id) throws DepartmentException {
-        return dao.getEmployeesWithPagination(page, id);
+        return dao.getEmployees(page, id);
     }
 
     @Override
@@ -40,14 +40,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getById(Long id) throws DepartmentException {
-        return dao.getById(id);
+        return dao.get(id);
     }
 
     @Override
     public void put(Employee employee) throws DepartmentException, CustomValidateException {
         Map<String, List<String>> errors = validator.validate(employee);
         if (errors.isEmpty()) {
-            dao.put(employee);
+            dao.save(employee);
         } else {
             throw new CustomValidateException("Validation error", errors);
         }
@@ -55,7 +55,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delete(Long id) throws DepartmentException {
-        dao.delete(id);
+        Employee employee = dao.get(id);
+        dao.delete(employee);
     }
 
     @Override
