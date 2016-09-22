@@ -5,6 +5,8 @@ import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 
+import java.util.Set;
+
 /**
  * Created on 7/19/2016.
  */
@@ -16,6 +18,8 @@ public class Department {
     @Length(max = 32, min = 5, message = "Incorrect name length!")
     @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist!")
     private String name;
+
+    private Set<Employee> employees;
 
     public Long getId() {
         return id;
@@ -31,6 +35,14 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override

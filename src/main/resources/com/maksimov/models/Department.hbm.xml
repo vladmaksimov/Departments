@@ -10,6 +10,13 @@
         </id>
 
         <property name="name" column="name" type="string" length="250" not-null="true" unique="true"/>
+        
+        <set name="employees" table="employee" inverse="true" lazy="true" fetch="select" cascade="delete">
+            <key>
+                <column name="department"/>
+            </key>
+            <one-to-many class="com.maksimov.models.Employee"/>
+        </set>
 
     </class>
 </hibernate-mapping>
