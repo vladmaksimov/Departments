@@ -2,8 +2,6 @@ package com.maksimov.models;
 
 import com.maksimov.utils.validators.EmployeeEmailCheck;
 import net.sf.oval.constraint.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
