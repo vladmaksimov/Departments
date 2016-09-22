@@ -15,11 +15,11 @@ import javax.persistence.*;
 public class Department {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 250, unique = true)
+    @Column(name = "name", length = 250, nullable = false, unique = true)
     @NotEmpty
     @Length(max = 32, min = 5, message = "Incorrect name length!")
     @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist!")
