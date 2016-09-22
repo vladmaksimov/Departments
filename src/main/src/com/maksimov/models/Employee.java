@@ -2,6 +2,8 @@ package com.maksimov.models;
 
 import com.maksimov.utils.validators.EmployeeEmailCheck;
 import net.sf.oval.constraint.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,26 +16,26 @@ import java.util.Date;
 public class Employee {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "department")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department", nullable = false)
     @NotNull(message = "Department id can't be null")
     private Department department;
 
-    @Column(name = "name", length = 250)
+    @Column(name = "name", length = 250, nullable = false)
     @NotEmpty
     @Length(max = 32, min = 5, message = "Incorrect name length")
     private String name;
 
-    @Column(name = "birthday")
+    @Column(name = "birthday", nullable = false)
     @NotNull(message = "Incorrect date format")
     @NotEmpty(message = "Field date is empty")
     private Date birthday;
 
-    @Column(name = "email", length = 250, unique = true)
+    @Column(name = "email", length = 250, nullable = false, unique = true)
     @NotNull(message = "Field email is empty")
     @NotEmpty(message = "Field email is empty")
     @Email(message = "incorrect email format")
@@ -88,10 +90,10 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        if (!getDepartment().equals(employee.getDepartment())) return false;
-        if (!getName().equals(employee.getName())) return false;
-        if (!getBirthday().equals(employee.getBirthday())) return false;
-        return getEmail().equals(employee.getEmail());
+        return getDepartment().equals(employee.getDepartment())
+                && getName().equals(employee.getName())
+                && getBirthday().equals(employee.getBirthday())
+                && getEmail().equals(employee.getEmail());
 
     }
 
