@@ -27,7 +27,7 @@ public class DepartmentsShow implements Dispatcher {
 
     private DepartmentService service = ServiceBeanFactory.getDepartmentService();
     private PageService pageService = PageServiceFactory.getPageService();
-    private RequestTransformer<Pageable> transformer = new PageRequestTransformer();
+    private RequestTransformer<Page> transformer = new PageRequestTransformer();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
         List<Department> departments;

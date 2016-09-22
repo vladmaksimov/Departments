@@ -31,7 +31,7 @@ public class EmployeesShow implements Dispatcher {
     private EmployeeService service = ServiceBeanFactory.getEmployeeService();
     private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
     private PageService pageService = PageServiceFactory.getPageService();
-    private RequestTransformer<Pageable> transformer = new PageRequestTransformer();
+    private RequestTransformer<Page> transformer = new PageRequestTransformer();
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
