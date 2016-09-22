@@ -72,13 +72,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:if test="${empty departments && empty search}">
-                <div>
-                    <span>Department list is empty! Add new department</span>
-                    <a href="${addDepartment}" class="btn btn-default">Add Department</a>
-                </div>
-            </c:if>
-            
+
             <c:forEach var="department" items="${departments}">
 
                 <c:url value="${addDepartment}" var="edit">
