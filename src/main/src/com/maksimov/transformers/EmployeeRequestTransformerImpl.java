@@ -1,8 +1,8 @@
 package com.maksimov.transformers;
 
 import com.maksimov.models.Employee;
-import com.maksimov.utils.factorys.ModelFactory;
 import com.maksimov.utils.Utils;
+import com.maksimov.utils.factorys.ModelFactory;
 import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import static com.maksimov.constants.EmployeeConstants.*;
  * @see com.maksimov.controllers.Controller
  * @see Employee
  */
-public class EmployeeRequestTransformerImpl implements RequestTransformer {
+public class EmployeeRequestTransformerImpl implements RequestTransformer<Employee> {
 
     public Employee transform(HttpServletRequest req) {
         Employee employee = ModelFactory.createEmployee();

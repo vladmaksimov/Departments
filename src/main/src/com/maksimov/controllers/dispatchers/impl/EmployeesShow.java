@@ -8,6 +8,7 @@ import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
 import com.maksimov.transformers.PageRequestTransformer;
+import com.maksimov.transformers.RequestTransformer;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.PageServiceFactory;
 import com.maksimov.utils.factorys.ServiceBeanFactory;
@@ -29,7 +30,7 @@ public class EmployeesShow implements Dispatcher {
     private EmployeeService service = ServiceBeanFactory.getEmployeeService();
     private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
     private PageService pageService = PageServiceFactory.getPageService();
-    private PageRequestTransformer transformer = new PageRequestTransformer();
+    private RequestTransformer<Pageable> transformer = new PageRequestTransformer();
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DepartmentException {

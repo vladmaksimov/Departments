@@ -6,7 +6,8 @@ import com.mysql.jdbc.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.maksimov.constants.DepartmentConstants.*;
+import static com.maksimov.constants.DepartmentConstants.ID;
+import static com.maksimov.constants.DepartmentConstants.NAME;
 
 /**
  * This class consists method which operates with the {@link HttpServletRequest} object
@@ -18,7 +19,7 @@ import static com.maksimov.constants.DepartmentConstants.*;
  * @see com.maksimov.controllers.Controller
  * @see Department
  */
-public class DepartmentRequestTransformerImpl implements RequestTransformer {
+public class DepartmentRequestTransformerImpl implements RequestTransformer<Department> {
 
     public Department transform(HttpServletRequest req) {
         Department department = ModelFactory.createDepartment();
