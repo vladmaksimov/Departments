@@ -8,10 +8,9 @@ import com.maksimov.models.Department;
 import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
-import com.maksimov.utils.factorys.DaoBeanFactory;
-import com.maksimov.utils.factorys.ValidatorBeanFactory;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -19,12 +18,13 @@ import java.util.Map;
 /**
  * Created on 7/19/2016.
  */
+@Transactional
 public class DepartmentServiceImpl implements DepartmentService {
 
     private static final Logger logger = Logger.getLogger(DepartmentServiceImpl.class);
 
-    private DepartmentDao dao = DaoBeanFactory.getDepartmentDao();
-    private DataValidator validator = ValidatorBeanFactory.getValidator();
+    private DepartmentDao dao;
+    private DataValidator validator;
 
     @Override
     public List<Department> getAll() throws ServiceException {
@@ -159,5 +159,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
+    }
+
+    public void setDao(DepartmentDao dao) {
+        this.dao = dao;
+    }
+
+    public void setValidator(DataValidator validator) {
+        this.validator = validator;
     }
 }

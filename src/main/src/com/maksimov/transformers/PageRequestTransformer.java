@@ -18,7 +18,7 @@ import static com.maksimov.constants.PageConstants.*;
  * @see com.maksimov.controllers.Controller
  * @see Page
  */
-public class PageRequestTransformer implements RequestTransformer {
+public class PageRequestTransformer implements RequestTransformer<Page> {
 
     @Override
     public Page transform(HttpServletRequest req) {

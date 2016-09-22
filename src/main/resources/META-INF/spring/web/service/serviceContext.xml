@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:META-INF/spring/web/dao/daoContext.xml"/>
+    <import resource="classpath:META-INF/spring/web/util/utilContext.xml"/>
+
+    <bean id="departmentService" class="com.maksimov.services.impl.DepartmentServiceImpl">
+        <property name="dao" ref="departmentDao"/>
+        <property name="validator" ref="dataValidator"/>
+    </bean>
+
+    <bean id="employeeService" class="com.maksimov.services.impl.EmployeeServiceImpl">
+        <property name="dao" ref="employeeDao"/>
+        <property name="validator" ref="dataValidator"/>
+    </bean>
+
+    <bean id="pageService" class="com.maksimov.services.impl.PageServiceImpl">
+        <property name="departmentService" ref="departmentService"/>
+        <property name="employeeService" ref="employeeService"/>
+    </bean>
+
+</beans>

@@ -8,8 +8,6 @@ import com.maksimov.models.Employee;
 import com.maksimov.models.Page;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
-import com.maksimov.utils.factorys.DaoBeanFactory;
-import com.maksimov.utils.factorys.ValidatorBeanFactory;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
 
@@ -23,8 +21,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
-    private EmployeeDao dao = DaoBeanFactory.getEmployeeDao();
-    private DataValidator validator = ValidatorBeanFactory.getValidator();
+    private EmployeeDao dao;
+    private DataValidator validator;
 
     @Override
     public List<Employee> getEmployeesWithPagination(Page page, Long id) throws ServiceException {
@@ -135,5 +133,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
+    }
+
+    public void setDao(EmployeeDao dao) {
+        this.dao = dao;
+    }
+
+    public void setValidator(DataValidator validator) {
+        this.validator = validator;
     }
 }

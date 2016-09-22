@@ -2,18 +2,20 @@ package com.maksimov.dao.impl;
 
 import com.maksimov.dao.GenericDao;
 import com.maksimov.exceptions.DaoException;
-import com.maksimov.utils.HibernateSessionFactory;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
 /**
  * Created on 21.09.16.
  */
-abstract class GenericDaoImpl<T> implements GenericDao<T> {
+public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     private static final Logger logger = Logger.getLogger(GenericDaoImpl.class);
+
+    SessionFactory sessionFactory;
 
     final Class entity;
 
@@ -23,7 +25,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     @Override
     public void save(T object) throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(object);
             session.getTransaction().commit();
@@ -35,7 +37,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     @Override
     public void delete(T object) throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.delete(object);
             session.getTransaction().commit();
@@ -48,7 +50,7 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
     @Override
     @SuppressWarnings("unchecked")
     public List<T> getAll() throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createCriteria(entity).list();
         } catch (Exception e) {
             logger.error("Can't get list of objects from database!");
@@ -59,11 +61,16 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
     @Override
     @SuppressWarnings("unchecked")
     public T get(Long id) throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return (T) session.get(entity, id);
         } catch (Exception e) {
             logger.error("Can't get object from database!");
             throw new DaoException("Can't get object from database!");
         }
     }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
 }

@@ -5,7 +5,6 @@ import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -15,8 +14,8 @@ public class PageServiceImpl implements PageService {
 
     private static final Logger logger = Logger.getLogger(PageServiceImpl.class);
 
-    private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
-    private EmployeeService employeeService = ServiceBeanFactory.getEmployeeService();
+    private DepartmentService departmentService;
+    private EmployeeService employeeService;
 
     @Override
     public Page getDepartmentPageDetails(Page page, String search) throws ServiceException {
@@ -56,5 +55,13 @@ public class PageServiceImpl implements PageService {
 
     private Boolean getNextButtonState(Integer page, Integer total) {
         return page < total;
+    }
+
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 }

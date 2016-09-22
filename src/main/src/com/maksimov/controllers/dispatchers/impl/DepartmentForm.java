@@ -6,7 +6,6 @@ import com.maksimov.exceptions.ServiceException;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.ModelFactory;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import java.util.Collections;
  */
 public class DepartmentForm implements Dispatcher {
 
-    private DepartmentService service = ServiceBeanFactory.getDepartmentService();
+    private DepartmentService service;
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DispatcherException, ServiceException {
         String idToEdit = req.getParameter(PARAM_ID);
@@ -34,5 +33,9 @@ public class DepartmentForm implements Dispatcher {
         }
         req.setAttribute(ATTR_ERRORS, Collections.emptyMap());
         req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
+    }
+
+    public void setService(DepartmentService service) {
+        this.service = service;
     }
 }

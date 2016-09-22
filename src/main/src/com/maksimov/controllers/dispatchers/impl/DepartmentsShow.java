@@ -6,9 +6,7 @@ import com.maksimov.models.Department;
 import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.PageService;
-import com.maksimov.transformers.PageRequestTransformer;
-import com.maksimov.utils.factorys.PageServiceFactory;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
+import com.maksimov.transformers.RequestTransformer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +22,9 @@ import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
  */
 public class DepartmentsShow implements Dispatcher {
 
-    private DepartmentService service = ServiceBeanFactory.getDepartmentService();
-    private PageService pageService = PageServiceFactory.getPageService();
-    private PageRequestTransformer transformer = new PageRequestTransformer();
+    private DepartmentService service;
+    private PageService pageService;
+    private RequestTransformer<Page> transformer;
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
         List<Department> departments;
@@ -42,5 +40,17 @@ public class DepartmentsShow implements Dispatcher {
         req.setAttribute(ATTR_SIZE_LIST, PAGE_SIZE_LIST);
         req.setAttribute(ATTR_SORT_LIST, PAGE_DEPARTMENT_SORT_LIST);
         req.getRequestDispatcher(SHOW_DEPARTMENTS).forward(req, res);
+    }
+
+    public void setService(DepartmentService service) {
+        this.service = service;
+    }
+
+    public void setPageService(PageService pageService) {
+        this.pageService = pageService;
+    }
+
+    public void setTransformer(RequestTransformer<Page> transformer) {
+        this.transformer = transformer;
     }
 }

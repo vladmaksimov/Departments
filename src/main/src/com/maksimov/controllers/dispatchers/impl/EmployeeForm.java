@@ -9,7 +9,6 @@ import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.ModelFactory;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +25,8 @@ import static com.maksimov.constants.EmployeeConstants.ID;
  */
 public class EmployeeForm implements Dispatcher {
 
-    private EmployeeService service = ServiceBeanFactory.getEmployeeService();
-    private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
+    private EmployeeService service;
+    private DepartmentService departmentService;
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
@@ -55,5 +54,13 @@ public class EmployeeForm implements Dispatcher {
 
         req.setAttribute(ATTR_DEPARTMENTS, departments);
         req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
+    }
+
+    public void setService(EmployeeService service) {
+        this.service = service;
+    }
+
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 }

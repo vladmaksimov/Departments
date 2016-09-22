@@ -5,7 +5,6 @@ import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import static com.maksimov.constants.EmployeeConstants.ID;
  */
 public class EmployeeDelete implements Dispatcher {
 
-    private EmployeeService service = ServiceBeanFactory.getEmployeeService();
+    private EmployeeService service;
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
@@ -30,5 +29,9 @@ public class EmployeeDelete implements Dispatcher {
 
         service.delete(id);
         res.sendRedirect(MAIN_EMPLOYEE_URL.replace("{id}", req.getParameter(ATTR_DEPARTMENT)));
+    }
+
+    public void setService(EmployeeService service) {
+        this.service = service;
     }
 }

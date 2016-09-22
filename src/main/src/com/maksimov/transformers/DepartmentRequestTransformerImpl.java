@@ -19,7 +19,7 @@ import static com.maksimov.constants.DepartmentConstants.NAME;
  * @see com.maksimov.controllers.Controller
  * @see Department
  */
-public class DepartmentRequestTransformerImpl implements RequestTransformer {
+public class DepartmentRequestTransformerImpl implements RequestTransformer<Department> {
 
     public Department transform(HttpServletRequest req) {
         Department department = ModelFactory.createDepartment();

@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:META-INF/spring/applicationContext.xml</param-value>
+        <param-value>classpath:META-INF/spring/applicationContext.xml</param-value>
     </context-param>
 
     <listener>
@@ -15,13 +15,13 @@
     </listener>
 
     <servlet>
-        <servlet-name>Controller</servlet-name>
+        <servlet-name>controller</servlet-name>
         <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Controller</servlet-name>
+        <servlet-name>controller</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

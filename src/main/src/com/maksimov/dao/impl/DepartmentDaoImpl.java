@@ -4,7 +4,6 @@ import com.maksimov.dao.DepartmentDao;
 import com.maksimov.exceptions.DaoException;
 import com.maksimov.models.Department;
 import com.maksimov.models.Page;
-import com.maksimov.utils.HibernateSessionFactory;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -30,7 +29,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> getDepartments(Page page) throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Criteria criteria = getListCriteria(session, page);
             return criteria.list();
         } catch (Exception e) {
@@ -42,7 +41,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> searchDepartments(Page page, String search) throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Criteria criteria = getListCriteria(session, page);
             criteria.add(Restrictions.like(NAME, search));
             return criteria.list();
@@ -54,7 +53,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
 
     @Override
     public Department getByName(String name) {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Criteria criteria = session.createCriteria(entity);
             criteria.add(Restrictions.eq(NAME, name));
             return (Department) criteria.uniqueResult();
@@ -63,7 +62,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
 
     @Override
     public Integer getCount(String search) throws DaoException {
-        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Criteria criteria = session.createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
             if (search != null) {

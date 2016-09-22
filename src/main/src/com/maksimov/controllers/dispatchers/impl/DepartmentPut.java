@@ -5,9 +5,7 @@ import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
-import com.maksimov.transformers.DepartmentRequestTransformerImpl;
 import com.maksimov.transformers.RequestTransformer;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +17,11 @@ import java.io.IOException;
  */
 public class DepartmentPut implements Dispatcher {
 
-    private DepartmentService service = ServiceBeanFactory.getDepartmentService();
-    private RequestTransformer transformer = new DepartmentRequestTransformerImpl();
+    private DepartmentService service;
+    private RequestTransformer<Department> transformer;
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
-        Department department = (Department) transformer.transform(req);
+        Department department = transformer.transform(req);
         try {
             service.put(department);
         } catch (CustomValidateException e) {
@@ -32,5 +30,13 @@ public class DepartmentPut implements Dispatcher {
             req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
         }
         res.sendRedirect(MAIN_URL);
+    }
+
+    public void setService(DepartmentService service) {
+        this.service = service;
+    }
+
+    public void setTransformer(RequestTransformer<Department> transformer) {
+        this.transformer = transformer;
     }
 }

@@ -3,4 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="classpath:META-INF/spring/web/config/hibernate.xml"/>
+
+    <bean id="departmentDao" class="com.maksimov.dao.impl.DepartmentDaoImpl">
+        <constructor-arg value="com.maksimov.models.Department"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="employeeDao" class="com.maksimov.dao.impl.EmployeeDaoImpl">
+        <constructor-arg value="com.maksimov.models.Employee"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 </beans>

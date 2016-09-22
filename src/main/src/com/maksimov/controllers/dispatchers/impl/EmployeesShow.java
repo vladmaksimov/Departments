@@ -8,10 +8,8 @@ import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
-import com.maksimov.transformers.PageRequestTransformer;
+import com.maksimov.transformers.RequestTransformer;
 import com.maksimov.utils.Utils;
-import com.maksimov.utils.factorys.PageServiceFactory;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +25,10 @@ import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
  */
 public class EmployeesShow implements Dispatcher {
 
-    private EmployeeService service = ServiceBeanFactory.getEmployeeService();
-    private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
-    private PageService pageService = PageServiceFactory.getPageService();
-    private PageRequestTransformer transformer = new PageRequestTransformer();
+    private EmployeeService service;
+    private DepartmentService departmentService;
+    private PageService pageService;
+    private RequestTransformer<Page> transformer;
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException, DispatcherException {
@@ -53,5 +51,21 @@ public class EmployeesShow implements Dispatcher {
         req.setAttribute(ATTR_SORT_LIST, PAGE_EMPLOYEE_SORT_LIST);
         req.setAttribute(ATTR_DEPARTMENT, departmentService.getById(departmentId));
         req.getRequestDispatcher(SHOW_EMPLOYEES).forward(req, res);
+    }
+
+    public void setService(EmployeeService service) {
+        this.service = service;
+    }
+
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+    public void setPageService(PageService pageService) {
+        this.pageService = pageService;
+    }
+
+    public void setTransformer(RequestTransformer<Page> transformer) {
+        this.transformer = transformer;
     }
 }

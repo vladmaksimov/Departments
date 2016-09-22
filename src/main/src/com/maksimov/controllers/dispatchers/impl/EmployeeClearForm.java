@@ -5,7 +5,6 @@ import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.factorys.ModelFactory;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 public class EmployeeClearForm implements Dispatcher {
 
-    private DepartmentService service = ServiceBeanFactory.getDepartmentService();
+    private DepartmentService service;
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
@@ -28,5 +27,9 @@ public class EmployeeClearForm implements Dispatcher {
         req.setAttribute(ATTR_EMPLOYEE, ModelFactory.createEmployee());
         req.setAttribute(ATTR_ERRORS, Collections.emptyMap());
         req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
+    }
+
+    public void setService(DepartmentService service) {
+        this.service = service;
     }
 }

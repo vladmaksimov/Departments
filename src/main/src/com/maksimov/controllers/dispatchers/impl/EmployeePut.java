@@ -7,9 +7,7 @@ import com.maksimov.models.Department;
 import com.maksimov.models.Employee;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
-import com.maksimov.transformers.EmployeeRequestTransformerImpl;
 import com.maksimov.transformers.RequestTransformer;
-import com.maksimov.utils.factorys.ServiceBeanFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +21,13 @@ import java.util.List;
  */
 public class EmployeePut implements Dispatcher {
 
-    private EmployeeService service = ServiceBeanFactory.getEmployeeService();
-    private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
-    private RequestTransformer transformer = new EmployeeRequestTransformerImpl();
+    private EmployeeService service;
+    private DepartmentService departmentService;
+    private RequestTransformer<Employee> transformer;
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
-        Employee employee = (Employee) transformer.transform(req);
+        Employee employee = transformer.transform(req);
         try {
             service.put(employee);
         } catch (CustomValidateException e) {
@@ -41,5 +39,17 @@ public class EmployeePut implements Dispatcher {
             req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
         }
         res.sendRedirect(MAIN_EMPLOYEE_URL.replace("{id}", employee.getDepartment().getId().toString()));
+    }
+
+    public void setService(EmployeeService service) {
+        this.service = service;
+    }
+
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+    public void setTransformer(RequestTransformer<Employee> transformer) {
+        this.transformer = transformer;
     }
 }
