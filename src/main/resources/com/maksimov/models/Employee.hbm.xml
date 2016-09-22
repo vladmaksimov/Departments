@@ -15,8 +15,7 @@
 
         <many-to-one name="department"
                      class="com.maksimov.models.Department"
-                     column="department"
-                     cascade="delete"/>
+                     column="department"/>
 
     </class>
 
