@@ -7,6 +7,7 @@ import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.PageService;
 import com.maksimov.transformers.PageRequestTransformer;
+import com.maksimov.transformers.RequestTransformer;
 import com.maksimov.utils.factorys.PageServiceFactory;
 import com.maksimov.utils.factorys.ServiceBeanFactory;
 
@@ -26,7 +27,7 @@ public class DepartmentsShow implements Dispatcher {
 
     private DepartmentService service = ServiceBeanFactory.getDepartmentService();
     private PageService pageService = PageServiceFactory.getPageService();
-    private PageRequestTransformer transformer = new PageRequestTransformer();
+    private RequestTransformer<Page> transformer = new PageRequestTransformer();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
         List<Department> departments;

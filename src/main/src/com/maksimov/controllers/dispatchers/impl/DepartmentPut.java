@@ -20,10 +20,10 @@ import java.io.IOException;
 public class DepartmentPut implements Dispatcher {
 
     private DepartmentService service = ServiceBeanFactory.getDepartmentService();
-    private RequestTransformer transformer = new DepartmentRequestTransformerImpl();
+    private RequestTransformer<Department> transformer = new DepartmentRequestTransformerImpl();
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
-        Department department = (Department) transformer.transform(req);
+        Department department = transformer.transform(req);
         try {
             service.put(department);
         } catch (CustomValidateException e) {

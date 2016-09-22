@@ -25,11 +25,11 @@ public class EmployeePut implements Dispatcher {
 
     private EmployeeService service = ServiceBeanFactory.getEmployeeService();
     private DepartmentService departmentService = ServiceBeanFactory.getDepartmentService();
-    private RequestTransformer transformer = new EmployeeRequestTransformerImpl();
+    private RequestTransformer<Employee> transformer = new EmployeeRequestTransformerImpl();
 
     @Override
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {
-        Employee employee = (Employee) transformer.transform(req);
+        Employee employee = transformer.transform(req);
         try {
             service.put(employee);
         } catch (CustomValidateException e) {

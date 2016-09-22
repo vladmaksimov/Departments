@@ -20,7 +20,7 @@ import static com.maksimov.constants.EmployeeConstants.*;
  * @see com.maksimov.controllers.Controller
  * @see Employee
  */
-public class EmployeeRequestTransformerImpl implements RequestTransformer {
+public class EmployeeRequestTransformerImpl implements RequestTransformer<Employee> {
 
     public Employee transform(HttpServletRequest req) {
         Employee employee = ModelFactory.createEmployee();
