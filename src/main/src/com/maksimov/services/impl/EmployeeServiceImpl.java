@@ -10,6 +10,9 @@ import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -17,11 +20,15 @@ import java.util.Map;
 /**
  * Created on 7/19/2016.
  */
+@Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
+    @Autowired
     private EmployeeDao dao;
+    @Autowired
     private DataValidator validator;
 
     @Override
@@ -133,13 +140,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
-    }
-
-    public void setDao(EmployeeDao dao) {
-        this.dao = dao;
-    }
-
-    public void setValidator(DataValidator validator) {
-        this.validator = validator;
     }
 }

@@ -3,6 +3,7 @@ package com.maksimov.transformers;
 import com.maksimov.models.Department;
 import com.maksimov.utils.factorys.ModelFactory;
 import com.mysql.jdbc.StringUtils;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,7 @@ import static com.maksimov.constants.DepartmentConstants.NAME;
  * @see com.maksimov.controllers.Controller
  * @see Department
  */
+@Component
 public class DepartmentRequestTransformerImpl implements RequestTransformer<Department> {
 
     public Department transform(HttpServletRequest req) {

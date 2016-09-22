@@ -5,6 +5,7 @@ import com.maksimov.exceptions.DaoException;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     private static final Logger logger = Logger.getLogger(GenericDaoImpl.class);
 
+    @Autowired
     SessionFactory sessionFactory;
 
     final Class entity;
@@ -26,9 +28,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     @Override
     public void save(T object) throws DaoException {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             session.saveOrUpdate(object);
-            session.getTransaction().commit();
         } catch (Exception e) {
             logger.error("Can't save object to database!");
             throw new DaoException("Can't save object to database!");
@@ -38,9 +38,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     @Override
     public void delete(T object) throws DaoException {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             session.delete(object);
-            session.getTransaction().commit();
         } catch (Exception e) {
             logger.error("Can't delete object from database!");
             throw new DaoException("Can't delete object from database!");
@@ -67,10 +65,6 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
             logger.error("Can't get object from database!");
             throw new DaoException("Can't get object from database!");
         }
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 
 }

@@ -7,6 +7,8 @@ import com.maksimov.models.Page;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.PageService;
 import com.maksimov.transformers.RequestTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +22,14 @@ import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
 /**
  * Created on 7/19/2016.
  */
+@Component
 public class DepartmentsShow implements Dispatcher {
 
+    @Autowired
     private DepartmentService service;
+    @Autowired
     private PageService pageService;
+    @Autowired
     private RequestTransformer<Page> transformer;
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {

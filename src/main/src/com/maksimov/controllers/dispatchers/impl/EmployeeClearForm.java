@@ -5,6 +5,8 @@ import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.factorys.ModelFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,10 @@ import java.util.List;
 /**
  * Created on 8/15/2016.
  */
+@Component
 public class EmployeeClearForm implements Dispatcher {
 
+    @Autowired
     private DepartmentService service;
 
     @Override

@@ -10,6 +10,8 @@ import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
 import com.maksimov.transformers.RequestTransformer;
 import com.maksimov.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +25,16 @@ import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
 /**
  * Created on 21.07.16.
  */
+@Component
 public class EmployeesShow implements Dispatcher {
 
+    @Autowired
     private EmployeeService service;
+    @Autowired
     private DepartmentService departmentService;
+    @Autowired
     private PageService pageService;
+    @Autowired
     private RequestTransformer<Page> transformer;
 
     @Override

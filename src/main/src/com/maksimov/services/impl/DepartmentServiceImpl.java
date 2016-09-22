@@ -10,6 +10,8 @@ import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,12 +20,15 @@ import java.util.Map;
 /**
  * Created on 7/19/2016.
  */
+@Service
 @Transactional
 public class DepartmentServiceImpl implements DepartmentService {
 
     private static final Logger logger = Logger.getLogger(DepartmentServiceImpl.class);
 
+    @Autowired
     private DepartmentDao dao;
+    @Autowired
     private DataValidator validator;
 
     @Override

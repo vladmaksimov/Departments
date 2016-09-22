@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -18,11 +20,12 @@ import static com.maksimov.constants.DepartmentConstants.NAME;
 /**
  * Created on 20.09.16.
  */
+@Repository
 public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements DepartmentDao {
 
     private static final Logger logger = Logger.getLogger(DepartmentDaoImpl.class);
 
-    public DepartmentDaoImpl(Class entity) {
+    public DepartmentDaoImpl(@Value("${dao.entity.department}") Class entity) {
         super(entity);
     }
 

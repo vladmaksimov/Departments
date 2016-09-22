@@ -5,6 +5,8 @@ import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,10 @@ import static com.maksimov.constants.EmployeeConstants.ID;
 /**
  * Created on 21.07.16.
  */
+@Component
 public class EmployeeDelete implements Dispatcher {
 
+    @Autowired
     private EmployeeService service;
 
     @Override

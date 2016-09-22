@@ -5,6 +5,7 @@ import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
 import org.springframework.web.HttpRequestHandler;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * Created on 7/19/2016.
  */
+@org.springframework.stereotype.Controller
 public class Controller implements HttpRequestHandler {
 
     private static final String PROBLEM = "/problem";
@@ -43,6 +45,7 @@ public class Controller implements HttpRequestHandler {
         }
     }
 
+    @Resource(name = "dispatcherMap")
     public void setDispatcherMap(Map<String, Dispatcher> dispatcherMap) {
         this.dispatcherMap = dispatcherMap;
     }

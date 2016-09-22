@@ -6,6 +6,8 @@ import com.maksimov.exceptions.ServiceException;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.ModelFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,10 @@ import java.util.Collections;
 /**
  * Created on 7/20/2016.
  */
+@Component
 public class DepartmentForm implements Dispatcher {
 
+    @Autowired
     private DepartmentService service;
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, DispatcherException, ServiceException {
@@ -33,9 +37,5 @@ public class DepartmentForm implements Dispatcher {
         }
         req.setAttribute(ATTR_ERRORS, Collections.emptyMap());
         req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
-    }
-
-    public void setService(DepartmentService service) {
-        this.service = service;
     }
 }

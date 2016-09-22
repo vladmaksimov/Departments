@@ -8,6 +8,8 @@ import com.maksimov.models.Employee;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.transformers.RequestTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +21,14 @@ import java.util.List;
 /**
  * Created on 21.07.16.
  */
+@Component
 public class EmployeePut implements Dispatcher {
 
+    @Autowired
     private EmployeeService service;
+    @Autowired
     private DepartmentService departmentService;
+    @Autowired
     private RequestTransformer<Employee> transformer;
 
     @Override

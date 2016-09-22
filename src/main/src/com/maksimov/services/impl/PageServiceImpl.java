@@ -6,15 +6,22 @@ import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created on 16.09.16.
  */
+@Service
+@Transactional
 public class PageServiceImpl implements PageService {
 
     private static final Logger logger = Logger.getLogger(PageServiceImpl.class);
 
+    @Autowired
     private DepartmentService departmentService;
+    @Autowired
     private EmployeeService employeeService;
 
     @Override
@@ -57,11 +64,4 @@ public class PageServiceImpl implements PageService {
         return page < total;
     }
 
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
-
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 }

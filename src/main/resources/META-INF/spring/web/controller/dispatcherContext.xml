@@ -3,56 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <import resource="classpath:META-INF/spring/web/service/serviceContext.xml"/>
-    <import resource="classpath:META-INF/spring/web/util/utilContext.xml"/>
-
-    <bean id="departmentsShow" class="com.maksimov.controllers.dispatchers.impl.DepartmentsShow">
-        <property name="pageService" ref="pageService"/>
-        <property name="service" ref="departmentService"/>
-        <property name="transformer" ref="pageRequestTransformer"/>
-    </bean>
-
-    <bean id="departmentPut" class="com.maksimov.controllers.dispatchers.impl.DepartmentPut">
-        <property name="service" ref="departmentService"/>
-        <property name="transformer" ref="departmentRequestTransformer"/>
-    </bean>
-
-    <bean id="departmentForm" class="com.maksimov.controllers.dispatchers.impl.DepartmentForm">
-        <property name="service" ref="departmentService"/>
-    </bean>
-
-    <bean id="departmentDelete" class="com.maksimov.controllers.dispatchers.impl.DepartmentDelete">
-        <property name="service" ref="departmentService"/>
-    </bean>
-
-    <bean id="employeesShow" class="com.maksimov.controllers.dispatchers.impl.EmployeesShow">
-        <property name="departmentService" ref="departmentService"/>
-        <property name="service" ref="employeeService"/>
-        <property name="pageService" ref="pageService"/>
-        <property name="transformer" ref="pageRequestTransformer"/>
-    </bean>
-
-    <bean id="employeeForm" class="com.maksimov.controllers.dispatchers.impl.EmployeeForm">
-        <property name="departmentService" ref="departmentService"/>
-        <property name="service" ref="employeeService"/>
-    </bean>
-
-    <bean id="employeeClearForm" class="com.maksimov.controllers.dispatchers.impl.EmployeeClearForm">
-        <property name="service" ref="departmentService"/>
-    </bean>
-
-    <bean id="employeeDelete" class="com.maksimov.controllers.dispatchers.impl.EmployeeDelete">
-        <property name="service" ref="employeeService"/>
-    </bean>
-
-    <bean id="employeePut" class="com.maksimov.controllers.dispatchers.impl.EmployeePut">
-        <property name="departmentService" ref="departmentService"/>
-        <property name="service" ref="employeeService"/>
-        <property name="transformer" ref="employeeRequestTransformer"/>
-    </bean>
-
-    <bean id="problemPage" class="com.maksimov.controllers.dispatchers.impl.ProblemPage"/>
-
     <util:map id="dispatcherMap"
               map-class="java.util.HashMap"
               key-type="java.lang.String"

@@ -3,6 +3,7 @@ package com.maksimov.transformers;
 import com.maksimov.models.Page;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.ModelFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +19,7 @@ import static com.maksimov.constants.PageConstants.*;
  * @see com.maksimov.controllers.Controller
  * @see Page
  */
+@Component
 public class PageRequestTransformer implements RequestTransformer<Page> {
 
     @Override

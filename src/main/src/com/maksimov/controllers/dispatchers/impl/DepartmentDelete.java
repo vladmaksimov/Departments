@@ -5,6 +5,8 @@ import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,10 @@ import static com.maksimov.constants.DepartmentConstants.ID;
 /**
  * Created on 21.07.16.
  */
+@Component()
 public class DepartmentDelete implements Dispatcher {
 
+    @Autowired
     private DepartmentService service;
 
     @Override
@@ -31,7 +35,4 @@ public class DepartmentDelete implements Dispatcher {
         res.sendRedirect(MAIN_URL);
     }
 
-    public void setService(DepartmentService service) {
-        this.service = service;
-    }
 }

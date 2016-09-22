@@ -4,13 +4,17 @@ import com.maksimov.dao.DepartmentDao;
 import com.maksimov.models.Department;
 import com.maksimov.utils.SpringUtils;
 import net.sf.oval.constraint.CheckWithCheck;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created on 21.07.16.
  */
+@Component
 public class DepartmentNameCheck implements CheckWithCheck.SimpleCheck {
 
-    private DepartmentDao dao = SpringUtils.getBean(DepartmentDao.class);
+    @Autowired
+    private DepartmentDao dao;
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {

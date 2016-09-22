@@ -6,6 +6,8 @@ import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.transformers.RequestTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +17,12 @@ import java.io.IOException;
 /**
  * Created on 7/20/2016.
  */
+@Component
 public class DepartmentPut implements Dispatcher {
 
+    @Autowired
     private DepartmentService service;
+    @Autowired
     private RequestTransformer<Department> transformer;
 
     public void doDispatch(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, ServiceException {

@@ -5,6 +5,7 @@ import com.maksimov.models.Employee;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.factorys.ModelFactory;
 import com.mysql.jdbc.StringUtils;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +21,7 @@ import static com.maksimov.constants.EmployeeConstants.*;
  * @see com.maksimov.controllers.Controller
  * @see Employee
  */
+@Component
 public class EmployeeRequestTransformerImpl implements RequestTransformer<Employee> {
 
     public Employee transform(HttpServletRequest req) {
