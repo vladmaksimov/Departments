@@ -21,7 +21,6 @@ public class Employee {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.DELETE)
     @JoinColumn(name = "department", nullable = false)
     @NotNull(message = "Department id can't be null")
     private Department department;

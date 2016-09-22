@@ -4,8 +4,13 @@ import com.maksimov.utils.validators.DepartmentNameCheck;
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Set;
 
 /**
  * Created on 7/19/2016.
@@ -25,6 +30,10 @@ public class Department {
     @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist!")
     private String name;
 
+    @OneToMany(mappedBy = "department")
+    @Cascade(CascadeType.DELETE)
+    private Set<Employee> employees;
+
     public Long getId() {
         return id;
     }
@@ -39,6 +48,14 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override
