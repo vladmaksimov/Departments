@@ -2,7 +2,9 @@ package com.maksimov.utils.validators;
 
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
+import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
 import net.sf.oval.context.FieldContext;
+import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +16,11 @@ import java.util.Map;
  */
 public class DataValidator {
 
-    private Validator validator = new Validator();
-
     public Map<String, List<String>> validate(Object o) {
+        AnnotationsConfigurer configurer = new AnnotationsConfigurer();
+        configurer.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE);
+        Validator validator = new Validator(configurer);
+
         Map<String, List<String>> errors = new HashMap<>();
         List<ConstraintViolation> violations = validator.validate(o);
         if (!violations.isEmpty()) {

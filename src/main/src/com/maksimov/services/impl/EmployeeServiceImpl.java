@@ -10,6 +10,7 @@ import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * Created on 7/19/2016.
  */
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger logger = Logger.getLogger(EmployeeServiceImpl.class);

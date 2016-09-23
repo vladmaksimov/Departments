@@ -46,9 +46,9 @@ public interface EmployeeDao extends GenericDao<Employee> {
      * Gets the {@link Employee} object from database by it email or null if row with this email is not exist.
      *
      * @param email of the employee we want to get.
-     * @return employee object or null.
+     * @return {@link Long} object with {@link Employee} id.
      */
-    Employee getByEmail(String email);
+    Long getByEmail(String email);
 
     /**
      * Gets the count of the {@link Employee} objects from the database by received {@link Long} id

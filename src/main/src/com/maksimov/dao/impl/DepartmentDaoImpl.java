@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import static com.maksimov.constants.DepartmentConstants.NAME;
 /**
  * Created on 20.09.16.
  */
+@Transactional
 public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements DepartmentDao {
 
     private static final Logger logger = Logger.getLogger(DepartmentDaoImpl.class);
@@ -29,7 +31,8 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> getDepartments(Page page) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = getListCriteria(session, page);
             return criteria.list();
         } catch (Exception e) {
@@ -41,7 +44,8 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> searchDepartments(Page page, String search) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = getListCriteria(session, page);
             criteria.add(Restrictions.like(NAME, search));
             return criteria.list();
@@ -52,17 +56,17 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     }
 
     @Override
-    public Department getByName(String name) {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
-            criteria.add(Restrictions.eq(NAME, name));
-            return (Department) criteria.uniqueResult();
-        }
+    public Long getByName(String name) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entity);
+        criteria.setProjection(Projections.id());
+        criteria.add(Restrictions.eq(NAME, name));
+        return (Long) criteria.uniqueResult();
     }
 
     @Override
     public Integer getCount(String search) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = session.createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
             if (search != null) {

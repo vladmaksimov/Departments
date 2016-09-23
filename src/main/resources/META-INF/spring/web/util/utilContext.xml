@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--Request transformers-->
 
     <bean id="departmentRequestTransformer" class="com.maksimov.transformers.DepartmentRequestTransformerImpl"/>
 
@@ -9,8 +12,16 @@
 
     <bean id="pageRequestTransformer" class="com.maksimov.transformers.PageRequestTransformer"/>
 
+    <!--Oval validator-->
+
+    <context:annotation-config/>
+
     <bean id="dataValidator" class="com.maksimov.utils.validators.DataValidator"/>
 
-    <bean id="springUtils" class="com.maksimov.utils.SpringUtils"/>
+    <bean class="com.maksimov.utils.validators.DepartmentNameCheck"/>
+
+    <bean class="com.maksimov.utils.validators.EmployeeEmailCheck"/>
+
+    <bean class="net.sf.oval.integration.spring.SpringInjector"/>
 
 </beans>

@@ -2,20 +2,21 @@ package com.maksimov.utils.validators;
 
 import com.maksimov.dao.DepartmentDao;
 import com.maksimov.models.Department;
-import com.maksimov.utils.SpringUtils;
 import net.sf.oval.constraint.CheckWithCheck;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created on 21.07.16.
  */
 public class DepartmentNameCheck implements CheckWithCheck.SimpleCheck {
 
-    private DepartmentDao dao = SpringUtils.getBean(DepartmentDao.class);
+    @Autowired
+    private DepartmentDao dao;
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {
         Department department = (Department) o;
-        Department toTest = dao.getByName(o1.toString());
-        return toTest == null || toTest.getId().equals(department.getId());
+        Long toTest = dao.getByName(o1.toString());
+        return toTest == null || toTest.equals(department.getId());
     }
 }

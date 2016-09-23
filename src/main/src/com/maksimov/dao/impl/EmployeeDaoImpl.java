@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import static com.maksimov.constants.EmployeeConstants.NAME;
 /**
  * Created on 20.09.16.
  */
+@Transactional
 public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements EmployeeDao {
 
     private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
@@ -29,9 +31,10 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
 
     @Override
     @SuppressWarnings("unchecked")
+    @Transactional
     public List<Employee> getByDepartmentId(Long id) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entity);
             criteria.add(Restrictions.eq("department.id", id));
             return criteria.list();
         } catch (Exception e) {
@@ -43,7 +46,8 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
     @Override
     @SuppressWarnings("unchecked")
     public List<Employee> getEmployees(Page page, Long id) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = createListCriteria(session, id, page);
             return criteria.list();
         } catch (Exception e) {
@@ -55,7 +59,8 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
     @Override
     @SuppressWarnings("unchecked")
     public List<Employee> searchEmployees(Page page, Long id, String search) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = createListCriteria(session, id, page);
             criteria.add(Restrictions.or(Restrictions.like(NAME, search), Restrictions.like(EMAIL, search)));
             return criteria.list();
@@ -66,18 +71,18 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
     }
 
     @Override
-    public Employee getByEmail(String email) {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
-            criteria.add(Restrictions.eq(EMAIL, email));
-            return (Employee) criteria.uniqueResult();
-        }
+    public Long getByEmail(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(entity);
+        criteria.add(Restrictions.eq(EMAIL, email));
+        criteria.setProjection(Projections.id());
+        return (Long) criteria.uniqueResult();
     }
 
     @Override
     public Integer getCount(Long id, String search) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
             return ((Long) criteria.uniqueResult()).intValue();
         } catch (Exception e) {

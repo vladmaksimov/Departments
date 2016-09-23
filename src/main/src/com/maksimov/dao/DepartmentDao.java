@@ -35,9 +35,9 @@ public interface DepartmentDao extends GenericDao<Department> {
      * Return the department object with received name or null if this name not contains in database.
      *
      * @param name of the department.
-     * @return department object with received name or null.
+     * @return {@link Long} object with {@link Department} id.
      */
-    Department getByName(String name);
+    Long getByName(String name);
 
     /**
      * Gets the count of all departments rows depends of search value.

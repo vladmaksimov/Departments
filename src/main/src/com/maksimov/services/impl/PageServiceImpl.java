@@ -6,10 +6,12 @@ import com.maksimov.services.DepartmentService;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.services.PageService;
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created on 16.09.16.
  */
+@Transactional
 public class PageServiceImpl implements PageService {
 
     private static final Logger logger = Logger.getLogger(PageServiceImpl.class);
