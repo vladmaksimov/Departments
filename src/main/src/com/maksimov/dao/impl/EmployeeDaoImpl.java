@@ -71,12 +71,11 @@ public class EmployeeDaoImpl extends GenericDaoImpl<Employee> implements Employe
     }
 
     @Override
-    public Employee getByEmail(String email) {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
-            criteria.add(Restrictions.eq(EMAIL, email));
-            return (Employee) criteria.uniqueResult();
-        }
+    public Long getByEmail(String email) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entity);
+        criteria.setProjection(Projections.id());
+        criteria.add(Restrictions.eq(EMAIL, email));
+        return (Long) criteria.uniqueResult();
     }
 
     @Override

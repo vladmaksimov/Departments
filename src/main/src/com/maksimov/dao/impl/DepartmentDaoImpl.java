@@ -57,12 +57,11 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     }
 
     @Override
-    public Department getByName(String name) {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
-            criteria.add(Restrictions.eq(NAME, name));
-            return (Department) criteria.uniqueResult();
-        }
+    public Long getByName(String name) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entity);
+        criteria.add(Restrictions.eq(NAME, name));
+        criteria.setProjection(Projections.id());
+        return (Long) criteria.uniqueResult();
     }
 
     @Override
