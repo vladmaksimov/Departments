@@ -25,7 +25,7 @@ import static com.maksimov.constants.EmployeeConstants.ID;
 /**
  * Created on 21.07.16.
  */
-@Component
+@Component("/department/employee/form")
 public class EmployeeForm implements Dispatcher {
 
     @Autowired
@@ -59,13 +59,5 @@ public class EmployeeForm implements Dispatcher {
 
         req.setAttribute(ATTR_DEPARTMENTS, departments);
         req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
-    }
-
-    public void setService(EmployeeService service) {
-        this.service = service;
-    }
-
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
     }
 }

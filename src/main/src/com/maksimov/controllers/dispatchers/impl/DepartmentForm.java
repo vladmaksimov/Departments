@@ -18,7 +18,7 @@ import java.util.Collections;
 /**
  * Created on 7/20/2016.
  */
-@Component
+@Component("/department/form")
 public class DepartmentForm implements Dispatcher {
 
     @Autowired

@@ -22,7 +22,7 @@ import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
 /**
  * Created on 7/19/2016.
  */
-@Component
+@Component("/")
 public class DepartmentsShow implements Dispatcher {
 
     @Autowired
@@ -46,17 +46,5 @@ public class DepartmentsShow implements Dispatcher {
         req.setAttribute(ATTR_SIZE_LIST, PAGE_SIZE_LIST);
         req.setAttribute(ATTR_SORT_LIST, PAGE_DEPARTMENT_SORT_LIST);
         req.getRequestDispatcher(SHOW_DEPARTMENTS).forward(req, res);
-    }
-
-    public void setService(DepartmentService service) {
-        this.service = service;
-    }
-
-    public void setPageService(PageService pageService) {
-        this.pageService = pageService;
-    }
-
-    public void setTransformer(RequestTransformer<Page> transformer) {
-        this.transformer = transformer;
     }
 }

@@ -165,12 +165,4 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new ServiceException(e.getMessage());
         }
     }
-
-    public void setDao(DepartmentDao dao) {
-        this.dao = dao;
-    }
-
-    public void setValidator(DataValidator validator) {
-        this.validator = validator;
-    }
 }

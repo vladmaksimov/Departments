@@ -18,7 +18,7 @@ import static com.maksimov.constants.DepartmentConstants.ID;
 /**
  * Created on 21.07.16.
  */
-@Component()
+@Component("/department/delete")
 public class DepartmentDelete implements Dispatcher {
 
     @Autowired
@@ -34,5 +34,4 @@ public class DepartmentDelete implements Dispatcher {
         service.delete(id);
         res.sendRedirect(MAIN_URL);
     }
-
 }

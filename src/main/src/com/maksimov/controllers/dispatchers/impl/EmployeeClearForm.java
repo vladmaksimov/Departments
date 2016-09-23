@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created on 8/15/2016.
  */
-@Component
+@Component("/department/employee/form/clear")
 public class EmployeeClearForm implements Dispatcher {
 
     @Autowired
@@ -31,9 +31,5 @@ public class EmployeeClearForm implements Dispatcher {
         req.setAttribute(ATTR_EMPLOYEE, ModelFactory.createEmployee());
         req.setAttribute(ATTR_ERRORS, Collections.emptyMap());
         req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
-    }
-
-    public void setService(DepartmentService service) {
-        this.service = service;
     }
 }

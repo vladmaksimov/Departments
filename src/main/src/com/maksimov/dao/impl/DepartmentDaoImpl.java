@@ -32,7 +32,8 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> getDepartments(Page page) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = getListCriteria(session, page);
             return criteria.list();
         } catch (Exception e) {
@@ -44,7 +45,8 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> searchDepartments(Page page, String search) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
+        try {
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = getListCriteria(session, page);
             criteria.add(Restrictions.like(NAME, search));
             return criteria.list();
@@ -65,8 +67,8 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements Dep
 
     @Override
     public Integer getCount(String search) throws DaoException {
-        try (Session session = sessionFactory.openSession()) {
-            Criteria criteria = session.createCriteria(entity);
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession().createCriteria(entity);
             criteria.setProjection(Projections.rowCount());
             if (search != null) {
                 criteria.add(Restrictions.like(NAME, search));

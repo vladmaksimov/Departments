@@ -4,7 +4,6 @@ import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
 import net.sf.oval.context.FieldContext;
-import net.sf.oval.integration.spring.BeanInjectingCheckInitializationListener;
 import net.sf.oval.integration.spring.SpringCheckInitializationListener;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +18,10 @@ import java.util.Map;
 @Component
 public class DataValidator {
 
-
     public Map<String, List<String>> validate(Object o) {
-        AnnotationsConfigurer myConfigurer = new AnnotationsConfigurer();
-
-        myConfigurer.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE);
-
-        Validator validator = new Validator(myConfigurer);
+        AnnotationsConfigurer configurer = new AnnotationsConfigurer();
+        configurer.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE);
+        Validator validator = new Validator(configurer);
 
         Map<String, List<String>> errors = new HashMap<>();
         List<ConstraintViolation> violations = validator.validate(o);

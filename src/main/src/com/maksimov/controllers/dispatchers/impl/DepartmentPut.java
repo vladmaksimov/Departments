@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Created on 7/20/2016.
  */
-@Component
+@Component("/department/put")
 public class DepartmentPut implements Dispatcher {
 
     @Autowired
@@ -35,13 +35,5 @@ public class DepartmentPut implements Dispatcher {
             req.getRequestDispatcher(SHOW_DEPARTMENT_FORM).forward(req, res);
         }
         res.sendRedirect(MAIN_URL);
-    }
-
-    public void setService(DepartmentService service) {
-        this.service = service;
-    }
-
-    public void setTransformer(RequestTransformer<Department> transformer) {
-        this.transformer = transformer;
     }
 }

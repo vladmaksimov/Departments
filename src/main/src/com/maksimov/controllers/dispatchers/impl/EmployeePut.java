@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created on 21.07.16.
  */
-@Component
+@Component("/department/employee/put")
 public class EmployeePut implements Dispatcher {
 
     @Autowired
@@ -45,17 +45,5 @@ public class EmployeePut implements Dispatcher {
             req.getRequestDispatcher(SHOW_EMPLOYEE_FORM).forward(req, res);
         }
         res.sendRedirect(MAIN_EMPLOYEE_URL.replace("{id}", employee.getDepartment().getId().toString()));
-    }
-
-    public void setService(EmployeeService service) {
-        this.service = service;
-    }
-
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
-
-    public void setTransformer(RequestTransformer<Employee> transformer) {
-        this.transformer = transformer;
     }
 }

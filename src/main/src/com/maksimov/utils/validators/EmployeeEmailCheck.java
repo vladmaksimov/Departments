@@ -2,7 +2,6 @@ package com.maksimov.utils.validators;
 
 import com.maksimov.dao.EmployeeDao;
 import com.maksimov.models.Employee;
-import com.maksimov.utils.SpringUtils;
 import net.sf.oval.constraint.CheckWithCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class EmployeeEmailCheck implements CheckWithCheck.SimpleCheck {
 
     @Autowired
-    private EmployeeDao dao = SpringUtils.getBean(EmployeeDao.class);
+    private EmployeeDao dao;
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {

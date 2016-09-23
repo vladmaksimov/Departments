@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created on 11.08.16.
  */
-@Component
+@Component("/problem")
 public class ProblemPage implements Dispatcher {
 
     @Override

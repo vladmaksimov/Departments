@@ -25,7 +25,7 @@ import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
 /**
  * Created on 21.07.16.
  */
-@Component
+@Component("/department/employees")
 public class EmployeesShow implements Dispatcher {
 
     @Autowired
@@ -58,21 +58,5 @@ public class EmployeesShow implements Dispatcher {
         req.setAttribute(ATTR_SORT_LIST, PAGE_EMPLOYEE_SORT_LIST);
         req.setAttribute(ATTR_DEPARTMENT, departmentService.getById(departmentId));
         req.getRequestDispatcher(SHOW_EMPLOYEES).forward(req, res);
-    }
-
-    public void setService(EmployeeService service) {
-        this.service = service;
-    }
-
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
-
-    public void setPageService(PageService pageService) {
-        this.pageService = pageService;
-    }
-
-    public void setTransformer(RequestTransformer<Page> transformer) {
-        this.transformer = transformer;
     }
 }

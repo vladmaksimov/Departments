@@ -18,7 +18,7 @@ import static com.maksimov.constants.EmployeeConstants.ID;
 /**
  * Created on 21.07.16.
  */
-@Component
+@Component("/department/employee/delete")
 public class EmployeeDelete implements Dispatcher {
 
     @Autowired
@@ -33,9 +33,5 @@ public class EmployeeDelete implements Dispatcher {
 
         service.delete(id);
         res.sendRedirect(MAIN_EMPLOYEE_URL.replace("{id}", req.getParameter(ATTR_DEPARTMENT)));
-    }
-
-    public void setService(EmployeeService service) {
-        this.service = service;
     }
 }

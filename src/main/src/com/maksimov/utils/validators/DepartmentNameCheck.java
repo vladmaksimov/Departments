@@ -2,7 +2,6 @@ package com.maksimov.utils.validators;
 
 import com.maksimov.dao.DepartmentDao;
 import com.maksimov.models.Department;
-import com.maksimov.utils.SpringUtils;
 import net.sf.oval.constraint.CheckWithCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
