@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="departments" scope="request" type="java.util.List"/>
-<jsp:useBean id="requestPage" scope="request" type="com.maksimov.models.Page"/>
+<%--<jsp:useBean id="page" scope="request" type="org.springframework.data.domain.PageImpl"/>--%>
 <%--@elvariable id="search" type="java.lang.String"--%>
 
 <c:import url="../util/pagination.jsp" scope="request" var="pagination"/>
@@ -58,7 +57,7 @@
         <span>Department List:</span>
     </div>
 
-    <c:if test="${not empty departments}">
+    <c:if test="${not empty page.content}">
         ${pagination}
     </c:if>
 
@@ -72,14 +71,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:if test="${empty departments && empty search}">
-                <div>
-                    <span>Department list is empty! Add new department</span>
-                    <a href="${addDepartment}" class="btn btn-default">Add Department</a>
-                </div>
-            </c:if>
-            
-            <c:forEach var="department" items="${departments}">
+            <c:forEach var="department" items="${page.content}">
 
                 <c:url value="${addDepartment}" var="edit">
                     <c:param name="id" value="${department.id}"/>
@@ -89,9 +81,7 @@
                     <c:param name="id" value="${department.id}"/>
                 </c:url>
 
-                <c:url value="${urlEmployee}" var="employee">
-                    <c:param name="id" value="${department.id}"/>
-                </c:url>
+                <c:url value="${urlEmployee}/${department.id}" var="employee"/>
 
                 <tr>
                     <td>${department.id}</td>
@@ -103,7 +93,7 @@
             </c:forEach>
             </tbody>
         </table>
-        <c:if test="${empty departments && empty search}">
+        <c:if test="${empty page.content && empty search}">
             <div class="text-center">
                 <span>Department list is empty! Add new department</span>
                 <div>
@@ -111,15 +101,15 @@
                 </div>
             </div>
         </c:if>
-        <c:if test="${empty departments && not empty search}">
+        <c:if test="${empty page.content && not empty search}">
             <div class="text-center">
-                <span>No departments found matching: </span>
+                <span>No page found matching: </span>
                 <span>${search}</span>
             </div>
         </c:if>
     </div>
 
-    <c:if test="${not empty departments}">
+    <c:if test="${not empty page.content}">
         ${pagination}
     </c:if>
 

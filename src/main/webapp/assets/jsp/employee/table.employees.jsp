@@ -3,10 +3,6 @@
 
 <c:import url="/assets/jsp/employee/urlParams.jsp" scope="request" var="urlParams"/>
 
-<jsp:useBean id="department" scope="request" type="com.maksimov.models.Department"/>
-<jsp:useBean id="employees" scope="request" type="java.util.List"/>
-<%--@elvariable id="search" type="java.lang.String"--%>
-
 <c:set var="urlMain" value="${pageContext.request.contextPath}/"/>
 <c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees"/>
 <c:set var="urlEdit" value="${pageContext.request.contextPath}/department/employee/form"/>
@@ -19,13 +15,7 @@
     <c:param name="department" value="${department.id}"/>
 </c:url>
 
-<c:url value="${urlEmployee}" var="employee">
-    <c:param name="id" value="${department.id}"/>
-</c:url>
-
-<c:url value="${urlEmployee}" var="urlForm">
-    <c:param name="department" value="${department.id}"/>
-</c:url>
+<c:url value="${urlEmployee}/${department.id}/" var="urlForm"/>
 
 <html>
 <head>
@@ -45,13 +35,12 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <c:if test="${not empty search}">
-                    <li><a href="${employee}">To Employees</a></li>
+                    <li><a href="${urlForm}">To Employees</a></li>
                 </c:if>
                 <li><a href="${add}">Add Employee</a></li>
             </ul>
 
             <form class="navbar-form navbar-right" action="${urlForm}">
-                ${urlParams}
                 <div class="form-group">
                     <input type="text"
                            class="form-control"
@@ -70,7 +59,7 @@
         <span>Employees of: ${department.name}</span>
     </div>
 
-    <c:if test="${not empty employees}">
+    <c:if test="${not empty page.content}">
         <%@ include file="/assets/jsp/util/pagination.jsp" %>
     </c:if>
 
@@ -85,7 +74,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${employees}" var="employee">
+        <c:forEach items="${page.content}" var="employee">
 
             <c:url value="${urlEdit}" var="edit">
                 <c:param name="department" value="${department.id}"/>
@@ -107,7 +96,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <c:if test="${empty employees && empty search}">
+    <c:if test="${empty page.content && empty search}">
         <div class="text-center">
             <span>Employee list is empty! Add new employee</span>
             <div>
@@ -115,14 +104,14 @@
             </div>
         </div>
     </c:if>
-    <c:if test="${empty employees && not empty search}">
+    <c:if test="${empty page.content && not empty search}">
         <div class="text-center">
             <span>No employees found matching: </span>
             <span>${search}</span>
         </div>
     </c:if>
 
-    <c:if test="${not empty employees}">
+    <c:if test="${not empty page.content}">
         <%@ include file="/assets/jsp/util/pagination.jsp" %>
     </c:if>
 

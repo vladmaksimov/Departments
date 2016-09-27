@@ -4,11 +4,15 @@
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <import resource="classpath:META-INF/spring/web/config/hibernate.xml"/>
+    <import resource="classpath:META-INF/spring/web/config/jpaConfiguration.xml"/>
 
-    <context:component-scan base-package="com.maksimov"/>
+    <context:component-scan base-package="com.maksimov">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
     <tx:annotation-driven/>
 
-    <bean class="net.sf.oval.integration.spring.SpringInjector" />
+    <bean class="net.sf.oval.integration.spring.SpringInjector"/>
 
 </beans>

@@ -1,16 +1,16 @@
 package com.maksimov.services.impl;
 
-import com.maksimov.dao.EmployeeDao;
 import com.maksimov.exceptions.CustomValidateException;
-import com.maksimov.exceptions.DaoException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Employee;
-import com.maksimov.models.Page;
+import com.maksimov.persistence.EmployeePersistence;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,45 +27,45 @@ public class EmployeeServiceImpl implements EmployeeService {
     private static final Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
     @Autowired
-    private EmployeeDao dao;
-    @Autowired
     private DataValidator validator;
+    @Autowired
+    private EmployeePersistence persistence;
 
     @Override
-    public List<Employee> getEmployeesWithPagination(Page page, Long id) throws ServiceException {
+    public Page<Employee> getEmployees(Pageable page, Long id) throws ServiceException {
         if (logger.isDebugEnabled()) {
             logger.debug("Trying to get list of employee by department id: " + id);
         }
 
         try {
-            List<Employee> result = dao.getEmployees(page, id);
+            Page<Employee> result = persistence.getEmployees(id, page);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + result);
             }
 
             return result;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
-    public List<Employee> searchEmployees(Page page, Long id, String search) throws ServiceException {
+    public Page<Employee> searchEmployees(Pageable page, Long id, String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
             logger.debug("Trying to get list of employee by department id: " + id + ", " + page + " and search value: " + search);
         }
 
         String searchToMysql = search == null ? null : Utils.createSearchString(search);
         try {
-            List<Employee> result = dao.searchEmployees(page, id, searchToMysql);
+            Page<Employee> result = persistence.findEmployees(id, searchToMysql, page);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + result);
             }
 
             return result;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
@@ -77,14 +77,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         try {
-            Employee employee = dao.get(id);
+            Employee employee = persistence.getOne(id);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + employee);
             }
 
             return employee;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
@@ -98,8 +98,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Map<String, List<String>> errors = validator.validate(employee);
         if (errors.isEmpty()) {
             try {
-                dao.save(employee);
-            } catch (DaoException e) {
+                persistence.save(employee);
+            } catch (Exception e) {
                 throw new ServiceException(e.getMessage());
             }
         } else {
@@ -115,30 +115,30 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         try {
-            Employee employee = getById(id);
-            dao.delete(employee);
-        } catch (DaoException e) {
+            persistence.delete(id);
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
     public Integer getEmployeeCount(Long id, String search) throws ServiceException {
-        if (logger.isDebugEnabled()) {
-            logger.debug("Trying to get employee count by department id: " + id);
-        }
-
-        String searchToMysql = search == null ? null : Utils.createSearchString(search);
-        try {
-            Integer count = dao.getCount(id, searchToMysql);
-
-            if (logger.isDebugEnabled()) {
-                logger.debug("Department count is: " + count);
-            }
-
-            return count;
-        } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug("Trying to get employee count by department id: " + id);
+//        }
+//
+//        String searchToMysql = search == null ? null : Utils.createSearchString(search);
+//        try {
+//            Integer count = dao.getCount(id, searchToMysql);
+//
+//            if (logger.isDebugEnabled()) {
+//                logger.debug("Department count is: " + count);
+//            }
+//
+//            return count;
+//        } catch (DaoException e) {
+//            throw new ServiceException(e.getMessage());
+//        }
+        return 1;
     }
 }

@@ -3,7 +3,8 @@ package com.maksimov.services;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
-import com.maksimov.models.Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface DepartmentService {
      * @return list of the departments or empty collection.
      * @throws ServiceException related with dao issue.
      */
-    List<Department> getDepartments(Page page) throws ServiceException;
+    Page<Department> getDepartments(Pageable page) throws ServiceException;
 
     /**
      * Gets the {@link List} of the {@link Department} objects with pagination by search value or empty collection.
@@ -37,7 +38,7 @@ public interface DepartmentService {
      * @return list of the departments or empty collection.
      * @throws ServiceException related with dao issue.
      */
-    List<Department> searchDepartments(Page page, String search) throws ServiceException;
+    Page<Department> searchDepartments(Pageable page, String search) throws ServiceException;
 
     /**
      * Gets the {@link Department} object from database by it {@link Long} id value or null, if row with
@@ -78,5 +79,5 @@ public interface DepartmentService {
      * @param search the {@link String} value to search departments.
      * @return the {@link Integer} value with departments row count.
      */
-    Integer getDepartmentCount(String search) throws ServiceException;
+    Long getDepartmentCount(String search) throws ServiceException;
 }

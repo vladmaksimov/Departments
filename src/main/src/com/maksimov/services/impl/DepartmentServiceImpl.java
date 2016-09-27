@@ -1,16 +1,16 @@
 package com.maksimov.services.impl;
 
-import com.maksimov.dao.DepartmentDao;
 import com.maksimov.exceptions.CustomValidateException;
-import com.maksimov.exceptions.DaoException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
-import com.maksimov.models.Page;
+import com.maksimov.persistence.DepartmentPersistence;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
 import com.maksimov.utils.validators.DataValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     private static final Logger logger = Logger.getLogger(DepartmentServiceImpl.class);
 
     @Autowired
-    private DepartmentDao dao;
+    private DepartmentPersistence persistence;
+
     @Autowired
     private DataValidator validator;
 
@@ -38,53 +39,53 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         try {
-            List<Department> result = dao.getAll();
+            List<Department> result = persistence.findAll();
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + result);
             }
 
             return result;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
-    public List<Department> getDepartments(Page page) throws ServiceException {
+    public Page<Department> getDepartments(Pageable page) throws ServiceException {
         if (logger.isDebugEnabled()) {
             logger.debug("Trying to get department list with pagination. " + page);
         }
 
         try {
-            List<Department> result = dao.getDepartments(page);
+            Page<Department> result = persistence.findAll(page);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + result);
             }
 
             return result;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
-    public List<Department> searchDepartments(Page page, String search) throws ServiceException {
+    public Page<Department> searchDepartments(Pageable page, String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
             logger.debug("Search department list with pagination. " + page + ". Search value: " + search);
         }
 
         String searchToMysql = Utils.createSearchString(search);
         try {
-            List<Department> result = dao.searchDepartments(page, searchToMysql);
+            Page<Department> result = persistence.searchDepartments(searchToMysql, page);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + result);
             }
 
             return result;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
@@ -96,14 +97,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         try {
-            Department department = dao.get(id);
+            Department department = persistence.getOne(id);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + department);
             }
 
             return department;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
@@ -122,12 +123,12 @@ public class DepartmentServiceImpl implements DepartmentService {
             }
 
             try {
-                dao.save(department);
-            } catch (DaoException e) {
+                persistence.save(department);
+            } catch (Exception e) {
                 throw new ServiceException(e.getMessage());
             }
         } else {
-            logger.error("Can't save department object. Validation errors: " + errors.size());
+            logger.error("Can't save department object. Validation errors: " + errors);
             throw new CustomValidateException("Validation error", errors);
         }
     }
@@ -139,29 +140,28 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         try {
-            Department department = getById(id);
-            dao.delete(department);
-        } catch (DaoException e) {
+            persistence.delete(id);
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
-    public Integer getDepartmentCount(String search) throws ServiceException {
+    public Long getDepartmentCount(String search) throws ServiceException {
         if (logger.isDebugEnabled()) {
             logger.debug("Trying to get department count");
         }
 
         String searchToMysql = search == null ? null : Utils.createSearchString(search);
         try {
-            Integer count = dao.getCount(searchToMysql);
+            Long count = (searchToMysql == null) ? persistence.count() : persistence.getCountBySearchValue(searchToMysql);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Department count is: " + count);
             }
 
             return count;
-        } catch (DaoException e) {
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }

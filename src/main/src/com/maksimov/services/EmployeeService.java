@@ -3,7 +3,8 @@ package com.maksimov.services;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Employee;
-import com.maksimov.models.Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface EmployeeService {
      * @return the list of the employees by department id with pagination.
      * @throws ServiceException
      */
-    List<Employee> getEmployeesWithPagination(Page page, Long id) throws ServiceException;
+    Page<Employee> getEmployees(Pageable page, Long id) throws ServiceException;
 
     /**
      * Gets the {@link List} of the {@link Employee} objects with pagination by department id
@@ -33,7 +34,7 @@ public interface EmployeeService {
      * @return the {@link List} of the {@link Employee} by department id with pagination.
      * @throws ServiceException
      */
-    List<Employee> searchEmployees(Page page, Long id, String search) throws ServiceException;
+    Page<Employee> searchEmployees(Pageable page, Long id, String search) throws ServiceException;
 
     /**
      * Gets the {@link Employee} object from database by it {@link Long} id value or null, if row with

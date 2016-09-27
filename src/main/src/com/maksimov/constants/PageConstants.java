@@ -14,14 +14,6 @@ public class PageConstants {
     public static final List<String> PAGE_DEPARTMENT_SORT_LIST = new ArrayList<>();
     public static final List<String> PAGE_EMPLOYEE_SORT_LIST = new ArrayList<>();
 
-    public static final String PAGE_NUMBER = "page";
-    public static final String PAGE_SIZE = "size";
-    public static final String PAGE_SORT = "sort";
-
-    public static final int PAGE_DEFAULT_NUMBER = 1;
-    public static final int PAGE_DEFAULT_SIZE = 10;
-    public static final String PAGE_DEFAULT_SORT = "id";
-
     static {
         PAGE_SIZE_LIST.add(10);
         PAGE_SIZE_LIST.add(20);

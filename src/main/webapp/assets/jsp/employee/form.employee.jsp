@@ -1,17 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="employee" scope="request" type="com.maksimov.models.Employee"/>
-<jsp:useBean id="errors" scope="request" type="java.util.Map"/>
-<jsp:useBean id="departments" scope="request" type="java.util.List"/>
+<%--@elvariable id="errors" type="java.util.Map"--%>
+<%--@elvariable id="departments" type="java.util.List"--%>
+<%--@elvariable id="employee" type="com.maksimov.models.Employee"--%>
 
 <c:set var="urlBack" value="${pageContext.request.contextPath}/"/>
 <c:set var="urlBackToDepartment" value="${pageContext.request.contextPath}/department/employees"/>
 <c:set var="urlForm" value="${pageContext.request.contextPath}/department/employee/put"/>
 
 <c:choose>
-    <c:when test="${fn:length(departments) == 1}">
+    <c:when test="${departments.size() == 1}">
         <c:url value="${urlBackToDepartment}" var="back">
             <c:param name="id" value="${departments[0].id}"/>
         </c:url>
@@ -50,15 +49,15 @@
     </div>
     <form action="<c:url value="${urlForm}"/>" method="post" class="form-employee">
         <input type="hidden" name="id" value="${employee.id}">
-        <c:if test="${fn:length(departments) == 1}">
-            <input type="hidden" name="department" value="${departments[0].id}">
+        <c:if test="${departments.size() == 1}">
+            <input type="hidden" name="department.id" value="${departments[0].id}">
         </c:if>
 
         <c:if test="${not empty departments}">
             <div>
                 <label for="name">Select Department</label>
                 <div>
-                    <select name="department" <c:if test="${fn:length(departments) == 1}"> disabled </c:if>  title="Departments" class="form-control">
+                    <select name="department.id" <c:if test="${departments.size() == 1}"> disabled </c:if>  title="Departments" class="form-control">
                         <c:forEach var="department" items="${departments}">
                             <option value="${department.id}">${department.name}</option>
                         </c:forEach>

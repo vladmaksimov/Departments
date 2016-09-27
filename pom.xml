@@ -17,6 +17,7 @@
     <jstl.version>1.2</jstl.version>
     <oval.version>1.84</oval.version>
     <spring.version>4.3.3.RELEASE</spring.version>
+    <spring.data.jpa>1.10.3.RELEASE</spring.data.jpa>
   </properties>
 
   <dependencies>
@@ -38,13 +39,18 @@
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
+      <artifactId>hibernate-entitymanager</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.6.1</version>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
@@ -58,7 +64,7 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
+      <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
     </dependency>
     <dependency>
@@ -70,6 +76,11 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>${spring.data.jpa}</version>
     </dependency>
   </dependencies>
 

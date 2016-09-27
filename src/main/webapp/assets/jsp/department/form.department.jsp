@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="department" scope="request" type="com.maksimov.models.Department"/>
-<jsp:useBean id="errors" scope="request" type="java.util.Map"/>
+<%--@elvariable id="department" type="com.maksimov.models.Department"--%>
+<%--@elvariable id="errors" type="java.util.Map"--%>
 
 <c:set var="mainUrl" value="${pageContext.request.contextPath}/" />
 
