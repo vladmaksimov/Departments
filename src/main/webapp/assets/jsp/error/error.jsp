@@ -17,12 +17,19 @@
     <title>Error</title>
 </head>
 <body>
-
-<div class="container">
-    <div class="form-header">
-        <span>${error}</span>
-        <img src="${errorImage}" />
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container form-inline">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${mainPage}">Departments</a>
+        </div>
     </div>
+</nav>
+<div class="container">
+    <div class="form-header center-block">
+        <div>${error}</div>
+        <a class="btn btn-default" href="${mainPage}">To main page</a>
+    </div>
+    <img src="${errorImage}" class="center-block"/>
 </div>
 </body>
 </html>

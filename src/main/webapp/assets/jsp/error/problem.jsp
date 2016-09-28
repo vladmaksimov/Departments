@@ -15,6 +15,13 @@
     <title>404 Page Not Found</title>
 </head>
 <body>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container form-inline">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${urlMain}">Departments</a>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <div class="form-header">
         <div class="problem-header">
