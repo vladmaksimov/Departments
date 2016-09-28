@@ -73,11 +73,4 @@ public interface DepartmentService {
      */
     void delete(Long id) throws ServiceException;
 
-    /**
-     * Gets the {@link Integer} value with departments row count depends of search value.
-     *
-     * @param search the {@link String} value to search departments.
-     * @return the {@link Integer} value with departments row count.
-     */
-    Long getDepartmentCount(String search) throws ServiceException;
 }

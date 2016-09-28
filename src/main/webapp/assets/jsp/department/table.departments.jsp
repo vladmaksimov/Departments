@@ -7,6 +7,7 @@
 <c:import url="../util/pagination.jsp" scope="request" var="pagination"/>
 
 <c:set var="urlAddDepartment" value="${pageContext.request.contextPath}/department/form"/>
+<c:set var="urlEditDepartment" value="${pageContext.request.contextPath}/department/edit"/>
 <c:set var="urlAddEmployee" value="${pageContext.request.contextPath}/department/employee/form/clear"/>
 <c:set var="urlDelete" value="${pageContext.request.contextPath}/department/delete"/>
 <c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees"/>
@@ -73,15 +74,11 @@
             <tbody>
             <c:forEach var="department" items="${page.content}">
 
-                <c:url value="${addDepartment}" var="edit">
-                    <c:param name="id" value="${department.id}"/>
-                </c:url>
+                <c:url value="${urlEditDepartment}/${department.id}" var="edit"/>
 
-                <c:url value="${urlDelete}" var="delete">
-                    <c:param name="id" value="${department.id}"/>
-                </c:url>
+                <c:url value="${urlDelete}/${department.id}" var="delete"/>
 
-                <c:url value="${urlEmployee}/${department.id}" var="employee"/>
+                <c:url value="/department/${department.id}/employees" var="employee"/>
 
                 <tr>
                     <td>${department.id}</td>

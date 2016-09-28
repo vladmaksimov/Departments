@@ -93,7 +93,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department getById(Long id) throws ServiceException {
         if (logger.isDebugEnabled()) {
-            logger.debug("Get department by id: " + id);
+            logger.debug("Trying to get department by id: " + id);
         }
 
         try {
@@ -105,7 +105,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
             return department;
         } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException("Unable to find department with id " + id);
         }
     }
 
@@ -141,28 +141,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         try {
             persistence.delete(id);
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public Long getDepartmentCount(String search) throws ServiceException {
-        if (logger.isDebugEnabled()) {
-            logger.debug("Trying to get department count");
-        }
-
-        String searchToMysql = search == null ? null : Utils.createSearchString(search);
-        try {
-            Long count = (searchToMysql == null) ? persistence.count() : persistence.getCountBySearchValue(searchToMysql);
 
             if (logger.isDebugEnabled()) {
-                logger.debug("Department count is: " + count);
+                logger.debug("Department successfully deleted.");
             }
-
-            return count;
         } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
+            logger.error(String.format("Can't delete department with id: %d. Reason: %s", id, e.getMessage()));
+            throw new ServiceException("Can't delete department with id: " + id);
         }
     }
+
 }

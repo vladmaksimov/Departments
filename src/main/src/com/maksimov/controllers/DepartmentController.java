@@ -2,14 +2,17 @@ package com.maksimov.controllers;
 
 import com.maksimov.constants.PageConstants;
 import com.maksimov.exceptions.CustomValidateException;
+import com.maksimov.exceptions.DaoException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,7 +27,7 @@ public class DepartmentController {
     private DepartmentService service;
 
     @RequestMapping("/")
-    public String showDepartment(Model model, Pageable page, String search) throws ServiceException {
+    public String showDepartment(Model model, @PageableDefault(sort = {"id"}) Pageable page, String search) throws ServiceException {
         Page<Department> result = (search == null) ? service.getDepartments(page) : service.searchDepartments(page, search);
 
         model.addAttribute("page", result);
@@ -35,26 +38,31 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/department/put", method = RequestMethod.POST)
-    public String save(Department department) throws ServiceException {
+    public String save(Department department, Model model) throws ServiceException {
         try {
             service.put(department);
         } catch (CustomValidateException e) {
-            e.printStackTrace();
+            model.addAttribute("department", department);
+            model.addAttribute("errors", e.getErrors());
+            return "department/form.department";
         }
         return "redirect:/";
     }
 
     @RequestMapping("/department/form")
-    public String form(Model model, Long id) throws ServiceException {
-        if (id != null) {
-            Department department = service.getById(id);
-            model.addAttribute("department", department);
-        }
+    public String form() throws ServiceException {
         return "department/form.department";
     }
 
-    @RequestMapping("/department/delete")
-    public String delete(Long id) throws ServiceException {
+    @RequestMapping("/department/edit/{id}")
+    public String edit(Model model, @PathVariable("id") Long id) throws ServiceException {
+        Department department = service.getById(id);
+        model.addAttribute("department", department);
+        return "department/form.department";
+    }
+
+    @RequestMapping("/department/delete/{id}")
+    public String delete(@PathVariable("id") Long id) throws ServiceException, DaoException {
         service.delete(id);
         return "redirect:/";
     }

@@ -7,15 +7,17 @@
 
     <context:component-scan base-package="com.maksimov.controllers"/>
 
-    <import resource="classpath:/META-INF/spring/web/config/pagination.xml"/>
-
     <mvc:annotation-driven>
         <mvc:argument-resolvers>
-            <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver">
-                <property name="fallbackPageable" ref="pageRequest"/>
-            </bean>
+            <ref bean="sortResolver"/>
+            <ref bean="pageableResolver"/>
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
+
+    <bean id="sortResolver" class="org.springframework.data.web.SortHandlerMethodArgumentResolver"/>
+    <bean id="pageableResolver" class="org.springframework.data.web.PageableHandlerMethodArgumentResolver">
+        <constructor-arg ref="sortResolver"/>
+    </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

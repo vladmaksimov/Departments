@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,8 +37,11 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping("employees/{id}")
-    public String showEmployee(@PathVariable("id") Long id, Model model, Pageable pageable, String search) throws ServiceException {
+    @RequestMapping("/{id}/employees")
+    public String showEmployee(@PathVariable("id") Long id,
+                               @PageableDefault(sort = {"id"}) Pageable pageable,
+                               Model model,
+                               String search) throws ServiceException {
         Page<Employee> page = (search == null) ? employeeService.getEmployees(pageable, id) : employeeService.searchEmployees(pageable, id, search);
         Department department = departmentService.getById(id);
 
@@ -49,17 +53,27 @@ public class EmployeeController {
         return "employee/table.employees";
     }
 
-    @RequestMapping("/employee/form")
-    public String form(Model model, Long department, Long id) throws ServiceException {
-        if (id != null) {
-            Employee employee = employeeService.getById(id);
-            model.addAttribute("employee", employee);
-        }
+    @RequestMapping("{department}/employee/form")
+    public String form(@PathVariable("department") Long department, Model model) throws ServiceException {
         List<Department> departments = new ArrayList<>();
-
         Department d = departmentService.getById(department);
         departments.add(d);
 
+        model.addAttribute("departments", departments);
+        return "employee/form.employee";
+    }
+
+    @RequestMapping("{department}/employee/edit/{id}")
+    public String edit(@PathVariable("department") Long department,
+                       @PathVariable("id") Long id,
+                       Model model) throws ServiceException {
+        List<Department> departments = new ArrayList<>();
+
+        Employee employee = employeeService.getById(id);
+        Department d = departmentService.getById(department);
+        departments.add(d);
+
+        model.addAttribute("employee", employee);
         model.addAttribute("departments", departments);
         return "employee/form.employee";
     }
@@ -72,20 +86,23 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/put", method = RequestMethod.POST)
-    public String save(Employee employee) throws ServiceException {
+    public String save(Employee employee, Department department, Model model) throws ServiceException {
         try {
             employeeService.put(employee);
         } catch (CustomValidateException e) {
-            e.printStackTrace();
+            model.addAttribute("employee", employee);
+            model.addAttribute("department", department);
+            model.addAttribute("errors", e.getErrors());
+            return "employee/form.employee";
         }
 
-        return "redirect:/department/employees/" + employee.getDepartment().getId();
+        return String.format("redirect:/department/%d/employees/", employee.getDepartment().getId());
     }
 
-    @RequestMapping("/employee/delete")
-    public String delete(Long id, Long department) throws ServiceException {
+    @RequestMapping("{department}/employee/delete/{id}")
+    public String delete(@PathVariable("department") Long department, @PathVariable("id") Long id) throws ServiceException {
         employeeService.delete(id);
-        return "redirect:/department/employees/" + department;
+        return String.format("redirect:/department/%d/employees/", department);
     }
 
     @InitBinder

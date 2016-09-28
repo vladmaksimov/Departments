@@ -1,21 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%--@elvariable id="search" type="java.lang.String"--%>
+<%--@elvariable id="department" type="com.maksimov.models.Department"--%>
+
 <c:import url="/assets/jsp/employee/urlParams.jsp" scope="request" var="urlParams"/>
 
 <c:set var="urlMain" value="${pageContext.request.contextPath}/"/>
 <c:set var="urlEmployee" value="${pageContext.request.contextPath}/department/employees"/>
 <c:set var="urlEdit" value="${pageContext.request.contextPath}/department/employee/form"/>
 <c:set var="urlDelete" value="${pageContext.request.contextPath}/department/employee/delete"/>
-<c:set var="test" value="/assets/jsp/employee/urlParams.jsp"/>
 
 <c:url value="${urlMain}" var="main"/>
 
-<c:url value="${urlEdit}" var="add">
-    <c:param name="department" value="${department.id}"/>
-</c:url>
+<c:url value="/department/${department.id}/employee/form" var="add"/>
 
-<c:url value="${urlEmployee}/${department.id}/" var="urlForm"/>
+<c:url value="/department/${department.id}/employees" var="urlForm"/>
 
 <html>
 <head>
@@ -76,15 +76,9 @@
         <tbody>
         <c:forEach items="${page.content}" var="employee">
 
-            <c:url value="${urlEdit}" var="edit">
-                <c:param name="department" value="${department.id}"/>
-                <c:param name="id" value="${employee.id}"/>
-            </c:url>
+            <c:url value="/department/${department.id}/employee/edit/${employee.id}" var="edit"/>
 
-            <c:url value="${urlDelete}" var="delete">
-                <c:param name="department" value="${department.id}"/>
-                <c:param name="id" value="${employee.id}"/>
-            </c:url>
+            <c:url value="/department/${department.id}/employee/delete/${employee.id}" var="delete"/>
 
             <tr>
                 <td>${employee.name}</td>

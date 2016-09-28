@@ -69,12 +69,4 @@ public interface EmployeeService {
      */
     void delete(Long id) throws ServiceException;
 
-    /**
-     * Gets the {@link Integer} value with employees row count depends of search value and department id.
-     *
-     * @param id     of the department which employees we want to get.
-     * @param search the {@link String} value to search departments.
-     * @return the {@link Integer} value with departments row count.
-     */
-    Integer getEmployeeCount(Long id, String search) throws ServiceException;
 }

@@ -6,7 +6,7 @@
     <jpa:repositories base-package="com.maksimov.persistence"/>
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:application.properties"/>
+        <property name="location" value="classpath:/application.properties"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -18,14 +18,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="database" value="MYSQL"/>
-                <property name="showSql" value="true"/>
-                <property name="generateDdl" value="true"/>
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
-            </bean>
-        </property>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
         <property name="jpaProperties">
             <props>
                 <prop key="connection.pool_size">${hibernate.pool_size}</prop>
@@ -35,6 +28,8 @@
         </property>
         <property name="packagesToScan" value="${jpa.entitymanager.packages.to.scan}"/>
     </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>

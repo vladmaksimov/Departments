@@ -121,24 +121,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    @Override
-    public Integer getEmployeeCount(Long id, String search) throws ServiceException {
-//        if (logger.isDebugEnabled()) {
-//            logger.debug("Trying to get employee count by department id: " + id);
-//        }
-//
-//        String searchToMysql = search == null ? null : Utils.createSearchString(search);
-//        try {
-//            Integer count = dao.getCount(id, searchToMysql);
-//
-//            if (logger.isDebugEnabled()) {
-//                logger.debug("Department count is: " + count);
-//            }
-//
-//            return count;
-//        } catch (DaoException e) {
-//            throw new ServiceException(e.getMessage());
-//        }
-        return 1;
-    }
 }

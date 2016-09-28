@@ -1,5 +1,6 @@
 package com.maksimov.controllers;
 
+import com.maksimov.exceptions.DaoException;
 import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
 import org.springframework.http.HttpStatus;
