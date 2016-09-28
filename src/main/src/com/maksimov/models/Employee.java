@@ -25,7 +25,7 @@ public class Employee {
     private Department department;
 
     @Column(name = "name", length = 250, nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "Field name is empty")
     @Length(max = 32, min = 5, message = "Incorrect name length")
     private String name;
 
