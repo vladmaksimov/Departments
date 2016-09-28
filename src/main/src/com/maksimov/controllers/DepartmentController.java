@@ -2,7 +2,6 @@ package com.maksimov.controllers;
 
 import com.maksimov.constants.PageConstants;
 import com.maksimov.exceptions.CustomValidateException;
-import com.maksimov.exceptions.DaoException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
 import com.maksimov.services.DepartmentService;
@@ -62,7 +61,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/department/delete/{id}")
-    public String delete(@PathVariable("id") Long id) throws ServiceException, DaoException {
+    public String delete(@PathVariable("id") Long id) throws ServiceException {
         service.delete(id);
         return "redirect:/";
     }
