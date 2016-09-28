@@ -3,12 +3,14 @@ package com.maksimov.constants;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.maksimov.constants.EmployeeConstants.*;
-
 /**
  * Created on 16.09.16.
  */
 public class PageConstants {
+
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String EMAIL = "email";
 
     public static final List<Integer> PAGE_SIZE_LIST = new ArrayList<>();
     public static final List<String> PAGE_DEPARTMENT_SORT_LIST = new ArrayList<>();
