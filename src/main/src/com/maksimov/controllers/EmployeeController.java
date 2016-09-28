@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,11 +54,8 @@ public class EmployeeController {
 
     @RequestMapping("{department}/employee/form")
     public String form(@PathVariable("department") Long department, Model model) throws ServiceException {
-        List<Department> departments = new ArrayList<>();
         Department d = departmentService.getById(department);
-        departments.add(d);
-
-        model.addAttribute("departments", departments);
+        model.addAttribute("department", d);
         return "employee/form.employee";
     }
 
@@ -67,14 +63,12 @@ public class EmployeeController {
     public String edit(@PathVariable("department") Long department,
                        @PathVariable("id") Long id,
                        Model model) throws ServiceException {
-        List<Department> departments = new ArrayList<>();
 
         Employee employee = employeeService.getById(id);
         Department d = departmentService.getById(department);
-        departments.add(d);
 
         model.addAttribute("employee", employee);
-        model.addAttribute("departments", departments);
+        model.addAttribute("department", d);
         return "employee/form.employee";
     }
 
@@ -86,10 +80,11 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/put", method = RequestMethod.POST)
-    public String save(Employee employee, Department department, Model model) throws ServiceException {
+    public String save(Employee employee, Model model) throws ServiceException {
         try {
             employeeService.put(employee);
         } catch (CustomValidateException e) {
+            Department department = departmentService.getById(employee.getDepartment().getId());
             model.addAttribute("employee", employee);
             model.addAttribute("department", department);
             model.addAttribute("errors", e.getErrors());

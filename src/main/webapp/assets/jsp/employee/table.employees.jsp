@@ -13,9 +13,9 @@
 
 <c:url value="${urlMain}" var="main"/>
 
-<c:url value="/department/${department.id}/employee/form" var="add"/>
+<c:url value="/department/${department.id}/employee/form/" var="add"/>
 
-<c:url value="/department/${department.id}/employees" var="urlForm"/>
+<c:url value="/department/${department.id}/employees/" var="urlForm"/>
 
 <html>
 <head>
@@ -76,9 +76,9 @@
         <tbody>
         <c:forEach items="${page.content}" var="employee">
 
-            <c:url value="/department/${department.id}/employee/edit/${employee.id}" var="edit"/>
+            <c:url value="/department/${department.id}/employee/edit/${employee.id}/" var="edit"/>
 
-            <c:url value="/department/${department.id}/employee/delete/${employee.id}" var="delete"/>
+            <c:url value="/department/${department.id}/employee/delete/${employee.id}/" var="delete"/>
 
             <tr>
                 <td>${employee.name}</td>

@@ -74,11 +74,11 @@
             <tbody>
             <c:forEach var="department" items="${page.content}">
 
-                <c:url value="${urlEditDepartment}/${department.id}" var="edit"/>
+                <c:url value="${urlEditDepartment}/${department.id}/" var="edit"/>
 
-                <c:url value="${urlDelete}/${department.id}" var="delete"/>
+                <c:url value="${urlDelete}/${department.id}/" var="delete"/>
 
-                <c:url value="/department/${department.id}/employees" var="employee"/>
+                <c:url value="/department/${department.id}/employees/" var="employee"/>
 
                 <tr>
                     <td>${department.id}</td>

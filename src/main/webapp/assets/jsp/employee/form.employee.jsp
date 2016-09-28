@@ -3,23 +3,20 @@
 
 <%--@elvariable id="errors" type="java.util.Map"--%>
 <%--@elvariable id="departments" type="java.util.List"--%>
+<%--@elvariable id="department" type="com.maksimov.models.Department"--%>
 <%--@elvariable id="employee" type="com.maksimov.models.Employee"--%>
 
 <c:set var="urlBack" value="${pageContext.request.contextPath}/"/>
 <c:set var="urlBackToDepartment" value="${pageContext.request.contextPath}/department/employees"/>
 <c:set var="urlForm" value="${pageContext.request.contextPath}/department/employee/put"/>
 
-<c:choose>
-    <c:when test="${departments.size() == 1}">
-        <c:url value="${urlBackToDepartment}" var="back">
-            <c:param name="id" value="${departments[0].id}"/>
-        </c:url>
-    </c:when>
-    <c:otherwise>
-        <c:url value="${urlBack}" var="back"/>
-    </c:otherwise>
-</c:choose>
-
+<c:if test="${not empty department}">
+    <c:url value="/department/${department.id}/employees/" var="back"/>
+</c:if>
+<c:if test="${not empty departments}">
+    <c:set value="${departments.size() == 1}" var="isOne"/>
+    <c:url value="${urlBack}" var="back"/>
+</c:if>
 
 <html>
 <head>
@@ -43,21 +40,23 @@
                 Add new Employee
             </c:when>
             <c:otherwise>
-                Edit employee: ${employee.name}
+                Edit Employee
             </c:otherwise>
         </c:choose>
     </div>
     <form action="<c:url value="${urlForm}"/>" method="post" class="form-employee">
         <input type="hidden" name="id" value="${employee.id}">
-        <c:if test="${departments.size() == 1}">
+        <c:if test="${isOne}">
             <input type="hidden" name="department.id" value="${departments[0].id}">
+            <input type="hidden" name="department.name" value="${departments[0].name}">
         </c:if>
 
         <c:if test="${not empty departments}">
             <div>
                 <label for="name">Select Department</label>
                 <div>
-                    <select name="department.id" <c:if test="${departments.size() == 1}"> disabled </c:if>  title="Departments" class="form-control">
+                    <select name="department.id" <c:if test="${isOne}"> disabled </c:if>
+                            title="Departments" class="form-control">
                         <c:forEach var="department" items="${departments}">
                             <option value="${department.id}">${department.name}</option>
                         </c:forEach>
@@ -66,6 +65,17 @@
                 <c:forEach var="error" items="${errors.department}">
                     <div>${error}</div>
                 </c:forEach>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty department}">
+            <input name="department.id" type="hidden" value="${department.id}">
+            <div>
+                <label for="name">Select Department</label>
+                <div>
+                    <input name="department.name" type="text" title="Departments" class="form-control" disabled
+                           value="${department.name}">
+                </div>
             </div>
         </c:if>
 
