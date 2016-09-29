@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Thrown to indicate that a method has been passed an error on oval object validation.
  *
- * @author Vladyslav Maksymov
+ * @author Vladislav Maksimov
  */
 public class CustomValidateException extends Exception {
 

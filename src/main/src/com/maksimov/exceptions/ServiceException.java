@@ -3,7 +3,7 @@ package com.maksimov.exceptions;
 /**
  * Thrown to indicate that a method has been passed an error on service level.
  *
- * @author  Vladyslav Maksymov
+ * @author Vladislav Maksimov
  */
 public class ServiceException extends Exception {
 

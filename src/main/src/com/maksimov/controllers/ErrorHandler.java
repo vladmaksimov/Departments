@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
- * Created on 27.09.16.
+ * @author Vladislav Maksimov
  */
 @ControllerAdvice
 public class ErrorHandler {

@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created on 23.09.16.
+ * @author Vladislav Maksimov
  */
 @Controller
 @RequestMapping("/department")

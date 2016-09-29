@@ -30,7 +30,7 @@ public class Employee {
     private String name;
 
     @Column(name = "birthday", nullable = false)
-    @Type(type="date")
+    @Type(type = "date")
     @NotNull(message = "Incorrect date format")
     @NotEmpty(message = "Field date is empty")
     private Date birthday;

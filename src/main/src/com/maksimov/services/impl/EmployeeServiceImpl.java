@@ -85,25 +85,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 
             return employee;
         } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
+            logger.error("Unable to find employee with id " + id);
+            throw new ServiceException("Unable to find employee with id " + id);
         }
     }
 
     @Override
     public void put(Employee employee) throws ServiceException, CustomValidateException {
         if (logger.isDebugEnabled()) {
-            logger.debug("save employee : " + employee);
+            logger.debug("Trying to save employee : " + employee);
         }
 
         Map<String, List<String>> errors = validator.validate(employee);
         if (errors.isEmpty()) {
+
+            if (logger.isDebugEnabled()) {
+                logger.debug("Successful employee validation: " + employee);
+            }
+
             try {
                 persistence.save(employee);
+
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Employee successfully saved");
+                }
             } catch (Exception e) {
+                logger.error("Can't save employee object. Database error.");
                 throw new ServiceException(e.getMessage());
             }
         } else {
-            logger.error("Can't save employee object. Validation errors: " + errors.size());
+            logger.error("Can't save employee object. Validation errors: " + errors);
             throw new CustomValidateException("Validation error", errors);
         }
     }

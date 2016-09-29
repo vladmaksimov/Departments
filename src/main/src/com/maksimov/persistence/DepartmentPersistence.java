@@ -8,17 +8,31 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created on 26.09.16.
+ * JPA specific extension of {@link org.springframework.data.jpa.repository.JpaRepository}.
+ *
+ * @author Vladislav maksimov
  */
 @Repository
 public interface DepartmentPersistence extends JpaRepository<Department, Long> {
 
+    /**
+     * Return the {@link Page} object with {@link Department} objects from database and {@link Pageable} object,
+     * filtered by search value.
+     *
+     * @param name     the {@link String} value to search departments.
+     * @param pageable the {@link Pageable} object, needed to get departments list with pagination.
+     * @return the {@link Page} object with list of {@link Department} objects.
+     */
     @Query("select d from Department d where d.name like ?1")
     Page<Department> searchDepartments(String name, Pageable pageable);
 
-    @Query("select count (d) from Department d where d.name like ?1")
-    Long getCountBySearchValue(String search);
-
+    /**
+     * Receives the {@link String} object with name of the {@link Department} object.
+     * Return the department object with received name or null if this name not contains in database.
+     *
+     * @param name of the department.
+     * @return {@link Long} object with {@link Department} id.
+     */
     @Query("select d.id from Department d where d.name = ?1")
     Long getIdByName(String name);
 

@@ -124,8 +124,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 
             try {
                 persistence.save(department);
+
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Department successfully saved");
+                }
             } catch (Exception e) {
-                throw new ServiceException(e.getMessage());
+                logger.error("Can't save department object. Database error.");
+                throw new ServiceException("Can't save department object. Database error.");
             }
         } else {
             logger.error("Can't save department object. Validation errors: " + errors);
