@@ -5,7 +5,7 @@ import net.sf.oval.constraint.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created on 7/19/2016.
