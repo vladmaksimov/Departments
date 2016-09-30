@@ -1,6 +1,5 @@
 package com.maksimov.controllers;
 
-import com.maksimov.constants.PageConstants;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
@@ -14,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Vladislav Maksimov
@@ -26,14 +26,14 @@ public class DepartmentController {
     private DepartmentService service;
 
     @RequestMapping("/")
-    public String showDepartment(Model model, @PageableDefault(sort = {"id"}) Pageable page, String search) throws ServiceException {
-        Page<Department> result = (search == null) ? service.getDepartments(page) : service.searchDepartments(page, search);
+    public String main(Model model, @PageableDefault(sort = {"id"}) Pageable page, String search) throws ServiceException {
+        return "index";
+    }
 
-        model.addAttribute("page", result);
-        model.addAttribute("search", search);
-        model.addAttribute("sortList", PageConstants.PAGE_DEPARTMENT_SORT_LIST);
-        model.addAttribute("sizeList", PageConstants.PAGE_SIZE_LIST);
-        return "department/table.departments";
+    @RequestMapping("/departments")
+    @ResponseBody
+    public Page<Department> showDepartment(@PageableDefault(sort = {"id"}) Pageable page, String search) throws ServiceException {
+        return (search == null) ? service.getDepartments(page) : service.searchDepartments(page, search);
     }
 
     @RequestMapping(value = "/department/put", method = RequestMethod.POST)

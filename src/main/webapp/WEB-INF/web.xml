@@ -42,6 +42,7 @@
         <url-pattern>*.jpg</url-pattern>
         <url-pattern>*.woff</url-pattern>
         <url-pattern>*.woff2</url-pattern>
+        <url-pattern>*.js</url-pattern>
     </servlet-mapping>
 
 </web-app>

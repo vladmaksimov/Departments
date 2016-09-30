@@ -28,9 +28,9 @@ public class Department {
     @CheckWith(value = DepartmentNameCheck.class, message = "Department with this name already exist!")
     private String name;
 
-    @OneToMany(mappedBy = "department")
-    @Cascade(CascadeType.DELETE)
-    private Set<Employee> employees;
+//    @OneToMany(mappedBy = "department")
+//    @Cascade(CascadeType.DELETE)
+//    private Set<Employee> employees;
 
     public Long getId() {
         return id;
@@ -48,13 +48,13 @@ public class Department {
         this.name = name;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
+//    public Set<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(Set<Employee> employees) {
+//        this.employees = employees;
+//    }
 
     @Override
     public boolean equals(Object o) {

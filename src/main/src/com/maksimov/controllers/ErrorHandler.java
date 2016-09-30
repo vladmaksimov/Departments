@@ -6,8 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Vladislav Maksimov
@@ -23,14 +26,17 @@ public class ErrorHandler {
         return "error/problem";
     }
 
+    @ResponseBody
     @ExceptionHandler({ServiceException.class, DispatcherException.class})
-    public String handleServiceException(Model model, ServiceException e) {
-        return handleErrorPage(model, e.getMessage());
+    public String handleServiceException(HttpServletResponse resp, ServiceException e) {
+        resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return e.getMessage();
     }
 
+    @ResponseBody
     @ExceptionHandler(Error.class)
-    public String handleError(Model model) {
-        return handleErrorPage(model, ERROR_SYSTEM_MESSAGE);
+    public String handleError() {
+        return ERROR_SYSTEM_MESSAGE;
     }
 
     private String handleErrorPage(Model model, String message) {
