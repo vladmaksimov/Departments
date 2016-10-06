@@ -3,6 +3,7 @@ package com.maksimov.services.impl;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Employee;
+import com.maksimov.models.ValidateError;
 import com.maksimov.persistence.EmployeePersistence;
 import com.maksimov.services.EmployeeService;
 import com.maksimov.utils.Utils;
@@ -13,9 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created on 7/19/2016.
@@ -96,8 +94,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             logger.debug("Trying to save employee : " + employee);
         }
 
-        Map<String, List<String>> errors = validator.validate(employee);
-        if (errors.isEmpty()) {
+        ValidateError error = validator.validate(employee);
+        if (error.getErrors().isEmpty()) {
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Successful employee validation: " + employee);
@@ -114,8 +112,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new ServiceException(e.getMessage());
             }
         } else {
-            logger.error("Can't save employee object. Validation errors: " + errors);
-            throw new CustomValidateException("Validation error", errors);
+            logger.error("Can't save employee object. Validation errors: " + error.getErrors());
+            throw new CustomValidateException("Validation error", error);
         }
     }
 

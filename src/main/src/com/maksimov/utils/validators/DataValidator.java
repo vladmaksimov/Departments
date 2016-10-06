@@ -1,5 +1,6 @@
 package com.maksimov.utils.validators;
 
+import com.maksimov.models.ValidateError;
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
@@ -18,7 +19,7 @@ import java.util.Map;
 @Component
 public class DataValidator {
 
-    public Map<String, List<String>> validate(Object o) {
+    public ValidateError validate(Object o) {
         AnnotationsConfigurer configurer = new AnnotationsConfigurer();
         configurer.addCheckInitializationListener(SpringCheckInitializationListener.INSTANCE);
         Validator validator = new Validator(configurer);
@@ -38,6 +39,6 @@ public class DataValidator {
                 }
             }
         }
-        return errors;
+        return new ValidateError(o, errors);
     }
 }

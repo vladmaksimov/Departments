@@ -1,9 +1,10 @@
 package com.maksimov.controllers;
 
+import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.DispatcherException;
 import com.maksimov.exceptions.ServiceException;
+import com.maksimov.models.ValidateError;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,9 +40,10 @@ public class ErrorHandler {
         return ERROR_SYSTEM_MESSAGE;
     }
 
-    private String handleErrorPage(Model model, String message) {
-        model.addAttribute("error", message);
-        return "error/error";
+    @ResponseBody
+    @ExceptionHandler(CustomValidateException.class)
+    public ValidateError handleValidateException(CustomValidateException e) {
+        return e.getError();
     }
 
 }

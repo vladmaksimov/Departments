@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -80,18 +80,8 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/put", method = RequestMethod.POST)
-    public String save(Employee employee, Model model) throws ServiceException {
-        try {
-            employeeService.put(employee);
-        } catch (CustomValidateException e) {
-            Department department = departmentService.getById(employee.getDepartment().getId());
-            model.addAttribute("employee", employee);
-            model.addAttribute("department", department);
-            model.addAttribute("errors", e.getErrors());
-            return "employee/form.employee";
-        }
-
-        return String.format("redirect:/department/%d/employees/", employee.getDepartment().getId());
+    public void save(Employee employee, Model model) throws ServiceException, CustomValidateException {
+        employeeService.put(employee);
     }
 
     @RequestMapping("{department}/employee/delete/{id}")

@@ -1,8 +1,8 @@
 package com.maksimov.exceptions;
 
-import java.util.Collections;
+import com.maksimov.models.ValidateError;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * Thrown to indicate that a method has been passed an error on oval object validation.
@@ -11,23 +11,23 @@ import java.util.Map;
  */
 public class CustomValidateException extends Exception {
 
-    private Map<String, List<String>> errors;
+    private ValidateError error;
 
     /**
      * Constructs an <code>CustomValidateException</code> with the
      * specified detail message and error map.
      *
      * @param message the detail message.
-     * @param errors  the {@link Map} object with errors, where key is object @{@link String} field,
-     *                and value is {@link List} of {@link String} values with error messages.
+     * @param error   the {@link ValidateError} object with errors, where key is object @{@link String} field,
+     *                and value is {@link List} of {@link String} values with error messages and object of validation.
      */
-    public CustomValidateException(String message, Map<String, List<String>> errors) {
+    public CustomValidateException(String message, ValidateError error) {
         super(message);
-        this.errors = errors;
+        this.error = error;
     }
 
-    public Map<String, List<String>> getErrors() {
-        return Collections.unmodifiableMap(errors);
+    public ValidateError getError() {
+        return error;
     }
 
 }

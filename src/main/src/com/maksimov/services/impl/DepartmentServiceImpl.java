@@ -3,6 +3,7 @@ package com.maksimov.services.impl;
 import com.maksimov.exceptions.CustomValidateException;
 import com.maksimov.exceptions.ServiceException;
 import com.maksimov.models.Department;
+import com.maksimov.models.ValidateError;
 import com.maksimov.persistence.DepartmentPersistence;
 import com.maksimov.services.DepartmentService;
 import com.maksimov.utils.Utils;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created on 7/19/2016.
@@ -97,7 +97,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         try {
-            Department department = persistence.getOne(id);
+            Department department = persistence.findOne(id);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + department);
@@ -115,8 +115,8 @@ public class DepartmentServiceImpl implements DepartmentService {
             logger.debug("Trying to save department: " + department);
         }
 
-        Map<String, List<String>> errors = validator.validate(department);
-        if (errors.isEmpty()) {
+        ValidateError error = validator.validate(department);
+        if (error.getErrors().isEmpty()) {
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Successful department validation: " + department);
@@ -133,8 +133,8 @@ public class DepartmentServiceImpl implements DepartmentService {
                 throw new ServiceException("Can't save department object. Database error.");
             }
         } else {
-            logger.error("Can't save department object. Validation errors: " + errors);
-            throw new CustomValidateException("Validation error", errors);
+            logger.error("Can't save department object. Validation errors: " + error.getErrors());
+            throw new CustomValidateException("Validation error", error);
         }
     }
 
