@@ -18,16 +18,16 @@ var DepartmentService = function () {
 
     function getOne(id) {
         const url = URL_GET_ONE.replace('{id}', id);
-        return $.ajax(options(url))
+        return $.ajax(options(url));
     }
 
     function deleteOne(id) {
         const url = URL_DELETE.replace('{id}', id);
-        return $.ajax(options(url))
+        return $.ajax(options(url));
     }
 
     function save(item) {
-        return $.ajax({url: URL_SAVE, data: item, type: "post"})
+        return $.ajax({url: URL_SAVE, data: item, type: "post"});
     }
 
     //private function
@@ -36,7 +36,7 @@ var DepartmentService = function () {
         return {
             url: url,
             type: "get"
-        }
+        };
     }
 
 };
