@@ -12,22 +12,20 @@ var DepartmentService = function () {
         save: save
     };
 
-    function getAll() {
-        return $.ajax(options(URL_GET_ALL));
+    function getAll(page) {
+        return $.get(URL_GET_ALL, page);
     }
 
     function getOne(id) {
-        const url = URL_GET_ONE.replace('{id}', id);
-        return $.ajax(options(url));
+        return $.get(URL_GET_ONE.replace('{id}', id));
     }
 
     function deleteOne(id) {
-        const url = URL_DELETE.replace('{id}', id);
-        return $.ajax(options(url));
+        return $.get(URL_DELETE.replace('{id}', id));
     }
 
     function save(item) {
-        return $.ajax({url: URL_SAVE, data: item, type: "post"});
+        return $.post(URL_SAVE, item);
     }
 
     //private function

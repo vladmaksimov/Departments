@@ -10,9 +10,12 @@
           type="text/css"/>
     <link href="<c:url value="${pageContext.request.contextPath}/assets/css/main.css"/>" rel="stylesheet"
           type="text/css"/>
-    <script src="/assets/js/modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/modules/jquery/jquery-3.1.1.js"></script>
+    <script src="/assets/js/modules/lodash/lodash.core.js"></script>
     <script src="/assets/js/modules/departments/constants/Constants.js"></script>
+    <script src="/assets/js/modules/departments/services/PageService.js"></script>
     <script src="/assets/js/modules/departments/services/DepartmentService.js"></script>
+    <script src="/assets/js/modules/departments/drawServices/PaginationDrawService.js"></script>
     <script src="/assets/js/modules/departments/drawServices/DepartmentDrawService.js"></script>
     <script src="/assets/js/modules/departments/drawServices/ErrorsDrawService.js"></script>
     <script src="/assets/js/modules/departments/controllers/DepartmentController.js"></script>

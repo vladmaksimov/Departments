@@ -1,8 +1,9 @@
 function DepartmentController() {
 
-    const service = new DepartmentService();
-    const drawService = new DepartmentDrawService();
-    const errorDrawService = new ErrorsDrawService();
+    var service = new DepartmentService();
+    var pageService = new PageService();
+    var drawService = new DepartmentDrawService();
+    var errorDrawService = new ErrorsDrawService();
 
     return {
         getDepartments: getDepartments,
@@ -11,12 +12,12 @@ function DepartmentController() {
         saveDepartment: saveDepartment
     };
 
-    function getDepartments() {
-        service.getAll().then(
-            function (data) {
-                drawDepartments(data);
-            }, drawErrorPage
-        );
+    function getDepartments(page) {
+        $.when(service.getAll(page), pageService.departmentSort(), pageService.pageSize()).then(success, drawErrorPage);
+
+        function success(data, sort, size) {
+            drawDepartments(data[0], sort[0], size[0]);
+        }
     }
 
     function deleteDepartment(id) {
@@ -29,7 +30,6 @@ function DepartmentController() {
                 getDepartments();
             }, drawErrorPage
         )
-
     }
 
     function editDepartment(id) {
@@ -62,8 +62,8 @@ function DepartmentController() {
 
     //private functions
 
-    function drawDepartments(data) {
-        drawService.drawTable(data);
+    function drawDepartments(data, sort, size) {
+        drawService.drawTable(data, sort, size);
         $(".department-edit").on('click', function (event) {
             editDepartment(getIdFromTableRow(event));
         });
@@ -73,6 +73,14 @@ function DepartmentController() {
         $(".department-employee-show").on('click', function (event) {
             console.log(event);
         });
+        $(".pgn-button").on('click', function (event) {
+            event.preventDefault();
+            getDepartments(collectPage(event));
+        });
+        $("#size").on('change', function (event) {
+            var size = $(event.target).val();
+            getDepartments({size: size})
+        })
     }
 
     function drawEditPage(data, errors) {
@@ -83,8 +91,16 @@ function DepartmentController() {
         });
         $("#back").on('click', function (event) {
             event.preventDefault();
-            getDepartments();
+            getDepartments(collectPage(event));
         })
+    }
+
+    function collectPage(event) {
+        var element = $(event.target);
+        var size = $("#size").val();
+        var page = element.is('button') ? element.val() : element.parents('button').val();
+
+        return {page: page, size: size};
     }
 
     function getIdFromTableRow(event) {
