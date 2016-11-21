@@ -10,7 +10,7 @@ import static com.maksimov.constants.PageConstants.PAGE_EMPLOYEE_SORT_LIST;
 import static com.maksimov.constants.PageConstants.PAGE_SIZE_LIST;
 
 /**
- * Created by Vlad on 14.10.2016.
+ * @author Vladislav Maksimov
  */
 @RestController
 @RequestMapping("/page")

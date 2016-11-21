@@ -28,13 +28,4 @@ var DepartmentService = function () {
         return $.post(URL_SAVE, item);
     }
 
-    //private function
-
-    function options(url) {
-        return {
-            url: url,
-            type: "get"
-        };
-    }
-
 };

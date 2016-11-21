@@ -66,7 +66,7 @@ var PaginationDrawService = function () {
         var div = $("<div class='form-group'></div>");
         $("<span>On page:</span>").appendTo(div);
 
-        var select = $("<select class='form-control' id='size' title='Select page size'></select>");
+        var select = $("<select class='form-control size' id='size' title='Select page size'></select>");
         _.each(sizeList, function (item) {
             var option = $("<option>" + item + "</option>");
             if (item === data.size) {

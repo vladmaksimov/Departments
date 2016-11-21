@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         try {
-            Employee employee = persistence.getOne(id);
+            Employee employee = persistence.findOne(id);
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Extracted: " + employee);

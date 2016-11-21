@@ -2,6 +2,7 @@ var DepartmentDrawService = function () {
 
     this.constants = new Constants;
     this.pagination = new PaginationDrawService();
+    this.drawUtils = new DrawUtils();
 
 };
 
@@ -46,21 +47,7 @@ DepartmentDrawService.prototype.drawEditPage = function (data, errors) {
     var form = $("<form class='form-employee'></form>");
     $("<input type='hidden' name='id' value='" + data.id + "'>").appendTo(form);
 
-    var nameDiv = $("<div class='form-group'></div>");
-    $("<label for='name'>Department name:</label>").appendTo(nameDiv);
-
-    var input = $("<input type='text' class='form-control' id='name' name='name' placeholder='Email'>");
-    input.val(data.name);
-    input.appendTo(nameDiv);
-
-    if (errors && errors.name) {
-        var errorList = errors.name;
-        var errorDiv = $("<div class='error-validation'></div>");
-        $.each(errorList, function (i, val) {
-            $('<div>' + val + '</div>').appendTo(errorDiv);
-        });
-        errorDiv.appendTo(nameDiv);
-    }
+    var nameDiv = _this.drawUtils.drawInput(data, errors, 'Name', 'name', 'Enter name', 'text');
 
     form.append(nameDiv);
     $("<button id='save' class='btn btn-default'>Save</button>").appendTo(form);

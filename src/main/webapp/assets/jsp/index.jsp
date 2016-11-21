@@ -15,9 +15,14 @@
     <script src="/assets/js/modules/departments/constants/Constants.js"></script>
     <script src="/assets/js/modules/departments/services/PageService.js"></script>
     <script src="/assets/js/modules/departments/services/DepartmentService.js"></script>
+    <script src="/assets/js/modules/departments/services/EmployeeService.js"></script>
+    <script src="/assets/js/modules/departments/utils/DrawUtils.js"></script>
+    <script src="/assets/js/modules/departments/utils/ControllerUtils.js"></script>
     <script src="/assets/js/modules/departments/drawServices/PaginationDrawService.js"></script>
+    <script src="/assets/js/modules/departments/drawServices/EmployeeDrawService.js"></script>
     <script src="/assets/js/modules/departments/drawServices/DepartmentDrawService.js"></script>
     <script src="/assets/js/modules/departments/drawServices/ErrorsDrawService.js"></script>
+    <script src="/assets/js/modules/departments/controllers/EmployeeController.js"></script>
     <script src="/assets/js/modules/departments/controllers/DepartmentController.js"></script>
     <script src="/assets/js/modules/departments/main.js"></script>
     <title>Department</title>
