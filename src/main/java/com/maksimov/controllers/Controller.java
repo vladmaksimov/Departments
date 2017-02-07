@@ -3,6 +3,7 @@ package com.maksimov.controllers;
 import com.maksimov.controllers.dispatchers.Dispatcher;
 import com.maksimov.controllers.dispatchers.impl.*;
 import com.maksimov.exceptions.DepartmentException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ public class Controller extends HttpServlet {
     private static final String PROBLEM = "/problem";
     private static final String SHOW_ERROR = "/assets/jsp/error/error.jsp";
 
+    private static final Logger logger = Logger.getLogger(Controller.class);
 
     private static final Map<String, Dispatcher> ACTIONS = new HashMap<String, Dispatcher>() {{
         put("/", new DepartmentsShow());
@@ -38,6 +40,10 @@ public class Controller extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getRequestURI();
 
+        if (logger.isDebugEnabled()) {
+            logger.debug("URL to dispatch: " + action);
+        }
+
         Dispatcher dispatcher = ACTIONS.get(action);
         if (dispatcher != null) {
             try {
@@ -47,6 +53,9 @@ public class Controller extends HttpServlet {
                 req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
             }
         } else {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Can't find dispatcher to URL: " + action);
+            }
             resp.sendRedirect(PROBLEM);
         }
     }
