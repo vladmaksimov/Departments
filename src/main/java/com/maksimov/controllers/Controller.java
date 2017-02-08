@@ -49,6 +49,7 @@ public class Controller extends HttpServlet {
             try {
                 dispatcher.doDispatch(req, resp);
             } catch (DepartmentException e) {
+                logger.error(e.getMessage());
                 req.setAttribute("error", e.getMessage());
                 req.getRequestDispatcher(SHOW_ERROR).forward(req, resp);
             }
