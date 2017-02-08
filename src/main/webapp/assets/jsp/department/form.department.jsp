@@ -34,6 +34,7 @@
             </c:otherwise>
         </c:choose>
     </div>
+
     <form action="/department/put" method="post" class="form-employee">
         <input type="hidden" name="id" value="<c:out value="${department.id}"/>"/>
 
