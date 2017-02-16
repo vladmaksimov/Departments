@@ -1,6 +1,7 @@
-# Departments and employees on example httpServlet and jdbc
+# httpServlet and jdbc example
 
-Simple example of the technologies. We have departments and employees in them. We can create, delete and edit all of them. List of items looks like simple table with pagination.
+Simple example of the technologies. We have departments and employees in them. 
+We can create, delete and edit all of them. List of items looks like simple table with pagination.
 
 # Used technologies
 
